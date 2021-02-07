@@ -16,25 +16,21 @@ if (!isset($_SESSION['student_username'])) {
 <head>
   <meta charset="utf-8">
   <title>Student Side</title>
+  <!-- Custom CSS -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/css1.css">
   <link rel="stylesheet" href="css/css5.css">
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/borrowerlist.js"></script>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <!------ Include the above in your HEAD tag ---------->
-  <link rel="stylesheet" href="css/csss4.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="js/borrowerlist.js"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
 </head>
 
 <body>
@@ -42,14 +38,14 @@ if (!isset($_SESSION['student_username'])) {
   <input type="checkbox" id="check">
   <!--header area start-->
   <header>
-    <label for="check">
+    <label for="check" style="float:left">
       <i class="fas fa-bars" id="sidebar_btn"></i>
     </label>
     <div class="left_area">
       <h3>QCU <span>LIBRARY</span></h3>
     </div>
     <div class="right_area">
-      <a href="logout.php" class="logout_btn">Logout</a>
+      <a href="student_logout.php" class="logout_btn">Logout</a>
     </div>
   </header>
   <!--header area end-->
@@ -67,32 +63,18 @@ if (!isset($_SESSION['student_username'])) {
     <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
 
   </div>
-
   <!--sidebar end-->
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <div class="container">
-    <div class="table-wrapper">
-      <div class="table-title">
-        <div class="row">
-          <div class="col-sm-8">
-            <h2>Book<b> List</b></h2>
-          </div>
-          <div class="col-sm-4">
-            <img src="images/search1.png" class="searchicon"><input type="text" placeholder="Search"><i></i></input>
-          </div>
-        </div>
+
+  <div class="container" style="padding-top: 13rem;">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Search">
+      <div class="input-group-append">
+        <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
       </div>
+    </div>
 
-
-      <table class="table table-bordered">
+    <div class="table-wrapper">
+      <table class="table table-bordered table-hover">
         <thead>
           <tr>
             <th>Book_ID</th>
@@ -108,61 +90,10 @@ if (!isset($_SESSION['student_username'])) {
           <?php book::book_list(); ?>
         </tbody>
       </table>
-
-      <div class="buttonstudent">
-
-        <a href="viewreturn.php"><button type="button" class="btn btn-info" name="return">View Return Books</button></a>
-        <br>
-        <br>
-        <form action="/siaG4/request.php" method="post">
-          <button type="submit" class="btn btn-success" name="request" value="request" data-toggle="modal" data-target="#myModal">Request Book</button>
-
-
-          <div class="modal" id="myModal">
-            <div class="modal-dialog">
-              <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                  <h4 class="modal-title">Request Book</h4>
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                  <div class="main">
-                    <form action="/siaG4/request.php" method="post">
-
-
-                      <h3>ISBN:</h3><input type="text" name="ISBN" required />
-                      <br>
-                      <h3>Studentnumber:</h3><input type="text" name="studentnumber" required />
-                      <br>
-                      <h3>Firstname:<h3> <input type="text" name="firstname" required />
-                          <br>
-                          <h3>Lastname: </h3><input type="text" name="lastname" required />
-                          <br>
-                          <h3>Course: </h3><input type="text" name="course" required />
-                          <br>
-
-                    </form>
-
-                  </div>
-
-                  <!-- Modal footer -->
-                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" name="create" value="create">Request</button>
-                    <input type="hidden" name="create" />
-
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
-          <td>
-        </form>
-      </div>
+      <a href="viewreturn.php"><button type="button" class="btn btn-info" name="return">View Return Books</button></a>
     </div>
   </div>
+
+</body>
+
+</html>

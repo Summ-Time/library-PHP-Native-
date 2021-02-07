@@ -140,7 +140,7 @@ class book
                 <tr>
                    <td>{$row['book_id']}</td>
                    <td>{$row['ISBN']}</td>
-                   <td>{$row['title']}</td>
+                   <td><a href="studentbookshow.php?id={$row['book_id']}">{$row['title']}</a></td>
                    <td>{$row['author']}</td>
                    <td>{$row['category']}</td>
                    <td>{$row['status']}</td>
