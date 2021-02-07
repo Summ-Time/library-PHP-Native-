@@ -17,6 +17,7 @@ if (!isset($_SESSION['student_username'])) {
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/css1.css">
   <link rel="stylesheet" href="css/css5.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -24,7 +25,6 @@ if (!isset($_SESSION['student_username'])) {
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/borrowerlist.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script src="js/fontawesome-pro.js"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -69,7 +69,7 @@ if (!isset($_SESSION['student_username'])) {
         <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
       </div>
     </div>
-
+    <?php echo display_message(); ?>
     <div class="table-wrapper">
       <table class="table table-bordered table-hover">
         <thead>

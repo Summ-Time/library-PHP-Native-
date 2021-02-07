@@ -31,7 +31,6 @@ function set_message($msg)
 
         $_SESSION['message'] = $msg;
     } else {
-
         $msg = "";
     }
 }
@@ -163,6 +162,9 @@ class book
 
             $query = query("INSERT INTO tbl_borrowed(student_id, book_id, borrowed_date, due_date, request) VALUE ('$user_id', '$book_id', '$borrow_date', '$due_date', '$request')");
             confirm($query);
+
+            set_message('Book Borrowed Please go to the librarian to approve the book');
+            redirect('indexstudent.php');
         }
     }
 }
