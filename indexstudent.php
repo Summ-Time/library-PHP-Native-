@@ -1,10 +1,6 @@
 <?php
 require('./databasestud.php');
 
-?>
-
-<?php
-
 if (!isset($_SESSION['student_username'])) {
   header('Location: student.php');
 }
