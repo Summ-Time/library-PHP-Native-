@@ -15,7 +15,7 @@ if (isset($_GET['id'])) {
     confirm($query);
 
     while ($row = fetch_array($query)) {
-
+        $book_id         =           escape_string($row['book_id']);
         $title           =           escape_string($row['title']);
         $author          =           escape_string($row['author']);
         $category        =           escape_string($row['category']);

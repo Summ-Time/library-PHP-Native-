@@ -151,4 +151,18 @@ class book
             }
         }
     }
+
+    public function borrow_book()
+    {
+        if (isset($_POST['submit'])) {
+            $user_id = escape_string($_POST['user_id']);
+            $book_id = escape_string($_POST['book_id']);
+            $due_date = escape_string($_POST['due_date']);
+            $borrow_date = date("Y-m-d");
+            $request = "padding";
+
+            $query = query("INSERT INTO tbl_borrowed(student_id, book_id, borrowed_date, due_date, request) VALUE ('$user_id', '$book_id', '$borrow_date', '$due_date', '$request')");
+            confirm($query);
+        }
+    }
 }
