@@ -1,72 +1,67 @@
 <?php
- require ('./databasestud.php');
- 
- session_start();
- 
- if(isset($_POST['login'])){
-	 $username = trim($_POST['username']);
-	 $password = trim($_POST['password']);
-	 
-	 
-	 if(empty($username) || empty($password)){
-		echo '<script type="text/javascript">';
-        echo 'setTimeout(function () { swal("Error!","Please fill up the fields","warning");';
-        echo '}, 1000);</script>';
-	 }
-	 else{
-		 $queryValidate = "SELECT * FROM studentacc WHERE username = '$username' AND password ='$password'";
-		 $sqlValidate = mysqli_query($connection, $queryValidate);
-		 
-		 if (mysqli_num_rows($sqlValidate) > 0){
-			 $_SESSION['status'] ='valid';
-			 echo "<script>window.location.href = '/siaG4/indexstudent.php'</script>";
-		 }
-	     else {
-		 $_SESSION['invalid'] = 'invalid';
-		echo '<script type="text/javascript">';
-        echo 'setTimeout(function () { swal("Error!","Invalid Username and Password","error");';
-        echo '}, 1000);</script>';
-	 }
-	 }
- }
- 
- ?>
+require('./databasestud.php');
+
+if (isset($_POST['login'])) {
+
+  $username = escape_string($_POST['username']);
+  $password = escape_string($_POST['password']);
+
+  $query = query("SELECT * FROM studentacc WHERE username = '{$username}' AND password = '{$password}'");
+
+  confirm($query);
+
+  $row = $query->fetch_array(MYSQLI_NUM);
+
+  // login function
+  if (mysqli_num_rows($query) == 0) {
+    // if the user have 0 result return then will return to login
+    echo '<script type="text/javascript"> 
+            setTimeout(function () { 
+              swal("Error!","Invalid Username and Password","error") 
+            }, 1000);
+          </script>';
+  } else {
+    // if the result have 1 result then it will login
+    $_SESSION['student_id'] = $row[0];
+    $_SESSION['student_username'] = $row[1];
+    redirect("indexstudent.php");
+  }
+}
+?>
 <html>
+
 <head>
- <link href = "css/css2.css" rel ="stylesheet" type ="text/css"/>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <link href="css/css2.css" rel="stylesheet" type="text/css" />
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<!-- body -->
-<div class="wrapper fadeInDown">
-  <div id="formContent">
-    <!-- Tabs Titles -->
-    <h2 class="active"> Student </h2>
+  <!-- body -->
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+      <h2 class="active"> Student </h2>
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="images/savatar.png" id="icon" alt="User Icon" />
+      </div>
 
-    <a href="admin.php"> <h2 class="inactive underlineHover">Admin</h2>  </a>
- <a href="librarian.php"> <h2 class="inactive underlineHover">Librarian</h2>  </a>
+      <!-- Login Form -->
+      <form action="/siaG4/student.php" method="post">
+        <input type="text" id="username" class="fadeIn second" name="username" placeholder="Username" required>
+        <br>
+        <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password" required>
+        <input type="submit" class="fadeIn fourth" name="login" value="Login">
+      </form>
 
-    <!-- Icon -->
-    <div class="fadeIn first">
-      <img src="images/savatar.png" id="icon" alt="User Icon" />
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" href="register.php">Not yet Registered?</a>
+        <br>
+        <br>
+        <a class="underlineHover" href="#">Forgot Password?</a>
+      </div>
+
     </div>
-
-    <!-- Login Form -->
-    <form action = "/siaG4/student.php" method = "post">
-      <input type="text" id="username" class="fadeIn second" name="username" placeholder="Username">
-	  <br>
-      <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
-      <input type="submit" class="fadeIn fourth" name="login" value="Login">
-    </form>
-       
-    <!-- Remind Passowrd -->
-    <div id="formFooter">
-      <a class="underlineHover" href="register.php">Not yet Registered?</a>
-	  <br>
-	  <br>
-	  <a class="underlineHover" href="#">Forgot Password?</a>
-    </div>
- 
   </div>
-</div>
-</body>
+  </body>
+
 </html>

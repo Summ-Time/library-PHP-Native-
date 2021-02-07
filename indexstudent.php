@@ -1,11 +1,14 @@
 <?php
-require('./readbook.php');
+require('./databasestud.php');
+
 ?>
 
 <?php
+
 if (!isset($_SESSION['student_username'])) {
   header('Location: student.php');
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -46,7 +49,7 @@ if (!isset($_SESSION['student_username'])) {
       <h3>QCU <span>LIBRARY</span></h3>
     </div>
     <div class="right_area">
-      <a href="student.php" class="logout_btn">Logout</a>
+      <a href="logout.php" class="logout_btn">Logout</a>
     </div>
   </header>
   <!--header area end-->
@@ -102,18 +105,7 @@ if (!isset($_SESSION['student_username'])) {
           </tr>
         </thead>
         <tbody>
-          <?php while ($results = mysqli_fetch_array($sqlAccounts)) { ?>
-            <tr>
-              <td><?php echo $results['book_id'] ?></td>
-              <td><?php echo $results['ISBN'] ?></td>
-              <td><?php echo $results['title'] ?></td>
-              <td><?php echo $results['author'] ?></td>
-              <td><?php echo $results['category'] ?></td>
-              <td><?php echo $results['status'] ?></td>
-
-            </tr>
-          <?php }
-          ?>
+          <?php book::book_list(); ?>
         </tbody>
       </table>
 

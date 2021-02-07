@@ -66,22 +66,7 @@ if ($user){
      
         $_SESSION['studentnumber'] = $studentnumber;
         $_SESSION['success'] = "you are now logged in";
-        
         header('location: index.php');
-
-    
-    
-    
-    
+        
     }
-
-
-
-
-
-
-
-
-
-
  ?>
