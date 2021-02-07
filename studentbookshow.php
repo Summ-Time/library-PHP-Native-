@@ -22,6 +22,8 @@ if (isset($_GET['id'])) {
     }
 }
 
+$dateexp = date("Y-m-d", strtotime("5 days"));
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -86,6 +88,7 @@ if (isset($_GET['id'])) {
         <form action="" method="post">
             <input type="text" name="user_id" value="<?php echo $_SESSION['student_id'] ?>" hidden>
             <input type="text" name="book_id" value="<?php echo $book_id ?>" hidden>
+            <input type="text" name="due_date" value="<?php echo $dateexp; ?>" hidden>
             <button type="submit" name="borrow" class="btn btn-primary">Borrow</button>
         </form>
     </div>
