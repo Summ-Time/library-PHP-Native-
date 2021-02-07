@@ -2,9 +2,11 @@
 require('./readbook.php');
 
 
-if (!isset($_SESSION['librarian_username'])) {
-  header('Location: librarian.php');
+if (!isset($_SESSION['admin_username'])) {
+  redirect('admin.php');
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
