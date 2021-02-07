@@ -1,6 +1,10 @@
 <?php
 require('./readbook.php');
 
+
+if (!isset($_SESSION['librarian_username'])) {
+  header('Location: librarian.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
