@@ -53,30 +53,6 @@ function redirect($location)
     return header("Location: $location ");
 }
 
-
-
-// function redirect($location, $sec=0)
-// {
-//     if (!headers_sent())
-//     {
-//         header( "refresh: $sec;url=$location" ); 
-//     }
-//     elseif (headers_sent())
-//     {
-//         echo '<noscript>';
-//         echo '<meta http-equiv="refresh" content="'.$sec.';url='.$location.'" />';
-//         echo '</noscript>';
-//     }
-//     else
-//     {
-//         echo '<script type="text/javascript">';
-//         echo 'window.location.href="'.$location.'";';
-//         echo '</script>';
-//     }
-// }
-
-
-
 function query($sql)
 {
 
@@ -153,7 +129,6 @@ class book
     public function borrow_book()
     {
         if (isset($_POST['submit'])) {
-            // $quantity = query("SELECT * FROM booklist where quantity");
             $user_id = escape_string($_POST['user_id']);
             $book_id = escape_string($_POST['book_id']);
             $due_date = escape_string($_POST['due_date']);
