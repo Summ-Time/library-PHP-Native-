@@ -107,7 +107,7 @@ function displayclock(){
           <div class="col-sm-8">
             <h2>Book <b>List</b></h2>
           </div>
-          <div class="container" style="padding-top: 13rem;">
+          <div class="container" style="padding-top: 20px;">
     <div class="input-group mb-3">
       <input type="text" class="form-control" id="myInput" placeholder="Search">
       <div class="input-group-append">
@@ -125,33 +125,13 @@ function displayclock(){
             <th>Author</th>
             <th>Category</th>
             <th>Status</th>
+            <th>Quantity</th>
             <th>Actions</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody id="myTable">
-          <?php while ($results = mysqli_fetch_array($sqlAccounts)) { ?>
-            <tr>
-              <td><?php echo $results['book_id'] ?></td>
-              <td><?php echo $results['ISBN'] ?></td>
-              <td><?php echo $results['title'] ?></td>
-              <td><?php echo $results['author'] ?></td>
-              <td><?php echo $results['category'] ?></td>
-              <td><?php echo $results['status'] ?></td>
-              <td>
-
-                <button type="submit" class="btn btn-success" name="edit" value="edit" data-toggle="modal" data-target="#myModal1">Edit</button>
-              </td>
-              <td>
-                <form class="delete" action="/siaG4/deletebook.php" method="post">
-                  <button type="submit" class="btn btn-danger" name="deletebook" value="Delete">DELETE</button>
-                  <input type="hidden" name="deletebookID" value="<?php echo $results['book_id'] ?>">
-                </form>
-              </td>
-            </tr>
-
-          <?php }
-          ?>
+        <?php booklist:: booklist(); ?>
         </tbody>
       </table>
       <script>

@@ -107,7 +107,7 @@ function displayclock(){
           <div class="col-sm-8">
             <h2>Manage Request <b>Books</b></h2>
           </div>    
-          <div class="container" style="padding-top: 13rem;">
+          <div class="container" style="padding-top: 20px;">
     <div class="input-group mb-3">
       <input type="text" class="form-control" id="myInput" placeholder="Search">
       <div class="input-group-append">

@@ -118,6 +118,7 @@ class book
                    <td>{$row['author']}</td>
                    <td>{$row['category']}</td>
                    <td>{$row['status']}</td>
+                   <td>{$row['quantity']}</td>
                 </tr>
                 DELIMETER;
                 $counter++;
@@ -181,3 +182,182 @@ class book
         }
     }
 }
+class librarianacc{
+
+    public static function librarianacc_list()
+    {
+
+        $mainquery = query("SELECT * FROM librarianacc");
+        confirm($mainquery);
+        $counter = 1;
+
+        if (mysqli_num_rows($mainquery) == 0) {
+
+            $list_classroom = <<< DELIMITER
+            <tr>
+                <th colspan="3" class="text-center bg-danger text-white"> No Result </th>
+            </tr>
+           DELIMITER;
+            echo $list_classroom;
+        } else {
+
+            while ($row = fetch_array($mainquery)) {
+                $product = <<<DELIMETER
+                <tr>
+                   <td>{$row['library_id']}</td>
+                   <td>{$row['name']}</td>
+                   <td>{$row['username']}</td>
+                   <td>{$row['password']}</td>
+                   <td>
+                   <input type="button" class="btn btn-success" name="edit" value="Edit">
+                   </td>
+                   <td>
+                   <input type="button" class="btn btn-danger" name="Delete" value=Delete>
+                   </td>
+                </tr>
+                DELIMETER;
+                $counter++;
+                echo $product;
+            }
+        }
+    }
+
+}
+class studentacc{
+
+    public static function studentacc_list()
+    {
+
+        $mainquery = query("SELECT * FROM studentacc");
+        confirm($mainquery);
+        $counter = 1;
+
+        if (mysqli_num_rows($mainquery) == 0) {
+
+            $list_classroom = <<< DELIMITER
+            <tr>
+                <th colspan="3" class="text-center bg-danger text-white"> No Result </th>
+            </tr>
+           DELIMITER;
+            echo $list_classroom;
+        } else {
+
+            while ($row = fetch_array($mainquery)) {
+                $product = <<<DELIMETER
+                <tr>
+                   <td>{$row['studentnumber']}</td>
+                   <td>{$row['first_name']}</td>
+                   <td>{$row['lastname']}</td>
+                   <td>{$row['birthday']}</td>
+                   <td>{$row['gender']}</td>
+                   <td>{$row['phone']}</td>
+                   <td>{$row['course']}</td>
+                   <td>{$row['username']}</td>
+                   <td>{$row['password']}</td>
+                   <td>{$row['email']}</td>
+                   <td>
+                   <input type="button" class="btn btn-success" name="edit" value="Edit">
+                   </td>
+                   <td>
+                   <input type="button" class="btn btn-danger" name="Delete" value=Delete>
+                   </td>
+                </tr>
+                DELIMETER;
+                $counter++;
+                echo $product;
+            }
+        }
+    }
+
+}
+
+class booklist{
+
+    public static function booklist()
+    {
+
+        $mainquery = query("SELECT * FROM booklist");
+        confirm($mainquery);
+        $counter = 1;
+
+        if (mysqli_num_rows($mainquery) == 0) {
+
+            $list_classroom = <<< DELIMITER
+            <tr>
+                <th colspan="3" class="text-center bg-danger text-white"> No Result </th>
+            </tr>
+           DELIMITER;
+            echo $list_classroom;
+        } else {
+
+            while ($row = fetch_array($mainquery)) {
+                $product = <<<DELIMETER
+                <tr>
+                   <td>{$row['book_id']}</td>
+                   <td>{$row['ISBN']}</td>
+                   <td>{$row['title']}</td>
+                   <td>{$row['author']}</td>
+                   <td>{$row['category']}</td>
+                   <td>{$row['status']}</td>
+                   <td>{$row['quantity']}</td>
+                   <td>
+                   <input type="button" class="btn btn-success" name="edit" value="Edit">
+                   </td>
+                   <td>
+                   <input type="button" class="btn btn-danger" name="Delete" value=Delete>
+                   </td>
+                </tr>
+                DELIMETER;
+                $counter++;
+                echo $product;
+            }
+        }
+    }
+
+}
+class bookborrowed{
+
+    public static function bookborrowed()
+    {
+
+        $mainquery = query("SELECT * FROM tbl_borrowed");
+        confirm($mainquery);
+        $counter = 1;
+
+        if (mysqli_num_rows($mainquery) == 0) {
+
+            $list_classroom = <<< DELIMITER
+            <tr>
+                <th colspan="3" class="text-center bg-danger text-white"> No Result </th>
+            </tr>
+           DELIMITER;
+            echo $list_classroom;
+        } else {
+
+            while ($row = fetch_array($mainquery)) {
+                $product = <<<DELIMETER
+                <tr>
+                   <td>{$row['borrowed_id']}</td>
+                   <td>{$row['student_id']}</td>
+                   <td>{$row['book_id']}</td>
+                   <td>{$row['borrowed_date']}</td>
+                   <td>{$row['due_date']}</td>
+                   <td>{$row['request']}</td>
+                   
+                   <td>
+                   <input type="button" class="btn btn-success" name="edit" value="Edit">
+                   </td>
+                   <td>
+                   <input type="button" class="btn btn-danger" name="Delete" value=Delete>
+                   </td>
+                </tr>
+                DELIMETER;
+                $counter++;
+                echo $product;
+            }
+        }
+    }
+
+}
+  
+
