@@ -11,7 +11,6 @@ if (!isset($_SESSION['student_username'])) {
 
 if (isset($_GET['id'])) {
     $query = query("SELECT * FROM booklist WHERE book_id = $_GET[id]");
-
     confirm($query);
 
     while ($row = fetch_array($query)) {
@@ -19,15 +18,21 @@ if (isset($_GET['id'])) {
         $title           =           escape_string($row['title']);
         $author          =           escape_string($row['author']);
         $category        =           escape_string($row['category']);
+        $quantity        =           escape_string($row['quantity']);
     }
+
+    $borrowed_query = query("SELECT * FROM tbl_borrowed WHERE book_id = $_GET[id]");
+    confirm($borrowed_query);
 }
 
 $dateexp = date("Y-m-d", strtotime("5 days"));
 
 book::borrow_book();
+
 ?>
 <!doctype html>
 <html lang="en">
+
 
 <head>
     <title>Student | <?php echo $title ?></title>
@@ -86,12 +91,24 @@ book::borrow_book();
             </div>
         </div>
         <hr>
-        <form action="" method="post">
-            <input type="text" name="user_id" value="<?php echo $_SESSION['student_id'] ?>" hidden>
-            <input type="text" name="book_id" value="<?php echo $book_id ?>" hidden>
-            <input type="text" name="due_date" value="<?php echo $dateexp; ?>" hidden>
-            <button type="submit" name="submit" class="btn btn-primary">Borrow</button>
-        </form>
+        <?php
+        if (mysqli_num_rows($borrowed_query) == $quantity) {
+            //if the book have rich the max quantity
+            echo '<button type="submit" name="submit" class="btn btn-primary" disabled>Borrow</button>';
+        } else {
+            // if book have not rich the max quantity
+            $borrow_form = <<< DELIMITER
+            <form action="" method="post">
+                <input type="text" name="user_id" value="{$_SESSION['student_id']}" hidden>
+                <input type="text" name="book_id" value="{$book_id}" hidden>
+                <input type="text" name="due_date" value="{$dateexp}" hidden>
+                <button type="submit" name="submit" class="btn btn-primary">Borrow</button>
+            </form>
+            DELIMITER;
+            echo $borrow_form;
+        }
+        ?>
+
     </div>
     <!-- Optional JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

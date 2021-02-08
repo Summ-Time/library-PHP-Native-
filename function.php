@@ -110,7 +110,6 @@ function escape_string($string)
 
 function fetch_array($result)
 {
-
     return mysqli_fetch_array($result);
 }
 
@@ -154,6 +153,7 @@ class book
     public function borrow_book()
     {
         if (isset($_POST['submit'])) {
+            // $quantity = query("SELECT * FROM booklist where quantity");
             $user_id = escape_string($_POST['user_id']);
             $book_id = escape_string($_POST['book_id']);
             $due_date = escape_string($_POST['due_date']);
