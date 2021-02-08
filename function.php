@@ -142,4 +142,42 @@ class book
             redirect('indexstudent.php');
         }
     }
+
+    public static function borrow_history()
+    {
+        $student_id = $_SESSION['student_id'];
+        $query = query("SELECT
+        *
+      FROM tbl_borrowed
+        INNER JOIN booklist
+          ON tbl_borrowed.book_id = booklist.book_id
+        INNER JOIN studentacc
+          ON tbl_borrowed.student_id = studentacc.studentnumber
+      WHERE tbl_borrowed.student_id = {$student_id} ");
+
+        confirm($query);
+
+        if (mysqli_num_rows($query) == 0) {
+            $list_book_history = <<< DELIMITER
+            <tr>
+                <th colspan="7" class="text-center bg-red text-white"> No Result </th>
+            </tr>
+            DELIMITER;
+            echo $list_book_history;
+        } else {
+            while ($row = fetch_array($query)) {
+                $list_book_history = <<< DELIMITER
+                <tr>
+                    <td>{$row['title']}</td>
+                    <td>{$row['author']}</td>
+                    <td>{$row['category']}</td>
+                    <td>{$row['request']}</td>
+                    <td>{$row['borrowed_date']}</td>
+                    <td>{$row['due_date']}</td>
+                </tr>
+                DELIMITER;
+                echo $list_book_history;
+            }
+        }
+    }
 }
