@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 07, 2021 at 02:45 PM
+-- Generation Time: Feb 08, 2021 at 09:54 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -52,21 +52,22 @@ CREATE TABLE `booklist` (
   `title` varchar(255) NOT NULL,
   `author` varchar(255) NOT NULL,
   `category` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL
+  `status` varchar(255) NOT NULL,
+  `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `booklist`
 --
 
-INSERT INTO `booklist` (`book_id`, `ISBN`, `title`, `author`, `category`, `status`) VALUES
-(5, 1, 'Dramatic Arts', 'C.Belarmino', 'Arts', 'Available'),
-(6, 2, 'Architecture', 'J.Jubanie', 'Programming Languages', 'Available'),
-(7, 3, 'Liberalism', 'P.Asturias', 'History', 'Available'),
-(8, 4, 'Database Relation', 'K.Garcia', 'Database', 'Available'),
-(9, 5, 'Discrete Math', 'N.Salvador', 'Discrete', 'Available'),
-(10, 6, 'System Integration', 'A.Impang', 'SIA', 'Available'),
-(11, 7, 'Architecture 2', 'M.impang', 'Programming Languages', 'Available');
+INSERT INTO `booklist` (`book_id`, `ISBN`, `title`, `author`, `category`, `status`, `quantity`) VALUES
+(5, 1, 'Dramatic Arts', 'C.Belarmino', 'Arts', 'Available', 10),
+(6, 2, 'Architecture', 'J.Jubanie', 'Programming Languages', 'Available', 2),
+(7, 3, 'Liberalism', 'P.Asturias', 'History', 'Available', 1),
+(8, 4, 'Database Relation', 'K.Garcia', 'Database', 'Available', 0),
+(9, 5, 'Discrete Math', 'N.Salvador', 'Discrete', 'Available', 0),
+(10, 6, 'System Integration', 'A.Impang', 'SIA', 'Available', 0),
+(11, 7, 'Architecture 2', 'M.impang', 'Programming Languages', 'Available', 1);
 
 -- --------------------------------------------------------
 
@@ -129,8 +130,27 @@ CREATE TABLE `tbl_borrowed` (
   `book_id` int(255) NOT NULL,
   `borrowed_date` date NOT NULL,
   `due_date` date NOT NULL,
-  `request` varchar(255) NOT NULL
+  `request` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_borrowed`
+--
+
+INSERT INTO `tbl_borrowed` (`borrowed_id`, `student_id`, `book_id`, `borrowed_date`, `due_date`, `request`) VALUES
+(6, 181102, 6, '2021-02-07', '2021-02-12', 'padding'),
+(7, 181102, 7, '2021-02-07', '2021-02-12', 'padding'),
+(8, 181102, 5, '2021-02-07', '2021-02-12', 'padding'),
+(9, 181102, 5, '2021-02-07', '2021-02-12', 'padding'),
+(10, 181102, 5, '2021-02-07', '2021-02-12', 'padding'),
+(11, 181102, 5, '2021-02-07', '2021-02-12', 'padding'),
+(12, 181102, 11, '2021-02-07', '2021-02-12', 'padding'),
+(13, 181102, 5, '2021-02-08', '2021-02-13', 'padding'),
+(14, 181102, 5, '2021-02-08', '2021-02-13', 'padding'),
+(15, 181102, 5, '2021-02-08', '2021-02-13', 'padding'),
+(16, 181102, 5, '2021-02-08', '2021-02-13', 'padding'),
+(17, 181102, 5, '2021-02-08', '2021-02-13', 'padding'),
+(18, 181102, 5, '2021-02-08', '2021-02-13', 'padding');
 
 -- --------------------------------------------------------
 
@@ -207,7 +227,7 @@ ALTER TABLE `booklist`
 -- AUTO_INCREMENT for table `tbl_borrowed`
 --
 ALTER TABLE `tbl_borrowed`
-  MODIFY `borrowed_id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `borrowed_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
