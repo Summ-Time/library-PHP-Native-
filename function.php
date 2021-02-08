@@ -182,7 +182,8 @@ class book
         }
     }
 }
-class librarianacc{
+class librarianacc
+{
 
     public static function librarianacc_list()
     {
@@ -221,9 +222,9 @@ class librarianacc{
             }
         }
     }
-
 }
-class studentacc{
+class studentacc
+{
 
     public static function studentacc_list()
     {
@@ -268,10 +269,10 @@ class studentacc{
             }
         }
     }
-
 }
 
-class booklist{
+class book_list
+{
 
     public static function booklist()
     {
@@ -313,9 +314,10 @@ class booklist{
             }
         }
     }
-
 }
-class bookborrowed{
+
+class book_borrowed
+{
 
     public static function bookborrowed()
     {
@@ -357,7 +359,4 @@ class bookborrowed{
             }
         }
     }
-
 }
-  
-
