@@ -12,7 +12,7 @@
 		$sqlCreate = mysqli_query($connection, $queryCreate);
 		
 		echo '<script> alert("Succesfuly Created!")</script>';
-		echo '<script> window.location.href = "/siaG4/librarianinfo.php"</script>';
+		echo '<script> window.location.href = "/library-PHP-Native-/librarianinfo.php"</script>';
 		}
 		else{
 		echo "error";

@@ -45,7 +45,7 @@ if (isset($_POST['login'])) {
       </div>
 
       <!-- Login Form -->
-      <form action="/siaG4/student.php" method="post">
+      <form action="/library-PHP-Native-/student.php" method="post">
         <input type="text" id="username" class="fadeIn second" name="username" placeholder="Username" required>
         <br>
         <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password" required>

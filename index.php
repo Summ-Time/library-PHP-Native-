@@ -48,7 +48,35 @@ if (!isset($_SESSION['admin_username'])) {
     <a href="index.php"><i class="fas fa-desktop"></i><span>Home</span></a>
     <a href="#"><i class="fas fa-key"></i><span>Change Password</span></a>
     <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
+    <div class="date">
+    <?php
+echo "Date: ";
+echo date("Y-m-d").   "<br>";
 
+?>
+<br>
+<?php
+echo "Time: ";
+?>
+<div id="clock"></div>
+<script type="text/javascript">
+setInterval(displayclock, 500);
+function displayclock(){
+  var time = new Date();
+  var hrs = time.getHours();
+  var min = time.getMinutes();
+  var sec = time.getSeconds();
+
+  if(hrs > 12){
+      hrs =hrs -12;
+  }
+  if(hrs==0){
+    hrs=12;
+  }
+  document.getElementById('clock').innerHTML = hrs + ':' + min + ':' + sec;
+}
+</script>
+</div>
   </div>
 
   <!--sidebar end-->

@@ -41,6 +41,7 @@ if (!isset($_SESSION['student_username'])) {
     <div class="left_area">
       <h3>QCU <span>LIBRARY</span></h3>
     </div>
+    
     <div class="right_area">
       <a href="student_logout.php" class="logout_btn">Logout</a>
     </div>
@@ -58,13 +59,42 @@ if (!isset($_SESSION['student_username'])) {
     <a href="indexstudent.php"><i class="fas fa-desktop"></i><span>Home</span></a>
     <a href="#"><i class="fas fa-key"></i><span>Change Password</span></a>
     <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
+    <br>
+    <div class="date">
+    <?php
+echo "Date: ";
+echo date("Y-m-d").   "<br>";
 
+?>
+<br>
+<?php
+echo "Time: ";
+?>
+<div id="clock"></div>
+<script type="text/javascript">
+setInterval(displayclock, 500);
+function displayclock(){
+  var time = new Date();
+  var hrs = time.getHours();
+  var min = time.getMinutes();
+  var sec = time.getSeconds();
+
+  if(hrs > 12){
+      hrs =hrs -12;
+  }
+  if(hrs==0){
+    hrs=12;
+  }
+  document.getElementById('clock').innerHTML = hrs + ':' + min + ':' + sec;
+}
+</script>
+</div>
   </div>
   <!--sidebar end-->
 
   <div class="container" style="padding-top: 13rem;">
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="Search">
+      <input type="text" class="form-control" id="myInput" placeholder="Search">
       <div class="input-group-append">
         <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
       </div>
@@ -83,14 +113,25 @@ if (!isset($_SESSION['student_username'])) {
 
           </tr>
         </thead>
-        <tbody>
+        <tbody id="myTable">
           <?php book::book_list(); ?>
         </tbody>
       </table>
-      <a href="viewreturn.php"><button type="button" class="btn btn-info" name="return">View Return Books</button></a>
+      <script>
+      $(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+      <a href="viewreturn.php"><button type="button" class="btn btn-info" name="return">View Your Books</button></a>
     </div>
+   
   </div>
-
+ 
 </body>
 
 </html>
