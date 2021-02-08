@@ -174,6 +174,10 @@ if (!isset($_SESSION['admin_username'])) {
                 <input type="text" name="status" class="form-control" required>
               </div>
               <div class="form-group">
+                <label for="">section</label>
+                <input type="text" name="section" class="form-control" required>
+              </div>
+              <div class="form-group">
                 <label for="">quentity</label>
                 <input type="number" name="quantity" class="form-control" required>
               </div>
