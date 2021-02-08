@@ -101,6 +101,7 @@ if (!isset($_SESSION['admin_username'])) {
   <br>
   <br>
   <br>
+
   <div class="container">
     <div class="table-wrapper">
       <div class="table-title">
@@ -108,6 +109,7 @@ if (!isset($_SESSION['admin_username'])) {
           <div class="col-sm-8">
             <h2>Book <b>List</b></h2>
           </div>
+
           <div class="container" style="padding-top: 20px;">
             <div class="input-group mb-3">
               <input type="text" class="form-control" id="myInput" placeholder="Search">
@@ -117,6 +119,9 @@ if (!isset($_SESSION['admin_username'])) {
             </div>
           </div>
         </div>
+
+        <button type="submit" class="btn btn-success float-right" name="add" value="add" data-toggle="modal" data-target="#myModal" style="margin-bottom: 10px;">Add Book</button>
+
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -135,64 +140,71 @@ if (!isset($_SESSION['admin_username'])) {
             <?php book_list::booklist(); ?>
           </tbody>
         </table>
-        <script>
-          $(document).ready(function() {
-            $("#myInput").on("keyup", function() {
-              var value = $(this).val().toLowerCase();
-              $("#myTable tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-              });
-            });
-          });
-        </script>
-        <form class="createlibacc" action="/siaG4/createbook.php" method="post">
-          <button type="submit" class="btn btn-success" name="add" value="add" data-toggle="modal" data-target="#myModal">Add Book</button>
-
-
-          <div class="modal" id="myModal">
-            <div class="modal-dialog">
-              <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                  <h4 class="modal-title">Add Book</h4>
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                  <div class="main">
-                    <form action="/siaG4/createbook.php" method="post">
-
-                      <h3>ISBN:</h3><input type="text" name="ISBN" required />
-                      <br>
-                      <h3>Title:<h3> <input type="text" name="title" required />
-                          <br>
-                          <h3>Author: </h3><input type="text" name="author" required />
-                          <br>
-                          <h3>Category: </h3><input type="text" name="category" required />
-                          <br>
-                          <h3>Status: </h3><input type="text" name="status" required />
-                          <br>
-
-                    </form>
-
-                  </div>
-
-                  <!-- Modal footer -->
-                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" name="create" value="create" />Create</button>
-
-
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
-          <td>
-        </form>
-
       </div>
     </div>
+
+    <!-- The Modal -->
+    <form action="" method="post">
+      <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Add Book</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="">Title</label>
+                <input type="text" name="title" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="">Author</label>
+                <input type="text" name="author" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="">category</label>
+                <input type="text" name="category" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="">status</label>
+                <input type="text" name="status" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="">quentity</label>
+                <input type="number" name="quantity" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="">ISBN</label>
+                <input type="number" name="ISBN" class="form-control" required>
+              </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="submit" name="submit" class="btn btn-primary">Add</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </form>
+    <script>
+      $(document).ready(function() {
+        $("#myInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#myTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+    </script>
+
+  </div>
+</body>
+
+</html>
