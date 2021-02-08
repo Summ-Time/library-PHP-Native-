@@ -109,8 +109,8 @@ if (!isset($_SESSION['admin_username'])) {
           <div class="col-sm-8">
             <h2>Book <b>List</b></h2>
           </div>
-
           <div class="container" style="padding-top: 20px;">
+            <?php display_message(); ?>
             <div class="input-group mb-3">
               <input type="text" class="form-control" id="myInput" placeholder="Search">
               <div class="input-group-append">
@@ -119,9 +119,7 @@ if (!isset($_SESSION['admin_username'])) {
             </div>
           </div>
         </div>
-
         <button type="submit" class="btn btn-success float-right" name="add" value="add" data-toggle="modal" data-target="#myModal" style="margin-bottom: 10px;">Add Book</button>
-
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -143,6 +141,7 @@ if (!isset($_SESSION['admin_username'])) {
       </div>
     </div>
 
+    <?php book::book_create() ?>
     <!-- The Modal -->
     <form action="" method="post">
       <div class="modal fade" id="myModal">
