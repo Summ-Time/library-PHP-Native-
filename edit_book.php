@@ -158,7 +158,7 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
             <hr>
-            <a href="booklist.php">Back</a>
+            <a href="booklist.php" class="btn btn-info">Back</a>
             <button class="btn btn-primary float-right" name="submit">Update</button>
         </form>
     </div>
