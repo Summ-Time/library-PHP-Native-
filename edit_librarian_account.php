@@ -7,22 +7,18 @@ if (!isset($_SESSION['admin_username'])) {
 
 if (isset($_GET['id'])) {
 
-    $query = query("SELECT * FROM studentacc WHERE studentnumber = " . escape_string($_GET['id']) . "");
+    $query = query("SELECT * FROM librarianacc WHERE library_id = " . escape_string($_GET['id']) . "");
 
     confirm($query);
 
     while ($row = fetch_array($query)) {
 
-        $firstname   =   escape_string($row['first_name']);
-        $lastname    =  escape_string($row['lastname']);
-        $birthday   =   escape_string($row['birthday']);
-        $gender     =   escape_string($row['gender']);
-        $email      =   escape_string($row['email']);
-        $phone      =   escape_string($row['course']);
-        $course     =   escape_string($row['course']);
+        $name           =       escape_string($row['name']);
+        $username       =       escape_string($row['username']);
+        $password       =       escape_string($row['password']);
     }
 
-    account::student_update();
+    // account::librarain_update();
 }
 
 ?>
@@ -123,48 +119,20 @@ if (isset($_GET['id'])) {
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="">firstname</label>
-                        <input type="text" class="form-control" value="<?php echo $firstname; ?>" name="firstname">
+                        <label for="">name</label>
+                        <input type="text" class="form-control" value="<?php echo $name; ?>" name="firstname">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="">lastname</label>
-                        <input type="text" class="form-control" value="<?php echo $lastname; ?>" name="lastname">
+                        <label for="">username</label>
+                        <input type="text" class="form-control" value="<?php echo $username; ?>" name="username">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="">birthday</label>
-                        <input type="text" class="form-control" value="<?php echo $birthday; ?>" name="birthday">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="sel1">Gender:</label>
-                        <select class="form-control" name="gender">
-                            <option value="<?php echo $gender ?>"><?php echo $gender ?></option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="">email</label>
-                        <input type="text" class="form-control" value="<?php echo $email; ?>" name="email">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="">phone</label>
-                        <input type="number" class="form-control" value="<?php echo $phone; ?>" name="phone">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="">course</label>
-                        <input type="number" class="form-control" value="<?php echo $course; ?>" name="course">
+                        <label for="">password</label>
+                        <input type="password" class="form-control" value="<?php echo $password; ?>" name="password">
                     </div>
                 </div>
             </div>

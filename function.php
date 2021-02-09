@@ -828,4 +828,26 @@ class account
             redirect("studentinfo.php");
         }
     }
+    public static function librarian_update()
+    {
+        if (isset($_POST['submit'])) {
+
+            $name           =       escape_string($_POST['name']);
+            $username       =       escape_string($_POST['username']);
+            $password       =       escape_string($_POST['password']);
+
+
+            $query = "UPDATE studentacc SET ";
+            $query .= "name         =       '{$name}',";
+            $query .= "username     =       '{$username}',";
+            $query .= "password     =       '{$password}'";
+            $query .= "WHERE library_di =" . escape_string($_GET['id']);
+
+            $udpate = query($query);
+            confirm($udpate);
+
+            set_message('Librarian Updated!');
+            redirect("librarianinfo.php");
+        }
+    }
 }
