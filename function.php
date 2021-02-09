@@ -371,7 +371,7 @@ class studentacc
                    <td>{$row['email']}</td>
 
                    <td class="text-center">
-                        <input type="button" class="btn btn-success" name="edit" value="Edit">
+                   <a href="edit_student_account.php?id={$row['studentnumber']}" class="btn btn-success">Edit</a>
                         </td>
                         <td>
                         <button Onclick="deleteclick{$row['studentnumber']}()" id="delete" class="btn btn-danger">Delete</button>          
@@ -791,6 +791,41 @@ class book_borrowedlib
                 $counter++;
                 echo $product;
             }
+        }
+    }
+}
+
+
+class account
+{
+    public static function student_update()
+    {
+        if (isset($_POST['submit'])) {
+
+            $firstname      =       escape_string($_POST['firstname']);
+            $lastname       =       escape_string($_POST['lastname']);
+            $birthday       =       escape_string($_POST['birthday']);
+            $gender         =       escape_string($_POST['gender']);
+            $email          =       escape_string($_POST['email']);
+            $phone          =       escape_string($_POST['phone']);
+            $course         =       escape_string($_POST['course']);
+
+
+            $query = "UPDATE studentacc SET ";
+            $query .= "first_name    =       '{$firstname}',";
+            $query .= "lastname     =       '{$lastname}',";
+            $query .= "birthday     =       '{$birthday}',";
+            $query .= "gender       =       '{$gender}',";
+            $query .= "email        =       '{$email}',";
+            $query .= "phone        =       '{$phone}',";
+            $query .= "course       =       '{$course}'";
+            $query .= "WHERE studentnumber =" . escape_string($_GET['id']);
+
+            $udpate = query($query);
+            confirm($udpate);
+
+            set_message('Student Updated!');
+            redirect("studentinfo.php");
         }
     }
 }

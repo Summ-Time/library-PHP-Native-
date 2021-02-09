@@ -110,6 +110,8 @@ if (!isset($_SESSION['admin_username'])) {
 						<h2>Manage Student <b>Account</b></h2>
 					</div>
 					<div class="container" style="padding-top: 20px;">
+						<?php display_message(); ?>
+
 						<div class="input-group mb-3">
 							<input type="text" class="form-control" id="myInput" placeholder="Search">
 							<div class="input-group-append">

@@ -22,7 +22,7 @@ if (isset($_GET['id'])) {
         $course     =   escape_string($row['course']);
     }
 
-    // account::student_update();
+    account::student_update();
 }
 
 ?>
@@ -117,7 +117,6 @@ if (isset($_GET['id'])) {
     </div>
 
     <!--sidebar end-->
-    <?php book::update() ?>
     <div class="container" style="padding-top: 13rem;">
         <form action="" method="post">
             <div class="row">
