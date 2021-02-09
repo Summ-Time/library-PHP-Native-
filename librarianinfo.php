@@ -51,7 +51,7 @@ if (!isset($_SESSION['admin_username'])) {
       <br>
       <br>
       <img src="images/av3.png" class="profile_image" alt="">
-      <h4>Hi! <?php echo $_SESSION['admin_username']?></h4>
+      <h4>Hi! <?php echo $_SESSION['admin_username'] ?></h4>
     </center>
     <a href="index.php"><i class="fas fa-desktop"></i><span>Home</span></a>
     <a href="studentinfo.php"><i class="far fa-user-circle"></i><span>Manage Student Info</span></a>
@@ -62,34 +62,35 @@ if (!isset($_SESSION['admin_username'])) {
     <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
     <br>
     <div class="date">
-    <?php
-echo "Date: ";
-echo date("Y-m-d").   "<br>";
+      <?php
+      echo "Date: ";
+      echo date("Y-m-d") .   "<br>";
 
-?>
-<br>
-<?php
-echo "Time: ";
-?>
-<div id="clock"></div>
-<script type="text/javascript">
-setInterval(displayclock, 500);
-function displayclock(){
-  var time = new Date();
-  var hrs = time.getHours();
-  var min = time.getMinutes();
-  var sec = time.getSeconds();
+      ?>
+      <br>
+      <?php
+      echo "Time: ";
+      ?>
+      <div id="clock"></div>
+      <script type="text/javascript">
+        setInterval(displayclock, 500);
 
-  if(hrs > 12){
-      hrs =hrs -12;
-  }
-  if(hrs==0){
-    hrs=12;
-  }
-  document.getElementById('clock').innerHTML = hrs + ':' + min + ':' + sec;
-}
-</script>
-</div>
+        function displayclock() {
+          var time = new Date();
+          var hrs = time.getHours();
+          var min = time.getMinutes();
+          var sec = time.getSeconds();
+
+          if (hrs > 12) {
+            hrs = hrs - 12;
+          }
+          if (hrs == 0) {
+            hrs = 12;
+          }
+          document.getElementById('clock').innerHTML = hrs + ':' + min + ':' + sec;
+        }
+      </script>
+    </div>
   </div>
 
   <!--sidebar end-->
@@ -110,86 +111,87 @@ function displayclock(){
             <h2>Manage Librarian <b>Account</b></h2>
           </div>
           <div class="container" style="padding-top: 20px;">
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" id="myInput" placeholder="Search">
-      <div class="input-group-append">
-        <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
-      </div>
-    </div>
-        </div>
-      </div>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Library_ID</th>
-            <th>Name</th>
-            <th>Username</th>
-            <th>Password</th>
-            <th>Actions</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="myTable">
-        <?php librarianacc:: librarianacc_list(); ?>
-        
-          </tbody>
-          </table>
-      <script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-</script>
-      <form class="requestbook" action="/library-PHP-Native-/createlib.php" method="post">
-        <button type="submit" class="btn btn-success" name="add" value="add" data-toggle="modal" data-target="#myModal">Add Librarian Account</button>
-
-
-        <div class="modal" id="myModal">
-          <div class="modal-dialog">
-            <div class="modal-content">
-
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Add Librarian Account</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-              </div>
-
-              <!-- Modal body -->
-              <div class="modal-body">
-                <div class="main">
-                  <form action="/library-PHP-Native-/createlib.php" method="post">
-
-                    <h3>Library_ID:</h3><input type="text" name="library_id" required />
-                    <br>
-                    <h3>Name<h3> <input type="text" name="name" required />
-                        <br>
-                        <h3>Username </h3><input type="text" name="username" required />
-                        <br>
-                        <h3>Password </h3><input type="text" name="password" required />
-                        <br>
-
-                  </form>
-
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-success" name="create" value="create" />Create</button>
-                  <input type="hidden" name="create" />
-
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" id="myInput" placeholder="Search">
+              <div class="input-group-append">
+                <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
               </div>
             </div>
           </div>
         </div>
-        <td>
-      </form>
+        <button type="submit" class="btn btn-success float-right" name="add" value="add" data-toggle="modal" data-target="#myModal" style="margin-bottom: 10px;">Add Librarian Account</button>
 
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Library_ID</th>
+              <th>Name</th>
+              <th>Username</th>
+              <th>Password</th>
+              <th>Actions</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="myTable">
+            <?php librarianacc::librarianacc_list(); ?>
+
+          </tbody>
+        </table>
+        <script>
+          $(document).ready(function() {
+            $("#myInput").on("keyup", function() {
+              var value = $(this).val().toLowerCase();
+              $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+              });
+            });
+          });
+        </script>
+        <form class="requestbook" action="/library-PHP-Native-/createlib.php" method="post">
+
+
+          <div class="modal" id="myModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Add Librarian Account</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <div class="main">
+                    <form action="/library-PHP-Native-/createlib.php" method="post">
+
+                      <h3>Library_ID:</h3><input type="text" name="library_id" required />
+                      <br>
+                      <h3>Name<h3> <input type="text" name="name" required />
+                          <br>
+                          <h3>Username </h3><input type="text" name="username" required />
+                          <br>
+                          <h3>Password </h3><input type="text" name="password" required />
+                          <br>
+
+                    </form>
+
+                  </div>
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" name="create" value="create" />Create</button>
+                    <input type="hidden" name="create" />
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <td>
+        </form>
+
+      </div>
     </div>
-  </div>
