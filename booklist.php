@@ -54,7 +54,7 @@ if (!isset($_SESSION['admin_username'])) {
       <br>
       <br>
       <img src="images/av3.png" class="profile_image" alt="">
-      <h4>Hi! <?php echo $_SESSION['admin_username']?></h4>
+      <h4>Hi! <?php echo $_SESSION['admin_username'] ?></h4>
     </center>
     <a href="index.php"><i class="fas fa-desktop"></i><span>Home</span></a>
     <a href="studentinfo.php"><i class="far fa-user-circle"></i><span>Manage Student Info</span></a>
@@ -143,80 +143,7 @@ if (!isset($_SESSION['admin_username'])) {
           </tbody>
         </table>
       </div>
-<<<<<<< HEAD
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Book_ID</th>
-            <th>ISBN</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Category</th>
-            <th>Section</th>
-            <th>Status</th>
-            <th>Quantity</th>
-            <th>Quantity_Available</th>
-            <th>Actions</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="myTable">
-        <?php booklist:: booklist(); ?>
-        </tbody>
-      </table>
-      <script>
 
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-</script>
-      <form class="createlibacc" action="/siaG4/createbook.php" method="post">
-        <button type="submit" class="btn btn-success" name="add" value="add" data-toggle="modal" data-target="#myModal">Add Book</button>
-
-
-        <div class="modal" id="myModal">
-          <div class="modal-dialog">
-            <div class="modal-content">
-
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Add Book</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-              </div>
-
-              <!-- Modal body -->
-              <div class="modal-body">
-                <div class="main">
-                  <form action="/siaG4/createbook.php" method="post">
-
-                    <h3>ISBN:</h3><input type="text" name="ISBN" required />
-                    <br>
-                    <h3>Title:<h3> <input type="text" name="title" required />
-                        <br>
-                        <h3>Author: </h3><input type="text" name="author" required />
-                        <br>
-                        <h3>Category: </h3><input type="text" name="category" required />
-                        <br>
-                        <h3>Status: </h3><input type="text" name="status" required />
-                        <br>
-
-                  </form>
-
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-success" name="create" value="create" />Create</button>
-
-
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-=======
     </div>
     <?php book::book_create() ?>
     <!-- Add Book -->
@@ -230,7 +157,6 @@ $(document).ready(function(){
               <h4 class="modal-title">Add Book</h4>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
->>>>>>> 74238566bf92802d8ddbf124595ebbf1f06b2842
 
             <!-- Modal body -->
             <div class="modal-body">

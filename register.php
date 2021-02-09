@@ -1,5 +1,5 @@
-<?php 
-	require('./readstud.php');
+<?php
+require('./readstud.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,12 +36,12 @@
                 <div class="card-body">
                     <h2 class="title">Register a Student</h2>
 
-                                <!-- form content-->
-                    <form class="create-stud" action ="" method="POST">
+                    <!-- form content-->
+                    <form class="create-stud" action="" method="POST">
                         <!--?php include('errors.php') ?-->
 
                         <div class="row row-space">
-						 <div class="col-2">
+                            <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Student Number</label>
                                     <input class="input--style-4" type="text" name="studentnumber" required>
@@ -59,7 +59,7 @@
                                     <input class="input--style-4" type="text" name="lastname" required>
                                 </div>
                             </div>
-							<div class="col-2">
+                            <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Birthday</label>
                                     <div class="input-group-icon">
@@ -70,17 +70,17 @@
                             </div>
                         </div>
                         <div class="row row-space">
-                            
+
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Gender</label>
                                     <div class="p-t-10">
                                         <label class="radio-container m-r-45">Male
-                                            <input type="radio" checked="checked" name="gender" value ="Male" required>
+                                            <input type="radio" checked="checked" name="gender" value="Male" required>
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="radio-container">Female
-                                            <input type="radio" name="gender" value ="Female">
+                                            <input type="radio" name="gender" value="Female">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -97,64 +97,63 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Phone Number</label>
-                                    <input class="input--style-4" type="text" name="phone" required> 
+                                    <input class="input--style-4" type="text" name="phone" required>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row row-space">
-                           
 
-                        <div class="input-group">
-                            <label class="label">Course</label>
-                            <div class="rs-select2 js-select-simple select--no-search">
-                                <select name="course" required>
-                                    <option disabled="disabled" selected="selected">Select Course</option>
-                                    <option>BSIT </option>
-                                    <option>BSENT</option>
-                                    <option>BSIE</option>
-                                    <option>BSA</option>
 
-                                </select>
-                                <div class="select-dropdown"></div>
-                            </div>
-                        </div>
+                            <div class="input-group">
+                                <label class="label">Course</label>
+                                <div class="rs-select2 js-select-simple select--no-search">
+                                    <select name="course" required>
+                                        <option disabled="disabled" selected="selected">Select Course</option>
+                                        <option>BSIT </option>
+                                        <option>BSENT</option>
+                                        <option>BSIE</option>
+                                        <option>BSA</option>
 
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Username</label>
-                                    <input class="input--style-4" type="text" name="username" required>
+                                    </select>
+                                    <div class="select-dropdown"></div>
                                 </div>
                             </div>
 
-                            
+                            <div class="row row-space">
+                                <div class="col-2">
+                                    <div class="input-group">
+                                        <label class="label">Username</label>
+                                        <input class="input--style-4" type="text" name="username" required>
+                                    </div>
+                                </div>
+
+
                                 <div class="input-group">
                                     <label class="label">Password</label>
                                     <input class="input--style-4" type="password" name="password" required>
                                 </div>
                             </div>
-                            <?php addstud:: addstud(); ?>
-                        <div class="p-t-15">
-                            <button class="btn btn--radius-2 btn--blue" type="submit" name ="create">CREATE</button>
+                            <?php addstuds::addstud(); ?>
+                            <div class="p-t-15">
+                                <button class="btn btn--radius-2 btn--blue" type="submit" name="create">CREATE</button>
 
+                            </div>
+                            < </div>
                         </div>
-						<
-				</div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-</form>
-    <!-- Jquery JS-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <!-- Vendor JS-->
-    <script src="vendor/select2/select2.min.js"></script>
-    <script src="vendor/datepicker/moment.min.js"></script>
-    <script src="vendor/datepicker/daterangepicker.js"></script>
+        </form>
+        <!-- Jquery JS-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <!-- Vendor JS-->
+        <script src="vendor/select2/select2.min.js"></script>
+        <script src="vendor/datepicker/moment.min.js"></script>
+        <script src="vendor/datepicker/daterangepicker.js"></script>
 
-    <!-- Main JS-->
-    <script src="js/global.js"></script>
+        <!-- Main JS-->
+        <script src="js/global.js"></script>
 
 </body>
 
