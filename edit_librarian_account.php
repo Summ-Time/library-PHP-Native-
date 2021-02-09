@@ -18,7 +18,7 @@ if (isset($_GET['id'])) {
         $password       =       escape_string($row['password']);
     }
 
-    // account::librarain_update();
+    account::librarain_update();
 }
 
 ?>

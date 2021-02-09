@@ -828,7 +828,7 @@ class account
             redirect("studentinfo.php");
         }
     }
-    public static function librarian_update()
+    public static function librarain_update()
     {
         if (isset($_POST['submit'])) {
 
