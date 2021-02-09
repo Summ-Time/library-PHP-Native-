@@ -7,31 +7,26 @@ if (!isset($_SESSION['admin_username'])) {
 
 if (isset($_GET['id'])) {
 
-    $query = query("SELECT * FROM booklist WHERE book_id = " . escape_string($_GET['id']) . "");
+    $query = query("SELECT * FROM librarianacc WHERE library_id = " . escape_string($_GET['id']) . "");
 
     confirm($query);
 
     while ($row = fetch_array($query)) {
+        
+        $name      =       escape_string($row['name']);
+        $username     =       escape_string($row['username']);
+        $password   =       escape_string($row['password']);
 
-        $title      =       escape_string($row['title']);
-        $author     =       escape_string($row['author']);
-        $category   =       escape_string($row['category']);
-        $status     =       escape_string($row['status']);
-        $section   =       escape_string($row['section']);
-        $quantity   =       escape_string($row['quantity']);      
-        $isbn       =       escape_string($row['ISBN']);
-    }
-
-    book::update();   
+    libaccedit::libacc_edit();
 }
-
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
 <head>
     <meta charset="utf-8">
-    <title>Student Side</title>
+    <title>Admin Side</title>
     <!-- Custom CSS -->
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -63,7 +58,7 @@ if (isset($_GET['id'])) {
         </div>
 
         <div class="right_area">
-            <a href="student_logout.php" class="logout_btn">Logout</a>
+            <a href="admin_logout.php" class="logout_btn">Logout</a>
         </div>
     </header>
     <!--header area end-->
@@ -117,57 +112,42 @@ if (isset($_GET['id'])) {
     </div>
 
     <!--sidebar end-->
-    <?php book::update() ?>
+    <?php libaccedit::libacc_edit() ?>
     <div class="container" style="padding-top: 13rem;">
         <form action="" method="post">
             <div class="row">
-                <div class="col-md-6">
+            <div class="col-md-12">
+                    
+                <div class="col-md-12">
                     <div class="form-group">
-                        <label for="">Title</label>
-                        <input type="text" class="form-control" value="<?php echo $title; ?>" name="title">
+                        <label for="">Name</label>
+                        <input type="text" class="form-control" value="<?php echo $name; ?>" name="name">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="form-group">
-                        <label for="">Author</label>
-                        <input type="text" class="form-control" value="<?php echo $author; ?>" name="author">
+                        <label for="">Username</label>
+                        <input type="text" class="form-control" value="<?php echo $username; ?>" name="username">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="form-group">
-                        <label for="">Category</label>
-                        <input type="text" class="form-control" value="<?php echo $category; ?>" name="category">
+                        <label for="">Password</label>
+                        <input type="text" class="form-control" value="<?php echo $password; ?>" name="password">
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="">Status</label>
-                        <input type="text" class="form-control" value="<?php echo $status; ?>" name="status">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="">Section</label>
-                        <input type="text" class="form-control" value="<?php echo $section; ?>" name="section">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="">Quantity</label>
-                        <input type="number" class="form-control" value="<?php echo $quantity; ?>" name="quantity">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="">ISBN</label>
-                        <input type="number" class="form-control" value="<?php echo $isbn; ?>" name="isbn">
-                    </div>
-                </div>
+                
             </div>
             <hr>
-            <a href="booklist.php" class="btn btn-info">Back</a>
-
+            
+            <div class="container">
+            &nbsp
+            <a href="librarianinfo.php" class="btn btn-info">Back</a>
+           
+           &nbsp
+         
             <button class="btn btn-primary float-right" name="submit">Update</button>
+            </div>
         </form>
     </div>
 

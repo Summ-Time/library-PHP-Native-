@@ -147,50 +147,50 @@ if (!isset($_SESSION['admin_username'])) {
             });
           });
         </script>
-        <form class="requestbook" action="/library-PHP-Native-/createlib.php" method="post">
+    <?php addlib::add_lib(); ?>
+        <!-- Add Book -->
+    <form action="" method="post">
+      <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
 
-
-          <div class="modal" id="myModal">
-            <div class="modal-dialog">
-              <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                  <h4 class="modal-title">Add Librarian Account</h4>
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                  <div class="main">
-                    <form action="/library-PHP-Native-/createlib.php" method="post">
-
-                      <h3>Library_ID:</h3><input type="text" name="library_id" required />
-                      <br>
-                      <h3>Name<h3> <input type="text" name="name" required />
-                          <br>
-                          <h3>Username </h3><input type="text" name="username" required />
-                          <br>
-                          <h3>Password </h3><input type="text" name="password" required />
-                          <br>
-
-                    </form>
-
-                  </div>
-
-                  <!-- Modal footer -->
-                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" name="create" value="create" />Create</button>
-                    <input type="hidden" name="create" />
-
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                  </div>
-
-                </div>
-              </div>
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Add Librarian</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="">Library_ID</label>
+                <input type="text"  class="form-control" name="library_id" required>
+              </div>
+              <div class="form-group">
+                <label for="">Name</label>
+                <input type="text"  class="form-control" name="name" required>
+              </div>
+              <div class="form-group">
+                <label for="">Username</label>
+                <input type="text"  class="form-control" name="username" required>
+              </div>
+              <div class="form-group">
+                <label for="">Password</label>
+                <input type="text"  class="form-control" name="password" required>
+              </div>
+              
+              
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="submit" name="submit" class="btn btn-primary">Add</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
           </div>
-          <td>
+        </div>
+      </div>
         </form>
 
       </div>

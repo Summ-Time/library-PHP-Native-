@@ -7,6 +7,6 @@ if (isset($_GET['id'])) {
     confirm($query);
 
     set_message("Request Have Been Deleted!");
-    redirect("requestbook.php");
+    redirect("borrowerlistlib.php");
 }
 

@@ -134,6 +134,7 @@ function displayclock(){
             <th>Request</th>
             <th>Action</th>
             <th>Action</th>
+            <th>Action</th>
 
           </tr>
         </thead>
