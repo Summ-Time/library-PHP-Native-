@@ -20,6 +20,7 @@ if (isset($_GET['id'])) {
         $category        =           escape_string($row['category']);
         $status        =           escape_string($row['status']);
         $quantity        =              escape_string($row['quantity']);
+        $available_qty       =              escape_string($row['available_qty']);
     }
 
     $borrowed_query = query("SELECT * FROM tbl_borrowed WHERE book_id = $_GET[id]");
@@ -70,11 +71,12 @@ book::borrow_book();
             <br>
             <br>
             <img src="images/student.png" class="profile_image" alt="">
-            <h4>Student</h4>
-        </center>
-        <a href="indexstudent.php"><i class="fas fa-desktop"></i><span>Home</span></a>
-        <a href="#"><i class="fas fa-key"></i><span>Change Password</span></a>
-        <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
+            <h4>Hi! <?php echo $_SESSION['student_username']?></h4>
+    </center>
+    <a href="indexstudent.php"><i class="fas fa-desktop"></i><span>Home</span></a>
+    <a href="indexstudent.php"><i class="fas fa-book"></i></i><span>View Book List</span></a>
+    <a href="viewreturn.php"><i class="fas fa-book-open"></i><span>View Borrowed Book</span></a>
+    <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
 
     </div>
     <!--sidebar end-->
@@ -111,8 +113,13 @@ book::borrow_book();
             echo $borrow_form;
             $queryUpdate = "UPDATE booklist set status='Available' WHERE book_id = $_GET[id] ";
             $sqlUpdate = mysqli_query($connection, $queryUpdate);
+          
             
         }
+                if(isset($_POST['submit'])){
+                    $queryUpdate = "UPDATE booklist set available_qty=$available_qty-1 WHERE book_id = $_GET[id] ";
+                  $sqlUpdate = mysqli_query($connection, $queryUpdate);
+                }
         ?>
 
     </div>

@@ -104,46 +104,7 @@ function displayclock(){
   <br>
   <br>
   <br>
-  <div class="index3">
-    <div class="index1">
-      <div class="content">
-        <div class="gallery">
-
-          <a href="bookdetails.php"><img src="images/student.png" width="600" height="400">
-          </a>
-          <div class="desc">Manage Student Info</div>
-        </div>
-
-        <div class="gallery">
-          <a href="borrowbooklist.php"><img src="images/borrower.jpg" width="600" height="400">
-          </a>
-          <div class="desc">Manage Borrower List</div>
-        </div>
-
-        <div class="gallery">
-          <a href="#"><img src="images/report.png" width="600" height="400">
-          </a>
-          <div class="desc">Monthly Report</div>
-        </div>
-      </div>
-    </div>
-    <div class="index2">
-      <div class="content">
-        <div class="gallery">
-
-          <a href="penalties1.php"><img src="images/penalty.jpg" width="600" height="400">
-          </a>
-          <div class="desc">Penalties</div>
-        </div>
-
-        <div class="gallery">
-          <a href="student.php"><img src="images/libid.png" width="600" height="400">
-          </a>
-          <div class="desc">Create Library_ID</div>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 </body>
 
 </html>

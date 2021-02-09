@@ -110,8 +110,10 @@ function displayclock(){
             <th>Title</th>
             <th>Author</th>
             <th>Category</th>
+            <th>Section</th>
             <th>Status</th>
             <th>Quantity</th>
+            <th>Available_Quantity</th>
 
           </tr>
         </thead>
