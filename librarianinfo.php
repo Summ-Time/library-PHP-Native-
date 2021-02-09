@@ -51,7 +51,7 @@ if (!isset($_SESSION['admin_username'])) {
       <br>
       <br>
       <img src="images/av3.png" class="profile_image" alt="">
-      <h4>Admin</h4>
+      <h4>Hi! <?php echo $_SESSION['admin_username']?></h4>
     </center>
     <a href="index.php"><i class="fas fa-desktop"></i><span>Home</span></a>
     <a href="#"><i class="fas fa-key"></i><span>Change Password</span></a>
