@@ -91,7 +91,7 @@ function displayclock(){
 </div>
   </div>
   <!--sidebar end-->
-
+ 
   <div class="container" style="padding-top: 13rem;">
     <div class="input-group mb-3">
       <input type="text" class="form-control" id="myInput" placeholder="Search">
@@ -110,6 +110,7 @@ function displayclock(){
             <th>Author</th>
             <th>Category</th>
             <th>Status</th>
+            <th>Quantity</th>
 
           </tr>
         </thead>

@@ -98,9 +98,9 @@ function displayclock(){
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-8"><h2>Book<b> Borrowed</b></h2></div>
-                    <div class="container" style="padding-top: 13rem;">
+                    <div class="container" style="padding-top: 20px;">
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="Search">
+      <input type="text" class="form-control" id="myInput" placeholder="Search">
       <div class="input-group-append">
         <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
       </div>
@@ -114,79 +114,29 @@ function displayclock(){
                 <thead>
                     <tr>
                       
-                        <th>Borrowed_ID</th>
-                        <th>Student_ID</th>
-					            	<th>Book_ID</th>
-						            <th>Borrowed_Date</th>
-						            <th>Due_Date</th>
-                      
-                        
-                        <th>Action</th>
+                        <th>Title</th>
+                        <th>Author</th>
+					            	<th>Category</th>
+						            <th>request</th>
+						            <th>Borrow_Date</th>
+                        <th>Due_Date</th>
                       
                     </tr>
                 </thead>
-                <tbody>
-				<?php while ($results = mysqli_fetch_array($sqlAccounts)) { ?>
-                    <tr>
-                        
-                        <td><?php echo $results['borrowed_id']?></td>
-                       <td><?php echo $results['student_id']?></td>
-						<td><?php echo $results['book_id']?></td>
-						<td><?php echo $results['borrowed_date']?></td>
-						<td><?php echo $results['due_date']?></td>
-            
-          
-            <td>
-           
-            <form action="/siaG4/returnbook.php" method="post">
-                        <button type="submit" class="btn btn-success" name="request" value="request" data-toggle="modal" data-target="#myModal">Return Book</button>
-					
-					 
-                     <div class="modal" id="myModal">
-                     <div class="modal-dialog">
-                     <div class="modal-content">
-
-      <!-- Modal Header -->
-					  <div class="modal-header">
-						<h4 class="modal-title">Return A Book</h4>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					  </div>
-
-      <!-- Modal body -->
-						  <div class="modal-body">
-							<div class="main">
-					<form action="/siaG4/returnbook.php" method="post">
-					
-
-          <h3>ISBN:</h3><input type="text" name="ISBN" value="<?php echo $results ['ISBN']?>" required/>
-					<br>
-					<h3>Studentnumber:</h3><input type="text" name="studentnumber"  required/>
-					<br>
-					<h3>Firstname:<h3> <input type="text" name="firstname" value="<?php echo $results ['firstname']?>" required/>
-					<br>
-					<h3>Lastname: </h3><input type="text" name="lastname" value="<?php echo $results ['lastname']?>"   required/>
-					<br>
-					<h3>Course: </h3><input type="text" name="course" value="<?php echo $results ['course']?>"   required/>
-					<br>
-                  
-                    
-					</form>
-          </div>
-
-<!-- Modal footer -->
-<div class="modal-footer">
-<button type="submit"  class="btn btn-success" name="return" value="return">Return</button>
-<input type="hidden" name="deleteret" value="<?php echo $results ['ISBN']?>">
-
-<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-</div>
-</td>
-                   
-						</tr>
-						   <?php }
-				?>
+                <tbody id="myTable">
+                <?php book::borrow_history(); ?>
 						</tbody>
 						</table>
+            <script>
+            $(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 			<div class="buttonstudent">
             <a href="indexstudent.php"><button type="button" class="btn btn-info">View Book List</button></a>
             

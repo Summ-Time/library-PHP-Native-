@@ -104,7 +104,7 @@ function displayclock(){
           <div class="col-sm-8">
             <h2>Manage Librarian <b>Account</b></h2>
           </div>
-          <div class="container" style="padding-top: 13rem;">
+          <div class="container" style="padding-top: 20px;">
     <div class="input-group mb-3">
       <input type="text" class="form-control" id="myInput" placeholder="Search">
       <div class="input-group-append">
@@ -125,28 +125,10 @@ function displayclock(){
           </tr>
         </thead>
         <tbody id="myTable">
-          <?php while ($results = mysqli_fetch_array($sqlAccounts)) { ?>
-            <tr>
-              <td><?php echo $results['library_id'] ?></td>
-              <td><?php echo $results['name'] ?></td>
-              <td><?php echo $results['username'] ?></td>
-              <td><?php echo $results['password'] ?></td>
-              <td>
-
-                <button type="submit" class="btn btn-success" name="edit" value="edit" data-toggle="modal" data-target="#myModal1">Edit</button>
-              </td>
-              <td>
-                <form class="delete" action="/siaG4/deletelib.php" method="post">
-                  <button type="submit" class="btn btn-danger" name="deletelib" value="Delete">DELETE</button>
-                  <input type="hidden" name="deletelibID" value="<?php echo $results['library_id'] ?>">
-                </form>
-              </td>
-            </tr>
-
-          <?php }
-          ?>
-        </tbody>
-      </table>
+        <?php librarianacc:: librarianacc_list(); ?>
+        
+          </tbody>
+          </table>
       <script>
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {

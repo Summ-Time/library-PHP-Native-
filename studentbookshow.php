@@ -18,7 +18,8 @@ if (isset($_GET['id'])) {
         $title           =           escape_string($row['title']);
         $author          =           escape_string($row['author']);
         $category        =           escape_string($row['category']);
-        $quantity        =           escape_string($row['quantity']);
+        $status        =           escape_string($row['status']);
+        $quantity        =              escape_string($row['quantity']);
     }
 
     $borrowed_query = query("SELECT * FROM tbl_borrowed WHERE book_id = $_GET[id]");
