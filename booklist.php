@@ -1,5 +1,5 @@
 <?php
-require('./readbook.php');
+require('./databasestud.php');
 
 
 if (!isset($_SESSION['admin_username'])) {
@@ -131,7 +131,6 @@ if (!isset($_SESSION['admin_username'])) {
               <th>Status</th>
               <th>Quantity</th>
               <th>Actions</th>
-              <th>Actions</th>
             </tr>
           </thead>
           <tbody id="myTable">
@@ -141,7 +140,7 @@ if (!isset($_SESSION['admin_username'])) {
       </div>
     </div>
     <?php book::book_create() ?>
-    <!-- The Modal -->
+    <!-- Add Book -->
     <form action="" method="post">
       <div class="modal fade" id="myModal">
         <div class="modal-dialog modal-dialog-centered">
@@ -205,7 +204,6 @@ if (!isset($_SESSION['admin_username'])) {
         });
       });
     </script>
-
   </div>
 </body>
 
