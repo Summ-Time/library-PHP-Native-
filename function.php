@@ -477,7 +477,14 @@ class book_borrowed
     public static function bookborrowed()
     {
 
-        $mainquery = query("SELECT * FROM tbl_borrowed");
+        $mainquery = query("SELECT
+        *
+      FROM tbl_borrowed
+        INNER JOIN booklist
+          ON tbl_borrowed.book_id = booklist.book_id
+        INNER JOIN studentacc
+          ON tbl_borrowed.student_id = studentacc.studentnumber
+          WHERE tbl_borrowed.request = 'approve' ");
         confirm($mainquery);
         $counter = 1;
 
@@ -485,7 +492,7 @@ class book_borrowed
 
             $list_classroom = <<< DELIMITER
             <tr>
-                <th colspan="3" class="text-center bg-danger text-white"> No Result </th>
+                <th colspan="9" class="text-center bg-danger text-white"> No Result </th>
             </tr>
            DELIMITER;
             echo $list_classroom;
@@ -493,14 +500,85 @@ class book_borrowed
 
             while ($row = fetch_array($mainquery)) {
                 $product = <<<DELIMETER
-                <tr>
-                   <td>{$row['borrowed_id']}</td>
-                   <td>{$row['student_id']}</td>
-                   <td>{$row['book_id']}</td>
-                   <td>{$row['borrowed_date']}</td>
-                   <td>{$row['due_date']}</td>
-                   <td>{$row['request']}</td>
-                   
+                <tr>    
+                <td>{$row['borrowed_id']}</td>
+                <td>{$row['first_name']}, {$row['lastname']}</td>
+                <td>{$row['title']}</td>
+                <td>{$row['borrowed_date']}</td>
+                <td>{$row['due_date']}</td>
+                <td>{$row['request']}</td>
+                 
+                        <td class="text-center">
+                        <input type="button" class="btn btn-primary" name="Issuebook" value="Issue book">
+                        </td>
+                        <td class="text-center">
+                        <input type="button" class="btn btn-success" name="Returnbook" value="Return book">
+                        </td>
+                        <td>
+                        <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>          
+
+                   </td>
+                </tr>
+
+                <!-- Delete Function -->
+                <script>
+                function deleteclick{$row['borrowed_id']}() {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                      }).then((result) => {
+                            if(result.value){
+                                window.location.href="deletereq.php?id={$row['borrowed_id']}";
+                            }
+                      })
+                   }
+                </script>
+               
+                DELIMETER;
+                $counter++;
+                echo $product;
+            }
+        }
+    }
+
+    public static function book_reuqest()
+    {
+        $mainquery = query("SELECT
+        *
+      FROM tbl_borrowed
+        INNER JOIN booklist
+          ON tbl_borrowed.book_id = booklist.book_id
+        INNER JOIN studentacc
+          ON tbl_borrowed.student_id = studentacc.studentnumber
+          WHERE tbl_borrowed.request = 'padding'");
+        confirm($mainquery);
+        $counter = 1;
+
+        if (mysqli_num_rows($mainquery) == 0) {
+
+            $list_classroom = <<< DELIMITER
+            <tr>
+                <th colspan="9" class="text-center bg-danger text-white"> No Result </th>
+            </tr>
+           DELIMITER;
+            echo $list_classroom;
+        } else {
+
+            while ($row = fetch_array($mainquery)) {
+                $product = <<<DELIMETER
+                <tr>    
+                <td>{$row['borrowed_id']}</td>
+                <td>{$row['first_name']}, {$row['lastname']}</td>
+                <td>{$row['title']}</td>
+                <td>{$row['borrowed_date']}</td>
+                <td>{$row['due_date']}</td>
+                <td>{$row['request']}</td>
+                 
                         <td class="text-center">
                         <input type="button" class="btn btn-primary" name="Issuebook" value="Issue book">
                         </td>
