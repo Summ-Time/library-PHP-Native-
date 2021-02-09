@@ -1,8 +1,8 @@
 <?php
 require('./readstud.php');
 
-if (!isset($_SESSION['admin_username'])) {
-	header('Location: admin.php');
+if (!isset($_SESSION['librarian_username'])) {
+	header('Location: librarian.php');
 }
 ?>
 <!DOCTYPE html>
@@ -10,7 +10,7 @@ if (!isset($_SESSION['admin_username'])) {
 
 <head>
 	<meta charset="utf-8">
-	<title>Admin Side</title>
+	<title>Librarian Side</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/css1.css">
   <link rel="stylesheet" href="css/css5.css">
@@ -39,7 +39,7 @@ if (!isset($_SESSION['admin_username'])) {
 			<h3>QCU <span>LIBRARY</span></h3>
 		</div>
 		<div class="right_area">
-			<a href="student.php" class="logout_btn">Logout</a>
+			<a href="librarian-logout.php" class="logout_btn">Logout</a>
 		</div>
 	</header>
 	<!--header area end-->
@@ -49,15 +49,16 @@ if (!isset($_SESSION['admin_username'])) {
 			<br>
 			<br>
 			<br>
-			<img src="images/av3.png" class="profile_image" alt="">
-			<h4>Hi! <?php echo $_SESSION['admin_username']?></h4>
+			<img src="images/librarian.png" class="profile_image" alt="">
+            <h4>Hi! <?php echo $_SESSION['librarian_username']?></h4>
+            <hr>
 		</center>
-		<a href="index.php"><i class="fas fa-desktop"></i><span>Home</span></a>
-    <a href="studentinfo.php"><i class="far fa-user-circle"></i><span>Manage Student Info</span></a>
-    <a href="librarianinfo.php"><i class="far fa-user"></i><span>Manage Librarian Info</span></a>
-    <a href="borrowerlist.php"><i class="fas fa-user-friends"></i><span>Manage Borrower list</span></a>
-    <a href="booklist.php"><i class="fas fa-book-open"></i><span>Manage Book list</span></a>
-    <a href="requestbook.php"><i class="fas fa-book-open"></i><span>Manage Request Book</span></a>
+        <a href="indexlibrarian.php"><i class="fas fa-desktop"></i><span>Home</span></a>
+    <a href="studentinfolib.php"><i class="fas fa-user-edit"></i><span>Manage Student Info</span></a>
+    <a href="borrowerlistlib.php"><i class="fas fa-user-friends"></i><span>Manage Borrower List</span></a>
+    <a href="booklistlib.php"><i class="fas fa-book-open"></i><span>Manage Book List</span></a>
+    <a href="#"><i class="fas fa-table"></i><span>Generate Report</span></a>
+    <a href="#"><i class="far fa-id-card"></i><span>Create Lib_ID</span></a>
     <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
     <br>
 		<div class="date">
