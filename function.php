@@ -112,6 +112,7 @@ class book
 
             $udpate = query($query);
             confirm($udpate);
+
             set_message('Book Updated!');
             redirect("booklist.php");
         }
