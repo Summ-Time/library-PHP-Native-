@@ -117,7 +117,7 @@ function fetch_array($result)
 
 class book
 {
-    public function book_list()
+    public static function book_list()
     {
 
         $mainquery = query("SELECT * FROM booklist");
@@ -151,7 +151,7 @@ class book
         }
     }
 
-    public function borrow_book()
+    public static function borrow_book()
     {
         if (isset($_POST['submit'])) {
             $user_id = escape_string($_POST['user_id']);

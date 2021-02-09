@@ -25,6 +25,7 @@ if (isset($_GET['id'])) {
 $dateexp = date("Y-m-d", strtotime("5 days"));
 
 book::borrow_book();
+
 ?>
 <!doctype html>
 <html lang="en">

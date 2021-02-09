@@ -193,5 +193,9 @@ table.c {
     font-weight: 900;
   }
 
-
+div.date{
+  color:white;
+  margin-left: 40px;
+  font-family: century gothic;
+}
                              

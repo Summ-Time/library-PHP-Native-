@@ -12,20 +12,20 @@ if (!isset($_SESSION['admin_username'])) {
 <head>
   <meta charset="utf-8">
   <title>Admin Side</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/css1.css">
   <link rel="stylesheet" href="css/css5.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <!------ Include the above in your HEAD tag ---------->
-  <link rel="stylesheet" href="css/csss4.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/borrowerlist.js"></script>
+
+  <script src="js/fontawesome-pro.js"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="js/borrowerlist.js"></script>
 </head>
 
 <body>
@@ -56,7 +56,35 @@ if (!isset($_SESSION['admin_username'])) {
     <a href="index.php"><i class="fas fa-desktop"></i><span>Home</span></a>
     <a href="#"><i class="fas fa-key"></i><span>Change Password</span></a>
     <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
+    <div class="date">
+    <?php
+echo "Date: ";
+echo date("Y-m-d").   "<br>";
 
+?>
+<br>
+<?php
+echo "Time: ";
+?>
+<div id="clock"></div>
+<script type="text/javascript">
+setInterval(displayclock, 500);
+function displayclock(){
+  var time = new Date();
+  var hrs = time.getHours();
+  var min = time.getMinutes();
+  var sec = time.getSeconds();
+
+  if(hrs > 12){
+      hrs =hrs -12;
+  }
+  if(hrs==0){
+    hrs=12;
+  }
+  document.getElementById('clock').innerHTML = hrs + ':' + min + ':' + sec;
+}
+</script>
+</div>
   </div>
 
   <!--sidebar end-->
@@ -76,9 +104,13 @@ if (!isset($_SESSION['admin_username'])) {
           <div class="col-sm-8">
             <h2>Book<b> Borrowed</b></h2>
           </div>
-          <div class="col-sm-4">
-            <img src="images/search1.png" class="searchicon"><input type="text" placeholder="Search"><i></i></input>
-          </div>
+          <div class="container" style="padding-top: 13rem;">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" id="myInput" placeholder="Search">
+      <div class="input-group-append">
+        <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
         </div>
       </div>
 
@@ -87,30 +119,28 @@ if (!isset($_SESSION['admin_username'])) {
         <thead>
           <tr>
 
-            <th>ISBN</th>
-            <th>Studentnumber</th>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Course</th>
-            <th>Date_Borrowed</th>
+            <th>Borrowed_ID</th>
+            <th>Student_ID</th>
+            <th>Book_ID</th>
+            <th>Borrowed_Date</th>
             <th>Due_Date</th>
+            
             <th>Action</th>
             <th>Action</th>
             <th>Action</th>
 
           </tr>
         </thead>
-        <tbody>
+        <tbody id="myTable">
           <?php while ($results = mysqli_fetch_array($sqlAccounts)) { ?>
             <tr>
 
-              <td><?php echo $results['ISBN'] ?></td>
-              <td><?php echo $results['studentnumber'] ?></td>
-              <td><?php echo $results['firstname'] ?></td>
-              <td><?php echo $results['lastname'] ?></td>
-              <td><?php echo $results['course'] ?></td>
-              <td><?php echo $results['date_borrowed'] ?></td>
+              <td><?php echo $results['borrowed_id'] ?></td>
+              <td><?php echo $results['student_id'] ?></td>
+              <td><?php echo $results['book_id'] ?></td>
+              <td><?php echo $results['borrowed_date'] ?></td>
               <td><?php echo $results['due_date'] ?></td>
+              
               <td>
 
 
@@ -152,7 +182,7 @@ if (!isset($_SESSION['admin_username'])) {
                           <!-- Modal footer -->
                           <div class="modal-footer">
                             <button type="submit" class="btn btn-success" name="return" value="return">Return</button>
-                            <input type="hidden" name="deleteret" value="<?php echo $results['ISBN'] ?>">
+                            <input type="hidden" name="deleteret" value="<?php echo $results['book_id'] ?>">
 
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                           </div>
@@ -161,9 +191,9 @@ if (!isset($_SESSION['admin_username'])) {
                 <button type="submit" class="btn btn-success" name="edit" value="edit" data-toggle="modal" data-target="#myModal1">Edit</button>
               </td>
               <td>
-                <form action="/siaG4/deleteborrow.php" method="post">
+                <form action="/library-PHP-Native/deleteborrow.php" method="post">
                   <button type="submit" class="btn btn-danger" name="delete" value="delete">DELETE</button>
-                  <input type="hidden" name="deleteID" value="<?php echo $results['ISBN'] ?>">
+                  <input type="hidden" name="deleteID" value="<?php echo $results['book_id'] ?>">
                 </form>
               </td>
 
@@ -172,5 +202,15 @@ if (!isset($_SESSION['admin_username'])) {
           ?>
         </tbody>
       </table>
+      <script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
     </div>
   </div>
