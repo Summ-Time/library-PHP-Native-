@@ -31,6 +31,7 @@ if (isset($_POST['login'])) {
 <html>
 
 <head>
+<title>Admin Login</title>
   <link href="css/css2.css" rel="stylesheet" type="text/css" />
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

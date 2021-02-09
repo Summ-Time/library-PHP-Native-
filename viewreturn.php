@@ -119,6 +119,7 @@ function displayclock(){
                         <th>Title</th>
                         <th>Author</th>
 					            	<th>Category</th>
+                        <th>Section</th>
 						            <th>request</th>
 						            <th>Borrow_Date</th>
                         <th>Due_Date</th>

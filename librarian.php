@@ -31,6 +31,7 @@ if (isset($_POST['login'])) {
 <html>
 
 <head>
+<title>Librarian Login</title>
   <link href="css/css2.css" rel="stylesheet" type="text/css" />
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -53,7 +54,7 @@ if (isset($_POST['login'])) {
       <form action="/library-PHP-Native-/librarian.php" method="post">
         <input type="text" id="username" class="fadeIn second" name="username" placeholder=" UserName">
         <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
-        <input type="submit" class="fadeIn fourth" name="login" value="logn">
+        <input type="submit" class="fadeIn fourth" name="login" value="Login">
       </form>
 
       <!-- Remind Passowrd -->

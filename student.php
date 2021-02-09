@@ -31,6 +31,7 @@ if (isset($_POST['login'])) {
 <html>
 
 <head>
+<title>Student Login</title>
   <link href="css/css2.css" rel="stylesheet" type="text/css" />
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -54,10 +55,10 @@ if (isset($_POST['login'])) {
 
       <!-- Remind Passowrd -->
       <div id="formFooter">
-        <a class="underlineHover" href="register.php">Not yet Registered?</a>
-        <br>
-        <br>
         <a class="underlineHover" href="#">Forgot Password?</a>
+      </div>
+      <div id="formFooter">
+        Quezon City University
       </div>
 
     </div>

@@ -34,10 +34,10 @@
         <div class="wrapper wrapper--w680">
             <div class="card card-4">
                 <div class="card-body">
-                    <h2 class="title">Registration Form</h2>
+                    <h2 class="title">Register a Student</h2>
 
                                 <!-- form content-->
-                    <form class="create-stud" action ="/siaG4/createstud.php" method="POST">
+                    <form class="create-stud" action ="" method="POST">
                         <!--?php include('errors.php') ?-->
 
                         <div class="row row-space">
@@ -134,12 +134,12 @@
                                     <input class="input--style-4" type="password" name="password" required>
                                 </div>
                             </div>
+                            <?php addstud:: addstud(); ?>
                         <div class="p-t-15">
                             <button class="btn btn--radius-2 btn--blue" type="submit" name ="create">CREATE</button>
+
                         </div>
-						<div>
-                         <a class="underlineHover" href="student.php">Already have an Account?</a>
-                </div>
+						<
 				</div>
             </div>
         </div>

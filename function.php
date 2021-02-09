@@ -90,6 +90,7 @@ function fetch_array($result)
 }
 
 
+//student
 class book
 {
     public static function book_list()
@@ -117,8 +118,10 @@ class book
                    <td><a href="studentbookshow.php?id={$row['book_id']}">{$row['title']}</a></td>
                    <td>{$row['author']}</td>
                    <td>{$row['category']}</td>
+                   <td>{$row['section']}</td>
                    <td>{$row['status']}</td>
                    <td>{$row['quantity']}</td>
+                   <td>{$row['available_qty']}</td>
                 </tr>
                 DELIMETER;
                 $counter++;
@@ -135,9 +138,14 @@ class book
             $due_date = escape_string($_POST['due_date']);
             $borrow_date = date("Y-m-d");
             $request = "padding";
+            $available_qty = escape_string($_POST['available_qty']);
+
 
             $query = query("INSERT INTO tbl_borrowed(student_id, book_id, borrowed_date, due_date, request) VALUE ('$user_id', '$book_id', '$borrow_date', '$due_date', '$request')");
             confirm($query);
+
+            
+            
 
             set_message('Book Borrowed Please go to the librarian to approve the book');
             redirect('indexstudent.php');
@@ -172,6 +180,7 @@ class book
                     <td>{$row['title']}</td>
                     <td>{$row['author']}</td>
                     <td>{$row['category']}</td>
+                    <td>{$row['section']}</td>
                     <td>{$row['request']}</td>
                     <td>{$row['borrowed_date']}</td>
                     <td>{$row['due_date']}</td>
@@ -182,6 +191,7 @@ class book
         }
     }
 }
+//admin
 class librarianacc{
 
     public static function librarianacc_list()
@@ -298,10 +308,12 @@ class booklist{
                    <td>{$row['title']}</td>
                    <td>{$row['author']}</td>
                    <td>{$row['category']}</td>
+                   <td>{$row['section']}</td>
                    <td>{$row['status']}</td>
                    <td>{$row['quantity']}</td>
+                   <td>{$row['available_qty']}</td>
                    <td>
-                   <input type="button" class="btn btn-success" name="edit" value="Edit">
+                   <input type="button" class="btn btn-success " name="edit" value="Edit">
                    </td>
                    <td>
                    <input type="button" class="btn btn-danger" name="Delete" value=Delete>
@@ -359,5 +371,35 @@ class bookborrowed{
     }
 
 }
+class addstud{
+   public static function addstud()
+    {   
+            if (isset($_POST['create'])) {
+            $user_id = escape_string($_POST['studentnumber']);
+            $firstname = escape_string($_POST['first_name']);
+            $lastname = escape_string($_POST['lastname']);
+            $birthday = escape_string($_POST['birthday']);
+            $gender = escape_string($_POST['gender']);
+            $phone = escape_string($_POST['phone']);
+            $course = escape_string($_POST['course']);
+            $username = escape_string($_POST['username']);
+            $password = escape_string($_POST['password']);
+            $email = escape_string($_POST['email']);
+
+
+            $query = query("INSERT INTO studentacc(studentnumber, first_name, lastname, birthday, gender, phone , course , username , password , email ) 
+            VALUE ('$user_id', '$firstname', '$lastname', '$birthday', '$gender', '$phone', '$course', '$username', '$password', '$email')");
+            confirm($query);
+
+            
+            
+
+            set_message('Succesfully Created!');
+            redirect('studentinfo.php');
+        }
+    }
+}
+
+ 
   
 

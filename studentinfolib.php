@@ -150,7 +150,7 @@ $(document).ready(function(){
   });
 });
 </script>
-<button type="submit" class="btn btn-success" name="add" value="add" data-toggle="modal" data-target="#myModal">Add Student Account</button>
+<a href="register.php"><button type="submit" class="btn btn-success" name="add" value="add" data-toggle="modal" data-target="#myModal">Add Student Account</button></a>
 
 		</div>
 	</div>
