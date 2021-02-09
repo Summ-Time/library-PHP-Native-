@@ -367,11 +367,10 @@ class book_list
                    <td>{$row['available_qty']}</td>
 
                    <td class="text-center">
-                        <input type="button" class="btn btn-success" name="edit" value="Edit">
-                        </td>
-                        <td>
-                        <button Onclick="deleteclick{$row['book_id']}()" id="delete" class="btn btn-danger">Delete</button>          
 
+                        <a href="edit_book.php?id={$row['book_id']}" class="btn btn-success">Edit</a>
+
+                        <button Onclick="deleteclick{$row['book_id']}()" id="delete" class="btn btn-danger">Delete</button>          
                    </td>
                 </tr>
 
