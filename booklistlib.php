@@ -1,9 +1,11 @@
 <?php
-require('./readlib.php');
+require('./readbook.php');
 
-if (!isset($_SESSION['admin_username'])) {
-  header('Location: admin.php');
+
+if (!isset($_SESSION['librarian_username'])) {
+  redirect('librarian.php');
 }
+
 
 ?>
 <!DOCTYPE html>
@@ -11,7 +13,7 @@ if (!isset($_SESSION['admin_username'])) {
 
 <head>
   <meta charset="utf-8">
-  <title>Admin Side</title>
+  <title>Librarian Side</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/css1.css">
   <link rel="stylesheet" href="css/css5.css">
@@ -26,6 +28,7 @@ if (!isset($_SESSION['admin_username'])) {
   <script src="js/fontawesome-pro.js"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 </head>
 
 <body>
@@ -40,7 +43,7 @@ if (!isset($_SESSION['admin_username'])) {
       <h3>QCU <span>LIBRARY</span></h3>
     </div>
     <div class="right_area">
-      <a href="student.php" class="logout_btn">Logout</a>
+      <a href="librarian-logout.php" class="logout_btn">Logout</a>
     </div>
   </header>
   <!--header area end-->
@@ -50,15 +53,16 @@ if (!isset($_SESSION['admin_username'])) {
       <br>
       <br>
       <br>
-      <img src="images/av3.png" class="profile_image" alt="">
-      <h4>Hi! <?php echo $_SESSION['admin_username']?></h4>
+      <img src="images/librarian.png" class="profile_image" alt="">
+      <h4>Hi! <?php echo $_SESSION['librarian_username']?></h4>
+      <hr>
     </center>
-    <a href="index.php"><i class="fas fa-desktop"></i><span>Home</span></a>
-    <a href="studentinfo.php"><i class="far fa-user-circle"></i><span>Manage Student Info</span></a>
-    <a href="librarianinfo.php"><i class="far fa-user"></i><span>Manage Librarian Info</span></a>
-    <a href="borrowerlist.php"><i class="fas fa-user-friends"></i><span>Manage Borrower list</span></a>
-    <a href="booklist.php"><i class="fas fa-book-open"></i><span>Manage Book list</span></a>
-    <a href="requestbook.php"><i class="fas fa-book-open"></i><span>Manage Request Book</span></a>
+    <a href="indexlibrarian.php"><i class="fas fa-desktop"></i><span>Home</span></a>
+    <a href="studentinfolib.php"><i class="fas fa-user-edit"></i><span>Manage Student Info</span></a>
+    <a href="borrowerlistlib.php"><i class="fas fa-user-friends"></i><span>Manage Borrower List</span></a>
+    <a href="booklistlib.php"><i class="fas fa-book-open"></i><span>Manage Book List</span></a>
+    <a href="#"><i class="fas fa-table"></i><span>Generate Report</span></a>
+    <a href="#"><i class="far fa-id-card"></i><span>Create Lib_ID</span></a>
     <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
     <br>
     <div class="date">
@@ -107,7 +111,7 @@ function displayclock(){
       <div class="table-title">
         <div class="row">
           <div class="col-sm-8">
-            <h2>Manage Librarian <b>Account</b></h2>
+            <h2>Book <b>List</b></h2>
           </div>
           <div class="container" style="padding-top: 20px;">
     <div class="input-group mb-3">
@@ -121,20 +125,23 @@ function displayclock(){
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>Library_ID</th>
-            <th>Name</th>
-            <th>Username</th>
-            <th>Password</th>
+            <th>Book_ID</th>
+            <th>ISBN</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Quantity</th>
             <th>Actions</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody id="myTable">
-        <?php librarianacc:: librarianacc_list(); ?>
-        
-          </tbody>
-          </table>
+        <?php booklist:: booklist(); ?>
+        </tbody>
+      </table>
       <script>
+
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {
     var value = $(this).val().toLowerCase();
@@ -144,8 +151,8 @@ $(document).ready(function(){
   });
 });
 </script>
-      <form class="requestbook" action="/library-PHP-Native-/createlib.php" method="post">
-        <button type="submit" class="btn btn-success" name="add" value="add" data-toggle="modal" data-target="#myModal">Add Librarian Account</button>
+      <form class="createlibacc" action="/siaG4/createbook.php" method="post">
+        <button type="submit" class="btn btn-success" name="add" value="add" data-toggle="modal" data-target="#myModal">Add Book</button>
 
 
         <div class="modal" id="myModal">
@@ -154,22 +161,24 @@ $(document).ready(function(){
 
               <!-- Modal Header -->
               <div class="modal-header">
-                <h4 class="modal-title">Add Librarian Account</h4>
+                <h4 class="modal-title">Add Book</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
 
               <!-- Modal body -->
               <div class="modal-body">
                 <div class="main">
-                  <form action="/library-PHP-Native-/createlib.php" method="post">
+                  <form action="/siaG4/createbook.php" method="post">
 
-                    <h3>Library_ID:</h3><input type="text" name="library_id" required />
+                    <h3>ISBN:</h3><input type="text" name="ISBN" required />
                     <br>
-                    <h3>Name<h3> <input type="text" name="name" required />
+                    <h3>Title:<h3> <input type="text" name="title" required />
                         <br>
-                        <h3>Username </h3><input type="text" name="username" required />
+                        <h3>Author: </h3><input type="text" name="author" required />
                         <br>
-                        <h3>Password </h3><input type="text" name="password" required />
+                        <h3>Category: </h3><input type="text" name="category" required />
+                        <br>
+                        <h3>Status: </h3><input type="text" name="status" required />
                         <br>
 
                   </form>
@@ -179,7 +188,7 @@ $(document).ready(function(){
                 <!-- Modal footer -->
                 <div class="modal-footer">
                   <button type="submit" class="btn btn-success" name="create" value="create" />Create</button>
-                  <input type="hidden" name="create" />
+
 
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>

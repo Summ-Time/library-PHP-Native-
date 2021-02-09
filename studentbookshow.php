@@ -94,8 +94,10 @@ book::borrow_book();
         <hr>
         <?php
         if (mysqli_num_rows($borrowed_query) == $quantity) {
-            //if the book have rich the max quantity
+            //if the book have reach the max quantity
             echo '<button type="submit" name="submit" class="btn btn-primary" disabled>Borrow</button>';
+            $queryUpdate = "UPDATE booklist set status='Unavailable' WHERE book_id = $_GET[id] ";
+            $sqlUpdate = mysqli_query($connection, $queryUpdate);
         } else {
             // if book have not rich the max quantity
             $borrow_form = <<< DELIMITER
@@ -107,6 +109,9 @@ book::borrow_book();
             </form>
             DELIMITER;
             echo $borrow_form;
+            $queryUpdate = "UPDATE booklist set status='Available' WHERE book_id = $_GET[id] ";
+            $sqlUpdate = mysqli_query($connection, $queryUpdate);
+            
         }
         ?>
 
