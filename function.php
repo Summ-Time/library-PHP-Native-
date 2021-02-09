@@ -91,6 +91,31 @@ function fetch_array($result)
 
 class book
 {
+    public static function update()
+    {
+        if (isset($_POST['submit'])) {
+            $title      =       escape_string($_POST['title']);
+            $author     =       escape_string($_POST['author']);
+            $category   =       escape_string($_POST['category']);
+            $status     =       escape_string($_POST['status']);
+            $quantity   =       escape_string($_POST['quantity']);
+            $ISBN       =       escape_string($_POST['isbn']);
+
+            $query = "UPDATE booklist SET ";
+            $query .= "title     =       '{$title}',";
+            $query .= "author    =       '{$author}',";
+            $query .= "category  =       '{$category}',";
+            $query .= "status    =       '{$status}',";
+            $query .= "quantity  =       '{$quantity}',";
+            $query .= "ISBN      =       '{$ISBN}'";
+            $query .= "WHERE book_id =" . escape_string($_GET['id']);
+
+            $udpate = query($query);
+            confirm($udpate);
+            set_message('Book Updated!');
+            redirect("booklist.php");
+        }
+    }
     public static function book_list()
     {
 
@@ -330,7 +355,6 @@ class book_list
                    <td>{$row['quantity']}</td>
                    <td class="text-center">
                         <input type="button" class="btn btn-success" name="edit" value="Edit">
-                  
                         <button Onclick="deleteclick{$row['book_id']}()" id="delete" class="btn btn-danger">Delete</button>          
                    </td>
                 </tr>
