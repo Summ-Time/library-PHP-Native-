@@ -299,21 +299,6 @@ class studentacc
     }
 }
 
-class delete
-{
-    public function book()
-    {
-        if (isset($_POST['delete'])) {
-            $book_id = escape_string($_POST['book_id']);
-            $query = query("DELETE FROM booklist WHERE book_id = '$book_id'");
-            confirm($query);
-
-            set_message('Book have been deleted!');
-            redirect('booklist.php');
-        }
-    }
-}
-
 class book_list
 {
     public static function booklist()
