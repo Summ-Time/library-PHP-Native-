@@ -119,3 +119,36 @@ if (!isset($_SESSION['admin_username'])) {
             </div>
           </div>
         </div>
+        
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+
+              <th>Borrowed_ID</th>
+              <th>Student_ID</th>
+              <th>Book_ID</th>
+              <th>Borrowed_Date</th>
+              <th>Due_Date</th>
+
+              <th>Action</th>
+              <th>Action</th>
+              <th>Action</th>
+
+            </tr>
+          </thead>
+          <tbody id="myTable">
+            <?php book_borrowed::bookborrowed(); ?>
+          </tbody>
+        </table>
+        <script>
+          $(document).ready(function() {
+            $("#myInput").on("keyup", function() {
+              var value = $(this).val().toLowerCase();
+              $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+              });
+            });
+          });
+        </script>
+      </div>
+    </div>
