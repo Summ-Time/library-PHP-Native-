@@ -140,7 +140,7 @@ if (!isset($_SESSION['admin_username'])) {
         </table>
       </div>
     </div>
-
+    <?php delete::book() ?>
     <?php book::book_create() ?>
     <!-- The Modal -->
     <form action="" method="post">

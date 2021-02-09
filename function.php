@@ -299,9 +299,23 @@ class studentacc
     }
 }
 
+class delete
+{
+    public function book()
+    {
+        if (isset($_POST['delete'])) {
+            $book_id = escape_string($_POST['book_id']);
+            $query = query("DELETE FROM booklist WHERE book_id = '$book_id'");
+            confirm($query);
+
+            set_message('Book have been deleted!');
+            redirect('booklist.php');
+        }
+    }
+}
+
 class book_list
 {
-
     public static function booklist()
     {
 
@@ -330,12 +344,31 @@ class book_list
                    <td>{$row['status']}</td>
                    <td>{$row['quantity']}</td>
                    <td>
-                   <input type="button" class="btn btn-success" name="edit" value="Edit">
+                        <input type="button" class="btn btn-success" name="edit" value="Edit">
                    </td>
                    <td>
-                   <input type="button" class="btn btn-danger" name="Delete" value=Delete>
+                        <button Onclick="deleteclick{$row['book_id']}()" id="delete" class="btn btn-danger">Delete</button>          
                    </td>
                 </tr>
+
+                <!-- Delete Function -->
+                <script>
+                function deleteclick{$row['book_id']}() {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                      }).then((result) => {
+                            if(result.value){
+                                window.location.href="delete_book.php?id={$row['book_id']}";
+                            }
+                      })
+                   }
+                </script>
                 DELIMETER;
                 $counter++;
                 echo $product;
