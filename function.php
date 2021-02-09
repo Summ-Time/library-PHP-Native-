@@ -40,8 +40,7 @@ function display_message()
 {
 
     if (isset($_SESSION['message'])) {
-
-        echo $_SESSION['message'];
+        echo '<div class="alert alert-info">' . '<button type="button" class="close" data-dismiss="alert">&times;</button>' . $_SESSION['message'] . '</div>';
         unset($_SESSION['message']);
     }
 }
@@ -181,8 +180,38 @@ class book
             }
         }
     }
+
+    public static function book_create()
+    {
+        if (isset($_POST['submit'])) {
+
+            $title = escape_string($_POST['title']);
+
+            $query  = query("SELECT * FROM booklist WHERE title = '$title'");
+            confirm($query);
+
+            if (mysqli_num_rows($query) == 1) {
+
+                set_message('Book Already Exists');
+            } else {
+                $title = escape_string($_POST['title']);
+                $author = escape_string($_POST['author']);
+                $category = escape_string($_POST['category']);
+                $status = escape_string($_POST['status']);
+                $quantity = escape_string($_POST['quantity']);
+                $section = escape_string($_POST['section']);
+                $ISBN = escape_string($_POST['ISBN']);
+
+                $query = query("INSERT INTO booklist(title, author, category, status, quantity, section, ISBN) VALUES ('$title', '$author', '$category', '$status', '$quantity', '$section', '$ISBN')");
+                confirm($query);
+                set_message('Book Add to the list');
+                redirect('booklist.php');
+            }
+        }
+    }
 }
-class librarianacc{
+class librarianacc
+{
 
     public static function librarianacc_list()
     {
@@ -221,9 +250,9 @@ class librarianacc{
             }
         }
     }
-
 }
-class studentacc{
+class studentacc
+{
 
     public static function studentacc_list()
     {
@@ -268,11 +297,10 @@ class studentacc{
             }
         }
     }
-
 }
 
-class booklist{
-
+class book_list
+{
     public static function booklist()
     {
 
@@ -301,21 +329,41 @@ class booklist{
                    <td>{$row['status']}</td>
                    <td>{$row['quantity']}</td>
                    <td>
-                   <input type="button" class="btn btn-success" name="edit" value="Edit">
+                        <input type="button" class="btn btn-success" name="edit" value="Edit">
                    </td>
                    <td>
-                   <input type="button" class="btn btn-danger" name="Delete" value=Delete>
+                        <button Onclick="deleteclick{$row['book_id']}()" id="delete" class="btn btn-danger">Delete</button>          
                    </td>
                 </tr>
+
+                <!-- Delete Function -->
+                <script>
+                function deleteclick{$row['book_id']}() {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                      }).then((result) => {
+                            if(result.value){
+                                window.location.href="delete_book.php?id={$row['book_id']}";
+                            }
+                      })
+                   }
+                </script>
                 DELIMETER;
                 $counter++;
                 echo $product;
             }
         }
     }
-
 }
-class bookborrowed{
+
+class book_borrowed
+{
 
     public static function bookborrowed()
     {
@@ -357,7 +405,4 @@ class bookborrowed{
             }
         }
     }
-
 }
-  
-
