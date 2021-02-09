@@ -158,6 +158,7 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
             <hr>
+            <a href="booklist.php">Back</a>
             <button class="btn btn-primary float-right" name="submit">Update</button>
         </form>
     </div>
