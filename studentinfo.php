@@ -131,7 +131,6 @@ if (!isset($_SESSION['admin_username'])) {
 							<th>Phone</th>
 							<th>Course</th>
 							<th>Username</th>
-							<th>Password</th>
 							<th>Email</th>
 							<th>Action</th>
 							<th>Action</th>

@@ -101,7 +101,7 @@ class book
             $status     =       escape_string($_POST['status']);
             $section     =      escape_string($_POST['section']);
             $quantity   =       escape_string($_POST['quantity']);
-          
+
             $ISBN       =       escape_string($_POST['isbn']);
 
             $query = "UPDATE booklist SET ";
@@ -111,7 +111,7 @@ class book
             $query .= "status    =       '{$status}',";
             $query .= "section    =       '{$section}',";
             $query .= "quantity  =       '{$quantity}',";
-          
+
             $query .= "ISBN      =       '{$ISBN}'";
             $query .= "WHERE book_id =" . escape_string($_GET['id']);
 
@@ -313,20 +313,20 @@ class libaccedit
     public static function libacc_edit()
     {
         if (isset($_POST['submit'])) {
-            
+
             $name     =       escape_string($_POST['name']);
             $username   =       escape_string($_POST['username']);
             $password     =       escape_string($_POST['password']);
-           
+
 
             $query = "UPDATE librarianacc SET ";
-          
+
             $query .= "name    =       '{$name}',";
             $query .= "username  =       '{$username}',";
             $query .= "password    =       '{$password}',";
-            
-          
-          
+
+
+
             $query .= "WHERE library_id =" . escape_string($_GET['id']);
 
             $udpate = query($query);
@@ -368,7 +368,6 @@ class studentacc
                    <td>{$row['phone']}</td>
                    <td>{$row['course']}</td>
                    <td>{$row['username']}</td>
-                   <td>{$row['password']}</td>
                    <td>{$row['email']}</td>
 
                    <td class="text-center">
@@ -572,23 +571,23 @@ class addstuds
 }
 class addlib
 {
-public static function add_lib()
+    public static function add_lib()
     {
         if (isset($_POST['submit'])) {
 
-                $library_id =   escape_string($_POST['library_id']);
-                $name       =         escape_string($_POST['name']);
-                $username   =     escape_string($_POST['username']);
-                $password   =     escape_string($_POST['password']);
-               
+            $library_id =   escape_string($_POST['library_id']);
+            $name       =         escape_string($_POST['name']);
+            $username   =     escape_string($_POST['username']);
+            $password   =     escape_string($_POST['password']);
 
-                $query = query("INSERT INTO librarianacc (library_id, name, username, password) VALUES ('$library_id', '$name', '$username', '$password')");
-                confirm($query);
-                set_message('Librarian Account was added');
-                redirect('librarianinfo.php');
-            }
+
+            $query = query("INSERT INTO librarianacc (library_id, name, username, password) VALUES ('$library_id', '$name', '$username', '$password')");
+            confirm($query);
+            set_message('Librarian Account was added');
+            redirect('librarianinfo.php');
         }
     }
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////LIBRARIAN
 
