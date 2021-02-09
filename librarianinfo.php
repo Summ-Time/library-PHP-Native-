@@ -127,7 +127,6 @@ if (!isset($_SESSION['admin_username'])) {
               <th>Library_ID</th>
               <th>Name</th>
               <th>Username</th>
-              <th>Password</th>
               <th>Actions</th>
               <th>Actions</th>
             </tr>
@@ -147,50 +146,50 @@ if (!isset($_SESSION['admin_username'])) {
             });
           });
         </script>
-    <?php addlib::add_lib(); ?>
+        <?php addlib::add_lib(); ?>
         <!-- Add Book -->
-    <form action="" method="post">
-      <div class="modal fade" id="myModal">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
+        <form action="" method="post">
+          <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h4 class="modal-title">Add Librarian</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Add Librarian</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label for="">Library_ID</label>
+                    <input type="text" class="form-control" name="library_id" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="">Name</label>
+                    <input type="text" class="form-control" name="name" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="">Username</label>
+                    <input type="text" class="form-control" name="username" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="">Password</label>
+                    <input type="text" class="form-control" name="password" required>
+                  </div>
+
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="submit" name="submit" class="btn btn-primary">Add</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+
+              </div>
             </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="">Library_ID</label>
-                <input type="text"  class="form-control" name="library_id" required>
-              </div>
-              <div class="form-group">
-                <label for="">Name</label>
-                <input type="text"  class="form-control" name="name" required>
-              </div>
-              <div class="form-group">
-                <label for="">Username</label>
-                <input type="text"  class="form-control" name="username" required>
-              </div>
-              <div class="form-group">
-                <label for="">Password</label>
-                <input type="text"  class="form-control" name="password" required>
-              </div>
-              
-              
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-              <button type="submit" name="submit" class="btn btn-primary">Add</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-
           </div>
-        </div>
-      </div>
         </form>
 
       </div>

@@ -101,7 +101,7 @@ class book
             $status     =       escape_string($_POST['status']);
             $section     =      escape_string($_POST['section']);
             $quantity   =       escape_string($_POST['quantity']);
-          
+
             $ISBN       =       escape_string($_POST['isbn']);
 
             $query = "UPDATE booklist SET ";
@@ -111,7 +111,7 @@ class book
             $query .= "status    =       '{$status}',";
             $query .= "section    =       '{$section}',";
             $query .= "quantity  =       '{$quantity}',";
-          
+
             $query .= "ISBN      =       '{$ISBN}'";
             $query .= "WHERE book_id =" . escape_string($_GET['id']);
 
@@ -275,9 +275,8 @@ class librarianacc
                     <td>{$row['library_id']}</td>
                     <td>{$row['name']}</td>
                     <td>{$row['username']}</td>
-                    <td>{$row['password']}</td>
                     <td class="text-center">
-                    <a href="edit_libacc.php?id={$row['library_id']}" class="btn btn-success">Edit</a>
+                    <a href="edit_librarian_account.php?id={$row['library_id']}" class="btn btn-success">Edit</a>
                         </td>
                         <td class="text-center">
                              <button Onclick="deleteclick{$row['library_id']}()" id="delete" class="btn btn-danger">Delete</button>          
@@ -313,20 +312,20 @@ class libaccedit
     public static function libacc_edit()
     {
         if (isset($_POST['submit'])) {
-            
+
             $name     =       escape_string($_POST['name']);
             $username   =       escape_string($_POST['username']);
             $password     =       escape_string($_POST['password']);
-           
+
 
             $query = "UPDATE librarianacc SET ";
-          
+
             $query .= "name    =       '{$name}',";
             $query .= "username  =       '{$username}',";
             $query .= "password    =       '{$password}',";
-            
-          
-          
+
+
+
             $query .= "WHERE library_id =" . escape_string($_GET['id']);
 
             $udpate = query($query);
@@ -368,11 +367,10 @@ class studentacc
                    <td>{$row['phone']}</td>
                    <td>{$row['course']}</td>
                    <td>{$row['username']}</td>
-                   <td>{$row['password']}</td>
                    <td>{$row['email']}</td>
 
                    <td class="text-center">
-                        <input type="button" class="btn btn-success" name="edit" value="Edit">
+                   <a href="edit_student_account.php?id={$row['studentnumber']}" class="btn btn-success">Edit</a>
                         </td>
                         <td>
                         <button Onclick="deleteclick{$row['studentnumber']}()" id="delete" class="btn btn-danger">Delete</button>          
@@ -479,7 +477,14 @@ class book_borrowed
     public static function bookborrowed()
     {
 
-        $mainquery = query("SELECT * FROM tbl_borrowed");
+        $mainquery = query("SELECT
+        *
+      FROM tbl_borrowed
+        INNER JOIN booklist
+          ON tbl_borrowed.book_id = booklist.book_id
+        INNER JOIN studentacc
+          ON tbl_borrowed.student_id = studentacc.studentnumber
+          WHERE tbl_borrowed.request = 'approve' ");
         confirm($mainquery);
         $counter = 1;
 
@@ -487,7 +492,7 @@ class book_borrowed
 
             $list_classroom = <<< DELIMITER
             <tr>
-                <th colspan="3" class="text-center bg-danger text-white"> No Result </th>
+                <th colspan="9" class="text-center bg-danger text-white"> No Result </th>
             </tr>
            DELIMITER;
             echo $list_classroom;
@@ -495,14 +500,85 @@ class book_borrowed
 
             while ($row = fetch_array($mainquery)) {
                 $product = <<<DELIMETER
-                <tr>
-                   <td>{$row['borrowed_id']}</td>
-                   <td>{$row['student_id']}</td>
-                   <td>{$row['book_id']}</td>
-                   <td>{$row['borrowed_date']}</td>
-                   <td>{$row['due_date']}</td>
-                   <td>{$row['request']}</td>
-                   
+                <tr>    
+                <td>{$row['borrowed_id']}</td>
+                <td>{$row['first_name']}, {$row['lastname']}</td>
+                <td>{$row['title']}</td>
+                <td>{$row['borrowed_date']}</td>
+                <td>{$row['due_date']}</td>
+                <td>{$row['request']}</td>
+                 
+                        <td class="text-center">
+                        <input type="button" class="btn btn-primary" name="Issuebook" value="Issue book">
+                        </td>
+                        <td class="text-center">
+                        <input type="button" class="btn btn-success" name="Returnbook" value="Return book">
+                        </td>
+                        <td>
+                        <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>          
+
+                   </td>
+                </tr>
+
+                <!-- Delete Function -->
+                <script>
+                function deleteclick{$row['borrowed_id']}() {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                      }).then((result) => {
+                            if(result.value){
+                                window.location.href="deletereq.php?id={$row['borrowed_id']}";
+                            }
+                      })
+                   }
+                </script>
+               
+                DELIMETER;
+                $counter++;
+                echo $product;
+            }
+        }
+    }
+
+    public static function book_reuqest()
+    {
+        $mainquery = query("SELECT
+        *
+      FROM tbl_borrowed
+        INNER JOIN booklist
+          ON tbl_borrowed.book_id = booklist.book_id
+        INNER JOIN studentacc
+          ON tbl_borrowed.student_id = studentacc.studentnumber
+          WHERE tbl_borrowed.request = 'padding'");
+        confirm($mainquery);
+        $counter = 1;
+
+        if (mysqli_num_rows($mainquery) == 0) {
+
+            $list_classroom = <<< DELIMITER
+            <tr>
+                <th colspan="9" class="text-center bg-danger text-white"> No Result </th>
+            </tr>
+           DELIMITER;
+            echo $list_classroom;
+        } else {
+
+            while ($row = fetch_array($mainquery)) {
+                $product = <<<DELIMETER
+                <tr>    
+                <td>{$row['borrowed_id']}</td>
+                <td>{$row['first_name']}, {$row['lastname']}</td>
+                <td>{$row['title']}</td>
+                <td>{$row['borrowed_date']}</td>
+                <td>{$row['due_date']}</td>
+                <td>{$row['request']}</td>
+                 
                         <td class="text-center">
                         <input type="button" class="btn btn-primary" name="Issuebook" value="Issue book">
                         </td>
@@ -572,23 +648,23 @@ class addstuds
 }
 class addlib
 {
-public static function add_lib()
+    public static function add_lib()
     {
         if (isset($_POST['submit'])) {
 
-                $library_id =   escape_string($_POST['library_id']);
-                $name       =         escape_string($_POST['name']);
-                $username   =     escape_string($_POST['username']);
-                $password   =     escape_string($_POST['password']);
-               
+            $library_id =   escape_string($_POST['library_id']);
+            $name       =         escape_string($_POST['name']);
+            $username   =     escape_string($_POST['username']);
+            $password   =     escape_string($_POST['password']);
 
-                $query = query("INSERT INTO librarianacc (library_id, name, username, password) VALUES ('$library_id', '$name', '$username', '$password')");
-                confirm($query);
-                set_message('Librarian Account was added');
-                redirect('librarianinfo.php');
-            }
+
+            $query = query("INSERT INTO librarianacc (library_id, name, username, password) VALUES ('$library_id', '$name', '$username', '$password')");
+            confirm($query);
+            set_message('Librarian Account was added');
+            redirect('librarianinfo.php');
         }
     }
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////LIBRARIAN
 
@@ -792,6 +868,63 @@ class book_borrowedlib
                 $counter++;
                 echo $product;
             }
+        }
+    }
+}
+
+
+class account
+{
+    public static function student_update()
+    {
+        if (isset($_POST['submit'])) {
+
+            $firstname      =       escape_string($_POST['firstname']);
+            $lastname       =       escape_string($_POST['lastname']);
+            $birthday       =       escape_string($_POST['birthday']);
+            $gender         =       escape_string($_POST['gender']);
+            $email          =       escape_string($_POST['email']);
+            $phone          =       escape_string($_POST['phone']);
+            $course         =       escape_string($_POST['course']);
+
+
+            $query = "UPDATE studentacc SET ";
+            $query .= "first_name    =       '{$firstname}',";
+            $query .= "lastname     =       '{$lastname}',";
+            $query .= "birthday     =       '{$birthday}',";
+            $query .= "gender       =       '{$gender}',";
+            $query .= "email        =       '{$email}',";
+            $query .= "phone        =       '{$phone}',";
+            $query .= "course       =       '{$course}'";
+            $query .= "WHERE studentnumber =" . escape_string($_GET['id']);
+
+            $udpate = query($query);
+            confirm($udpate);
+
+            set_message('Student Updated!');
+            redirect("studentinfo.php");
+        }
+    }
+    public static function librarain_update()
+    {
+        if (isset($_POST['submit'])) {
+
+            $name           =       escape_string($_POST['name']);
+            $username       =       escape_string($_POST['username']);
+            $password       =       escape_string($_POST['password']);
+
+
+            $query = "UPDATE librarianacc SET ";
+            $query .= "name         =       '{$name}',";
+            $query .= "username     =       '{$username}',";
+            $query .= "password     =       '{$password}'";
+            $query .= "WHERE library_id =" . escape_string($_GET['id']);
+
+            $udpate = query($query);
+            confirm($udpate);
+
+            set_message('Librarian Updated!');
+            redirect("librarianinfo.php");
         }
     }
 }
