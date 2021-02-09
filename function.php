@@ -275,9 +275,8 @@ class librarianacc
                     <td>{$row['library_id']}</td>
                     <td>{$row['name']}</td>
                     <td>{$row['username']}</td>
-                    <td>{$row['password']}</td>
                     <td class="text-center">
-                    <a href="edit_libacc.php?id={$row['library_id']}" class="btn btn-success">Edit</a>
+                    <a href="edit_librarian_account.php?id={$row['library_id']}" class="btn btn-success">Edit</a>
                         </td>
                         <td class="text-center">
                              <button Onclick="deleteclick{$row['library_id']}()" id="delete" class="btn btn-danger">Delete</button>          
@@ -837,11 +836,11 @@ class account
             $password       =       escape_string($_POST['password']);
 
 
-            $query = "UPDATE studentacc SET ";
+            $query = "UPDATE librarianacc SET ";
             $query .= "name         =       '{$name}',";
             $query .= "username     =       '{$username}',";
             $query .= "password     =       '{$password}'";
-            $query .= "WHERE library_di =" . escape_string($_GET['id']);
+            $query .= "WHERE library_id =" . escape_string($_GET['id']);
 
             $udpate = query($query);
             confirm($udpate);

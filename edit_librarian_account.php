@@ -113,14 +113,13 @@ if (isset($_GET['id'])) {
     </div>
 
     <!--sidebar end-->
-    <?php book::update() ?>
     <div class="container" style="padding-top: 13rem;">
         <form action="" method="post">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">name</label>
-                        <input type="text" class="form-control" value="<?php echo $name; ?>" name="firstname">
+                        <input type="text" class="form-control" value="<?php echo $name; ?>" name="name">
                     </div>
                 </div>
                 <div class="col-md-6">
