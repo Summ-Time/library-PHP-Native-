@@ -49,8 +49,10 @@
         <h4>Hi! <?php echo $_SESSION['student_username']?></h4>
       </center>
       <a href="indexstudent.php"><i class="fas fa-desktop"></i><span>Home</span></a>
-      <a href="#"><i class="fas fa-key"></i><span>Change Password</span></a>
-      <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
+    <a href="indexstudent.php"><i class="fas fa-book"></i></i><span>View Book List</span></a>
+    <a href="viewreturn.php"><i class="fas fa-book-open"></i><span>View Borrowed Book</span></a>
+    <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
+    <br>
       <div class="date">
     <?php
 echo "Date: ";
@@ -137,9 +139,7 @@ function displayclock(){
   });
 });
 </script>
-			<div class="buttonstudent">
-            <a href="indexstudent.php"><button type="button" class="btn btn-info">View Book List</button></a>
-            
+		
 			</div>
 			</div>
     </div>

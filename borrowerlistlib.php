@@ -1,8 +1,8 @@
 <?php
-require('./databasestud.php');
+require('./readreturn.php');
 
-if (!isset($_SESSION['student_username'])) {
-  header('Location: student.php');
+if (!isset($_SESSION['librarian_username'])) {
+  header('Location: librarian.php');
 }
 
 ?>
@@ -11,9 +11,7 @@ if (!isset($_SESSION['student_username'])) {
 
 <head>
   <meta charset="utf-8">
-  <title>Student Side</title>
-  <!-- Custom CSS -->
-
+  <title>Librarian Side</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/css1.css">
   <link rel="stylesheet" href="css/css5.css">
@@ -35,15 +33,14 @@ if (!isset($_SESSION['student_username'])) {
   <input type="checkbox" id="check">
   <!--header area start-->
   <header>
-    <label for="check" style="float:left">
+    <label for="check">
       <i class="fas fa-bars" id="sidebar_btn"></i>
     </label>
     <div class="left_area">
       <h3>QCU <span>LIBRARY</span></h3>
     </div>
-    
     <div class="right_area">
-      <a href="student_logout.php" class="logout_btn">Logout</a>
+      <a href="librarian_logout.php" class="logout_btn">Logout</a>
     </div>
   </header>
   <!--header area end-->
@@ -53,12 +50,16 @@ if (!isset($_SESSION['student_username'])) {
       <br>
       <br>
       <br>
-      <img src="images/student.png" class="profile_image" alt="">
-      <h4>Hi! <?php echo $_SESSION['student_username']?></h4>
+      <img src="images/librarian.png" class="profile_image" alt="">
+      <h4>Hi! <?php echo $_SESSION['librarian_username']?></h4>
+      <hr>
     </center>
-    <a href="indexstudent.php"><i class="fas fa-desktop"></i><span>Home</span></a>
-    <a href="indexstudent.php"><i class="fas fa-book"></i></i><span>View Book List</span></a>
-    <a href="viewreturn.php"><i class="fas fa-book-open"></i><span>View Borrowed Book</span></a>
+    <a href="indexlibrarian.php"><i class="fas fa-desktop"></i><span>Home</span></a>
+    <a href="studentinfolib.php"><i class="fas fa-user-edit"></i><span>Manage Student Info</span></a>
+    <a href="borrowerlistlib.php"><i class="fas fa-user-friends"></i><span>Manage Borrower List</span></a>
+    <a href="booklistlib.php"><i class="fas fa-book-open"></i><span>Manage Book List</span></a>
+    <a href="#"><i class="fas fa-table"></i><span>Generate Report</span></a>
+    <a href="#"><i class="far fa-id-card"></i><span>Create Lib_ID</span></a>
     <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
     <br>
     <div class="date">
@@ -91,36 +92,57 @@ function displayclock(){
 </script>
 </div>
   </div>
+
   <!--sidebar end-->
- 
-  <div class="container" style="padding-top: 13rem;">
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="container">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-sm-8">
+            <h2>List of <b> Borrower</b></h2>
+          </div>
+          <div class="container" style="padding-top: 20px;">
     <div class="input-group mb-3">
       <input type="text" class="form-control" id="myInput" placeholder="Search">
       <div class="input-group-append">
         <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
       </div>
     </div>
-    <?php echo display_message(); ?>
-    <div class="table-wrapper">
-      <table class="table table-bordered table-hover">
+        </div>
+      </div>
+
+
+      <table class="table table-bordered">
         <thead>
           <tr>
+
+            <th>Borrowed_ID</th>
+            <th>Student_ID</th>
             <th>Book_ID</th>
-            <th>ISBN</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Category</th>
-            <th>Status</th>
-            <th>Quantity</th>
+            <th>Borrowed_Date</th>
+            <th>Due_Date</th>
+            
+            <th>Request</th>
+            <th>Action</th>
+            <th>Action</th>
 
           </tr>
         </thead>
         <tbody id="myTable">
-          <?php book::book_list(); ?>
+        <?php bookborrowed:: bookborrowed(); ?>
         </tbody>
       </table>
       <script>
-      $(document).ready(function(){
+$(document).ready(function(){
   $("#myInput").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("#myTable tr").filter(function() {
@@ -129,10 +151,5 @@ function displayclock(){
   });
 });
 </script>
-     
-   
+    </div>
   </div>
- 
-</body>
-
-</html>

@@ -54,8 +54,13 @@ if (!isset($_SESSION['admin_username'])) {
       <h4>Hi! <?php echo $_SESSION['admin_username']?></h4>
     </center>
     <a href="index.php"><i class="fas fa-desktop"></i><span>Home</span></a>
-    <a href="#"><i class="fas fa-key"></i><span>Change Password</span></a>
+    <a href="studentinfo.php"><i class="far fa-user-circle"></i><span>Manage Student Info</span></a>
+    <a href="librarianinfo.php"><i class="far fa-user"></i><span>Manage Librarian Info</span></a>
+    <a href="borrowerlist.php"><i class="fas fa-user-friends"></i><span>Manage Borrower list</span></a>
+    <a href="booklist.php"><i class="fas fa-book-open"></i><span>Manage Book list</span></a>
+    <a href="requestbook.php"><i class="fas fa-book-open"></i><span>Manage Request Book</span></a>
     <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
+    <br>
     <div class="date">
     <?php
 echo "Date: ";
@@ -102,7 +107,7 @@ function displayclock(){
       <div class="table-title">
         <div class="row">
           <div class="col-sm-8">
-            <h2>Book<b> Borrowed</b></h2>
+            <h2>List of <b> Borrower</b></h2>
           </div>
           <div class="container" style="padding-top: 20px;">
     <div class="input-group mb-3">
@@ -125,7 +130,7 @@ function displayclock(){
             <th>Borrowed_Date</th>
             <th>Due_Date</th>
             
-            <th>Action</th>
+            <th>Request</th>
             <th>Action</th>
             <th>Action</th>
 
