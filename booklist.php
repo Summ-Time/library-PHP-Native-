@@ -1,5 +1,5 @@
 <?php
-require('./readbook.php');
+require('./databasestud.php');
 
 
 if (!isset($_SESSION['admin_username'])) {
@@ -65,34 +65,35 @@ if (!isset($_SESSION['admin_username'])) {
     <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
     <br>
     <div class="date">
-    <?php
-echo "Date: ";
-echo date("Y-m-d").   "<br>";
+      <?php
+      echo "Date: ";
+      echo date("Y-m-d") .   "<br>";
 
-?>
-<br>
-<?php
-echo "Time: ";
-?>
-<div id="clock"></div>
-<script type="text/javascript">
-setInterval(displayclock, 500);
-function displayclock(){
-  var time = new Date();
-  var hrs = time.getHours();
-  var min = time.getMinutes();
-  var sec = time.getSeconds();
+      ?>
+      <br>
+      <?php
+      echo "Time: ";
+      ?>
+      <div id="clock"></div>
+      <script type="text/javascript">
+        setInterval(displayclock, 500);
 
-  if(hrs > 12){
-      hrs =hrs -12;
-  }
-  if(hrs==0){
-    hrs=12;
-  }
-  document.getElementById('clock').innerHTML = hrs + ':' + min + ':' + sec;
-}
-</script>
-</div>
+        function displayclock() {
+          var time = new Date();
+          var hrs = time.getHours();
+          var min = time.getMinutes();
+          var sec = time.getSeconds();
+
+          if (hrs > 12) {
+            hrs = hrs - 12;
+          }
+          if (hrs == 0) {
+            hrs = 12;
+          }
+          document.getElementById('clock').innerHTML = hrs + ':' + min + ':' + sec;
+        }
+      </script>
+    </div>
   </div>
 
   <!--sidebar end-->
@@ -105,6 +106,7 @@ function displayclock(){
   <br>
   <br>
   <br>
+
   <div class="container">
     <div class="table-wrapper">
       <div class="table-title">
@@ -113,14 +115,35 @@ function displayclock(){
             <h2>Book <b>List</b></h2>
           </div>
           <div class="container" style="padding-top: 20px;">
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" id="myInput" placeholder="Search">
-      <div class="input-group-append">
-        <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
-      </div>
-    </div>
+            <?php display_message(); ?>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" id="myInput" placeholder="Search">
+              <div class="input-group-append">
+                <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </div>
         </div>
+        <button type="submit" class="btn btn-success float-right" name="add" value="add" data-toggle="modal" data-target="#myModal" style="margin-bottom: 10px;">Add Book</button>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Book_ID</th>
+              <th>ISBN</th>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th>Quantity</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="myTable">
+            <?php book_list::booklist(); ?>
+          </tbody>
+        </table>
       </div>
+<<<<<<< HEAD
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -193,13 +216,75 @@ $(document).ready(function(){
 
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
+=======
+    </div>
+    <?php book::book_create() ?>
+    <!-- Add Book -->
+    <form action="" method="post">
+      <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
 
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Add Book</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+>>>>>>> 74238566bf92802d8ddbf124595ebbf1f06b2842
+
+            <!-- Modal body -->
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="">Title</label>
+                <input type="text" name="title" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="">Author</label>
+                <input type="text" name="author" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="">category</label>
+                <input type="text" name="category" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="">status</label>
+                <input type="text" name="status" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="">section</label>
+                <input type="text" name="section" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="">quentity</label>
+                <input type="number" name="quantity" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="">ISBN</label>
+                <input type="number" name="ISBN" class="form-control" required>
               </div>
             </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="submit" name="submit" class="btn btn-primary">Add</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
           </div>
         </div>
-        <td>
-      </form>
-
-    </div>
+      </div>
+    </form>
+    <script>
+      $(document).ready(function() {
+        $("#myInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#myTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+    </script>
   </div>
+</body>
+
+</html>

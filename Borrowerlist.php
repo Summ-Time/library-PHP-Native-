@@ -62,34 +62,35 @@ if (!isset($_SESSION['admin_username'])) {
     <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
     <br>
     <div class="date">
-    <?php
-echo "Date: ";
-echo date("Y-m-d").   "<br>";
+      <?php
+      echo "Date: ";
+      echo date("Y-m-d") .   "<br>";
 
-?>
-<br>
-<?php
-echo "Time: ";
-?>
-<div id="clock"></div>
-<script type="text/javascript">
-setInterval(displayclock, 500);
-function displayclock(){
-  var time = new Date();
-  var hrs = time.getHours();
-  var min = time.getMinutes();
-  var sec = time.getSeconds();
+      ?>
+      <br>
+      <?php
+      echo "Time: ";
+      ?>
+      <div id="clock"></div>
+      <script type="text/javascript">
+        setInterval(displayclock, 500);
 
-  if(hrs > 12){
-      hrs =hrs -12;
-  }
-  if(hrs==0){
-    hrs=12;
-  }
-  document.getElementById('clock').innerHTML = hrs + ':' + min + ':' + sec;
-}
-</script>
-</div>
+        function displayclock() {
+          var time = new Date();
+          var hrs = time.getHours();
+          var min = time.getMinutes();
+          var sec = time.getSeconds();
+
+          if (hrs > 12) {
+            hrs = hrs - 12;
+          }
+          if (hrs == 0) {
+            hrs = 12;
+          }
+          document.getElementById('clock').innerHTML = hrs + ':' + min + ':' + sec;
+        }
+      </script>
+    </div>
   </div>
 
   <!--sidebar end-->
@@ -110,45 +111,44 @@ function displayclock(){
             <h2>List of <b> Borrower</b></h2>
           </div>
           <div class="container" style="padding-top: 20px;">
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" id="myInput" placeholder="Search">
-      <div class="input-group-append">
-        <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
-      </div>
-    </div>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" id="myInput" placeholder="Search">
+              <div class="input-group-append">
+                <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </div>
         </div>
+        
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+
+              <th>Borrowed_ID</th>
+              <th>Student_ID</th>
+              <th>Book_ID</th>
+              <th>Borrowed_Date</th>
+              <th>Due_Date</th>
+
+              <th>Action</th>
+              <th>Action</th>
+              <th>Action</th>
+
+            </tr>
+          </thead>
+          <tbody id="myTable">
+            <?php book_borrowed::bookborrowed(); ?>
+          </tbody>
+        </table>
+        <script>
+          $(document).ready(function() {
+            $("#myInput").on("keyup", function() {
+              var value = $(this).val().toLowerCase();
+              $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+              });
+            });
+          });
+        </script>
       </div>
-
-
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-
-            <th>Borrowed_ID</th>
-            <th>Student_ID</th>
-            <th>Book_ID</th>
-            <th>Borrowed_Date</th>
-            <th>Due_Date</th>
-            
-            <th>Request</th>
-            <th>Action</th>
-            <th>Action</th>
-
-          </tr>
-        </thead>
-        <tbody id="myTable">
-        <?php bookborrowed:: bookborrowed(); ?>
-        </tbody>
-      </table>
-      <script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-</script>
     </div>
-  </div>
