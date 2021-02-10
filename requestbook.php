@@ -124,91 +124,21 @@ function displayclock(){
       <table class="table table-bordered">
         <thead>
           <tr>
+
             <th>Borrowed_ID</th>
             <th>Student_ID</th>
-            <th>book_ID</th>
+            <th>Book_ID</th>
             <th>Borrowed_Date</th>
             <th>Due_Date</th>
-            <th>Actions</th>
-            <th>Actions</th>
-            <th>Actions</th>
+            
+            <th>Request</th>
+            <th>Action</th>
+            <th>Action</th>
+
           </tr>
         </thead>
         <tbody id="myTable">
-          <?php while ($results = mysqli_fetch_array($sqlAccounts)) { ?>
-            <tr>
-              <td><?php echo $results['borrowed_id'] ?></td>
-              <td><?php echo $results['student_id'] ?></td>
-              <td><?php echo $results['book_id'] ?></td>
-              <td><?php echo $results['borrowed_date'] ?></td>
-              <td><?php echo $results['due_date'] ?></td>
-              <td>
-                <form action="/library-PHP-Native/issuerequest.php" method="post">
-                  <button type="submit" class="btn btn-primary" name="request" value="request" data-toggle="modal" data-target="#myModal">Issue Book</button>
-
-
-                  <div class="modal" id="myModal">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                          <h4 class="modal-title">Request Book</h4>
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                          <div class="main">
-                            <form action="/siaG4/issuerequest.php" method="post">
-
-
-                              <h3>ISBN:</h3><input type="text" name="ISBN" value="<?php echo $results['ISBN'] ?>" required />
-                              <br>
-                              <h3>Studentnumber:</h3><input type="text" name="studentnumber" required />
-                              <br>
-                              <h3>Firstname:<h3> <input type="text" name="firstname" value="<?php echo $results['firstname'] ?>" required />
-                                  <br>
-                                  <h3>Lastname: </h3><input type="text" name="lastname" value="<?php echo $results['lastname'] ?>" required />
-                                  <br>
-                                  <h3>Course: </h3><input type="text" name="course" value="<?php echo $results['course'] ?>" required />
-                                  <br>
-                                  Set Date:
-                                  <br>
-                                  <input type="date" id="setdate" name="setdate">
-
-                                  <br>
-                                  Set Duedate:
-                                  <br>
-                                  <input type="date" id="setduedate" name="setduedate">
-                                  <br>
-
-                            </form>
-
-                          </div>
-
-                          <!-- Modal footer -->
-                          <div class="modal-footer">
-                            <button type="submit" class="btn btn-success" name="create" value="create">Issue book</button>
-                            <input type="hidden" name="create" />
-
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                          </div>
-              </td>
-              <td>
-
-                <button type="submit" class="btn btn-success" name="edit" value="edit" data-toggle="modal" data-target="#myModal1">Edit</button>
-              </td>
-              <td>
-                <form class="delete" action="/library-PHP-Native/deletereq.php" method="post">
-                  <button type="submit" class="btn btn-danger" name="deletereq" value="Delete">DELETE</button>
-                  
-                </form>
-              </td>
-            </tr>
-
-          <?php }
-          ?>
+        <?php book_borrowed:: bookborrowed(); ?>
         </tbody>
       </table>
       <script>

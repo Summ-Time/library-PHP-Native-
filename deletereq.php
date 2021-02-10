@@ -1,17 +1,11 @@
-<?php 
-	require('./databasestud.php');
-	
-	if(isset($_POST['deletereq'])){
-		$deletereq = $_POST['deletereq'];
-		
-		$queryDelete = "DELETE FROM tbl_request WHERE ISBN = $deletereq";
-		$sqlDelete = mysqli_query($connection, $queryDelete);
-		
-		echo '<script> alert("Succesfuly Deleted!")</script>';
-		echo '<script> window.location.href = "/siaG4/requestbook.php"</script>';
-		}
-		else{
-		echo '<script> window.location.href = "/siaG4/requestbook.php"</script>';	
-		}
-		
-?>
+<?php require_once("databasestud.php");
+
+
+if (isset($_GET['id'])) {
+
+    $query = query("DELETE FROM tbl_borrowed WHERE borrowed_id = " . escape_string($_GET['id']) . " ");
+    confirm($query);
+
+    set_message("Request Have Been Deleted!");
+    redirect("requestbook.php");
+}

@@ -138,7 +138,7 @@ function displayclock(){
           </tr>
         </thead>
         <tbody id="myTable">
-        <?php bookborrowed:: bookborrowed(); ?>
+        <?php book_borrowed:: bookborrowed(); ?>
         </tbody>
       </table>
       <script>

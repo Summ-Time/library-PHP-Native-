@@ -130,7 +130,7 @@ if (!isset($_SESSION['admin_username'])) {
               <th>Borrowed_Date</th>
               <th>Due_Date</th>
 
-              <th>Action</th>
+              <th>Request</th>
               <th>Action</th>
               <th>Action</th>
 

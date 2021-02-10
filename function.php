@@ -245,6 +245,7 @@ class book
         }
     }
 }
+//admin
 class librarianacc
 {
     public static function librarianacc_list()
@@ -363,9 +364,12 @@ class book_list
                    <td>{$row['section']}</td>
                    <td>{$row['status']}</td>
                    <td>{$row['quantity']}</td>
+                   <td>{$row['available_qty']}</td>
 
                    <td class="text-center">
                         <input type="button" class="btn btn-success" name="edit" value="Edit">
+                        </td>
+                        <td>
                         <button Onclick="deleteclick{$row['book_id']}()" id="delete" class="btn btn-danger">Delete</button>          
 
                    </td>
@@ -427,13 +431,34 @@ class book_borrowed
                    <td>{$row['due_date']}</td>
                    <td>{$row['request']}</td>
                    
-                   <td>
-                   <input type="button" class="btn btn-success" name="edit" value="Edit">
-                   </td>
-                   <td>
-                   <input type="button" class="btn btn-danger" name="Delete" value=Delete>
+                   <td class="text-center">
+                        <input type="button" class="btn btn-success" name="edit" value="Edit">
+                        </td>
+                        <td>
+                        <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>          
+
                    </td>
                 </tr>
+
+                <!-- Delete Function -->
+                <script>
+                function deleteclick{$row['borrowed_id']}() {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                      }).then((result) => {
+                            if(result.value){
+                                window.location.href="deletereq.php?id={$row['borrowed_id']}";
+                            }
+                      })
+                   }
+                </script>
+               
                 DELIMETER;
                 $counter++;
                 echo $product;
