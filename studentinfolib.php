@@ -57,6 +57,7 @@ if (!isset($_SESSION['librarian_username'])) {
     <a href="studentinfolib.php"><i class="fas fa-user-edit"></i><span>Manage Student Info</span></a>
     <a href="borrowerlistlib.php"><i class="fas fa-user-friends"></i><span>Manage Borrower List</span></a>
     <a href="booklistlib.php"><i class="fas fa-book-open"></i><span>Manage Book List</span></a>
+	<a href="requestbooklib.php"><i class="fas fa-book-open"></i><span>Manage Request Book</span></a>
     <a href="#"><i class="fas fa-table"></i><span>Generate Report</span></a>
     <a href="#"><i class="far fa-id-card"></i><span>Create Lib_ID</span></a>
     <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
@@ -118,6 +119,8 @@ function displayclock(){
     </div>
 				</div>
 			</div>
+			<a href="register.php" class="btn btn-success float-right" style="margin-bottom: 10px;">Add Student Account</a>
+
 			<table class="table table-bordered">
 				<thead>
 					<tr>
@@ -137,7 +140,7 @@ function displayclock(){
 					</tr>
 				</thead>
 				<tbody id="myTable">
-				<?php studentacc:: studentacc_list(); ?>
+				<?php studentacclib:: studentacc_listlib(); ?>
 					</tbody>
 			</table>
 			<script>
@@ -150,7 +153,6 @@ $(document).ready(function(){
   });
 });
 </script>
-<a href="register.php"><button type="submit" class="btn btn-success" name="add" value="add" data-toggle="modal" data-target="#myModal">Add Student Account</button></a>
 
 		</div>
 	</div>

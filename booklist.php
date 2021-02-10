@@ -136,9 +136,9 @@ if (!isset($_SESSION['admin_username'])) {
               <th>Section</th>
               <th>Status</th>
               <th>Quantity</th>
-              <th>Available_Quantity</th>
               <th>Actions</th>
               <th>Actions</th>
+
             </tr>
           </thead>
           <tbody id="myTable">
@@ -185,10 +185,6 @@ if (!isset($_SESSION['admin_username'])) {
               </div>
               <div class="form-group">
                 <label for="">quantity</label>
-                <input type="number" name="quantity" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label for="">Available_quantity</label>
                 <input type="number" name="quantity" class="form-control" required>
               </div>
               <div class="form-group">

@@ -133,6 +133,7 @@ if (!isset($_SESSION['admin_username'])) {
               <th>Request</th>
               <th>Action</th>
               <th>Action</th>
+              <th>Action</th>
 
             </tr>
           </thead>

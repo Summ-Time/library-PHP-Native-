@@ -7,6 +7,6 @@ if (isset($_GET['id'])) {
     confirm($query);
 
     set_message("Student Have Been Deleted!");
-    redirect("studentinfo.php");
+    redirect("studentinfolib.php");
 }
 

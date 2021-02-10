@@ -7,6 +7,5 @@ if (isset($_GET['id'])) {
     confirm($query);
 
     set_message("Book Have Been Deleted!");
-    redirect("booklist.php");
+    redirect("booklistlib.php");
 }
-

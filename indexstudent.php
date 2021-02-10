@@ -113,7 +113,7 @@ function displayclock(){
             <th>Section</th>
             <th>Status</th>
             <th>Quantity</th>
-            <th>Available_Quantity</th>
+            
 
           </tr>
         </thead>

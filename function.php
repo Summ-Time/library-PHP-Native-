@@ -89,7 +89,7 @@ function fetch_array($result)
 }
 
 
-//student
+///////////////////////////////////////////////////////////////////////////////////////////////////////////STUDENT
 class book
 {
     public static function update()
@@ -99,7 +99,9 @@ class book
             $author     =       escape_string($_POST['author']);
             $category   =       escape_string($_POST['category']);
             $status     =       escape_string($_POST['status']);
+            $section     =      escape_string($_POST['section']);
             $quantity   =       escape_string($_POST['quantity']);
+          
             $ISBN       =       escape_string($_POST['isbn']);
 
             $query = "UPDATE booklist SET ";
@@ -107,7 +109,9 @@ class book
             $query .= "author    =       '{$author}',";
             $query .= "category  =       '{$category}',";
             $query .= "status    =       '{$status}',";
+            $query .= "section    =       '{$section}',";
             $query .= "quantity  =       '{$quantity}',";
+          
             $query .= "ISBN      =       '{$ISBN}'";
             $query .= "WHERE book_id =" . escape_string($_GET['id']);
 
@@ -129,7 +133,7 @@ class book
 
             $list_classroom = <<< DELIMITER
             <tr>
-                <th colspan="3" class="text-center bg-danger text-white"> No Result </th>
+                <th colspan="12" class="text-center bg-danger text-white"> No Result </th>
             </tr>
            DELIMITER;
             echo $list_classroom;
@@ -146,7 +150,7 @@ class book
                    <td>{$row['section']}</td>
                    <td>{$row['status']}</td>
                    <td>{$row['quantity']}</td>
-                   <td>{$row['available_qty']}</td>
+                
                 </tr>
                 DELIMETER;
                 $counter++;
@@ -245,7 +249,7 @@ class book
         }
     }
 }
-//admin
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////ADMIN
 class librarianacc
 {
     public static function librarianacc_list()
@@ -267,22 +271,69 @@ class librarianacc
 
             while ($row = fetch_array($mainquery)) {
                 $product = <<<DELIMETER
-                <tr>
-                   <td>{$row['library_id']}</td>
-                   <td>{$row['name']}</td>
-                   <td>{$row['username']}</td>
-                   <td>{$row['password']}</td>
-                   <td>
-                   <input type="button" class="btn btn-success" name="edit" value="Edit">
-                   </td>
-                   <td>
-                   <input type="button" class="btn btn-danger" name="Delete" value=Delete>
-                   </td>
+                    <tr>
+                    <td>{$row['library_id']}</td>
+                    <td>{$row['name']}</td>
+                    <td>{$row['username']}</td>
+                    <td>{$row['password']}</td>
+                    <td class="text-center">
+                    <a href="edit_libacc.php?id={$row['library_id']}" class="btn btn-success">Edit</a>
+                        </td>
+                        <td class="text-center">
+                             <button Onclick="deleteclick{$row['library_id']}()" id="delete" class="btn btn-danger">Delete</button>          
+                     </td>
+                     <!-- Delete Function -->
+                     <script>
+                     function deleteclick{$row['library_id']}() {
+                         Swal.fire({
+                             title: 'Are you sure?',
+                             text: "Do you want to delete this!",
+                             icon: 'warning',
+                             showCancelButton: true,
+                             confirmButtonColor: '#3085d6',
+                             cancelButtonColor: '#d33',
+                             confirmButtonText: 'Yes, delete it!'
+                           }).then((result) => {
+                                 if(result.value){
+                                     window.location.href="deletelib.php?id={$row['library_id']}";
+                                 }
+                           })
+                        }
+                     </script>
                 </tr>
                 DELIMETER;
                 $counter++;
                 echo $product;
             }
+        }
+    }
+}
+class libaccedit
+{
+    public static function libacc_edit()
+    {
+        if (isset($_POST['submit'])) {
+            
+            $name     =       escape_string($_POST['name']);
+            $username   =       escape_string($_POST['username']);
+            $password     =       escape_string($_POST['password']);
+           
+
+            $query = "UPDATE librarianacc SET ";
+          
+            $query .= "name    =       '{$name}',";
+            $query .= "username  =       '{$username}',";
+            $query .= "password    =       '{$password}',";
+            
+          
+          
+            $query .= "WHERE library_id =" . escape_string($_GET['id']);
+
+            $udpate = query($query);
+            confirm($udpate);
+
+            set_message('Book Updated!');
+            redirect("librarianinfo.php");
         }
     }
 }
@@ -300,7 +351,7 @@ class studentacc
 
             $list_classroom = <<< DELIMITER
             <tr>
-                <th colspan="3" class="text-center bg-danger text-white"> No Result </th>
+                <th colspan="12" class="text-center bg-danger text-white"> No Result </th>
             </tr>
            DELIMITER;
             echo $list_classroom;
@@ -319,12 +370,34 @@ class studentacc
                    <td>{$row['username']}</td>
                    <td>{$row['password']}</td>
                    <td>{$row['email']}</td>
-                   <td>
-                   <input type="button" class="btn btn-success" name="edit" value="Edit">
+
+                   <td class="text-center">
+                        <input type="button" class="btn btn-success" name="edit" value="Edit">
+                        </td>
+                        <td>
+                        <button Onclick="deleteclick{$row['studentnumber']}()" id="delete" class="btn btn-danger">Delete</button>          
+
                    </td>
-                   <td>
-                   <input type="button" class="btn btn-danger" name="Delete" value=Delete>
-                   </td>
+                </tr>
+
+                <!-- Delete Function -->
+                <script>
+                function deleteclick{$row['studentnumber']}() {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "Do you want to delete this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                      }).then((result) => {
+                            if(result.value){
+                                window.location.href="deletestud.php?id={$row['studentnumber']}";
+                            }
+                      })
+                   }
+                </script>
                 </tr>
                 DELIMETER;
                 $counter++;
@@ -364,15 +437,15 @@ class book_list
                    <td>{$row['section']}</td>
                    <td>{$row['status']}</td>
                    <td>{$row['quantity']}</td>
-                   <td>{$row['available_qty']}</td>
+                  
 
                    <td class="text-center">
-
                         <a href="edit_book.php?id={$row['book_id']}" class="btn btn-success">Edit</a>
-
+                                </td>
+                                <td>
                         <button Onclick="deleteclick{$row['book_id']}()" id="delete" class="btn btn-danger">Delete</button>          
-                   </td>
-                </tr>
+                    </td>
+                    </tr>
 
                 <!-- Delete Function -->
                 <script>
@@ -430,8 +503,11 @@ class book_borrowed
                    <td>{$row['due_date']}</td>
                    <td>{$row['request']}</td>
                    
-                   <td class="text-center">
-                        <input type="button" class="btn btn-success" name="edit" value="Edit">
+                        <td class="text-center">
+                        <input type="button" class="btn btn-primary" name="Issuebook" value="Issue book">
+                        </td>
+                        <td class="text-center">
+                        <input type="button" class="btn btn-success" name="Returnbook" value="Return book">
                         </td>
                         <td>
                         <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>          
@@ -491,6 +567,231 @@ class addstuds
 
             set_message('Succesfully Created!');
             redirect('studentinfo.php');
+        }
+    }
+}
+class addlib
+{
+public static function add_lib()
+    {
+        if (isset($_POST['submit'])) {
+
+                $library_id =   escape_string($_POST['library_id']);
+                $name       =         escape_string($_POST['name']);
+                $username   =     escape_string($_POST['username']);
+                $password   =     escape_string($_POST['password']);
+               
+
+                $query = query("INSERT INTO librarianacc (library_id, name, username, password) VALUES ('$library_id', '$name', '$username', '$password')");
+                confirm($query);
+                set_message('Librarian Account was added');
+                redirect('librarianinfo.php');
+            }
+        }
+    }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////LIBRARIAN
+
+class book_listlib
+{
+    public static function booklistlib()
+    {
+
+        $mainquery = query("SELECT * FROM booklist");
+        confirm($mainquery);
+        $counter = 1;
+
+        if (mysqli_num_rows($mainquery) == 0) {
+
+            $list_classroom = <<< DELIMITER
+            <tr>
+                <th colspan="3" class="text-center bg-danger text-white"> No Result </th>
+            </tr>
+           DELIMITER;
+            echo $list_classroom;
+        } else {
+
+            while ($row = fetch_array($mainquery)) {
+                $product = <<<DELIMETER
+                <tr>
+                   <td>{$row['book_id']}</td>
+                   <td>{$row['ISBN']}</td>
+                   <td>{$row['title']}</td>
+                   <td>{$row['author']}</td>
+                   <td>{$row['category']}</td>
+                   <td>{$row['section']}</td>
+                   <td>{$row['status']}</td>
+                   <td>{$row['quantity']}</td>
+                  
+
+                   <td class="text-center">
+                        <a href="edit_book.php?id={$row['book_id']}" class="btn btn-success">Edit</a>
+                            </td>
+                            <td>
+                        <button Onclick="deleteclick{$row['book_id']}()" id="delete" class="btn btn-danger">Delete</button>          
+                   </td>
+                </tr>
+
+                <!-- Delete Function -->
+                <script>
+                function deleteclick{$row['book_id']}() {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                      }).then((result) => {
+                            if(result.value){
+                                window.location.href="deletebooklib.php?id={$row['book_id']}";
+                            }
+                      })
+                   }
+                </script>
+                DELIMETER;
+                $counter++;
+                echo $product;
+            }
+        }
+    }
+}
+
+class studentacclib
+{
+
+    public static function studentacc_listlib()
+    {
+
+        $mainquery = query("SELECT * FROM studentacc");
+        confirm($mainquery);
+        $counter = 1;
+
+        if (mysqli_num_rows($mainquery) == 0) {
+
+            $list_classroom = <<< DELIMITER
+            <tr>
+                <th colspan="12" class="text-center bg-danger text-white"> No Result </th>
+            </tr>
+           DELIMITER;
+            echo $list_classroom;
+        } else {
+
+            while ($row = fetch_array($mainquery)) {
+                $product = <<<DELIMETER
+                <tr>
+                   <td>{$row['studentnumber']}</td>
+                   <td>{$row['first_name']}</td>
+                   <td>{$row['lastname']}</td>
+                   <td>{$row['birthday']}</td>
+                   <td>{$row['gender']}</td>
+                   <td>{$row['phone']}</td>
+                   <td>{$row['course']}</td>
+                   <td>{$row['username']}</td>
+                   <td>{$row['password']}</td>
+                   <td>{$row['email']}</td>
+
+                   <td class="text-center">
+                        <input type="button" class="btn btn-success" name="edit" value="Edit">
+                        </td>
+                        <td>
+                        <button Onclick="deleteclick{$row['studentnumber']}()" id="delete" class="btn btn-danger">Delete</button>          
+
+                   </td>
+                </tr>
+
+                <!-- Delete Function -->
+                <script>
+                function deleteclick{$row['studentnumber']}() {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "Do you want to delete this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                      }).then((result) => {
+                            if(result.value){
+                                window.location.href="deletestudlib.php?id={$row['studentnumber']}";
+                            }
+                      })
+                   }
+                </script>
+                </tr>
+                DELIMETER;
+                $counter++;
+                echo $product;
+            }
+        }
+    }
+}
+class book_borrowedlib
+{
+
+    public static function bookborrowedlib()
+    {
+
+        $mainquery = query("SELECT * FROM tbl_borrowed");
+        confirm($mainquery);
+        $counter = 1;
+
+        if (mysqli_num_rows($mainquery) == 0) {
+
+            $list_classroom = <<< DELIMITER
+            <tr>
+                <th colspan="3" class="text-center bg-danger text-white"> No Result </th>
+            </tr>
+           DELIMITER;
+            echo $list_classroom;
+        } else {
+
+            while ($row = fetch_array($mainquery)) {
+                $product = <<<DELIMETER
+                <tr>
+                   <td>{$row['borrowed_id']}</td>
+                   <td>{$row['student_id']}</td>
+                   <td>{$row['book_id']}</td>
+                   <td>{$row['borrowed_date']}</td>
+                   <td>{$row['due_date']}</td>
+                   <td>{$row['request']}</td>
+                   
+                        <td class="text-center">
+                        <input type="button" class="btn btn-primary" name="Issuebook" value="Issue book">
+                        </td>
+                        <td class="text-center">
+                        <input type="button" class="btn btn-success" name="Returnbook" value="Return book">
+                        </td>
+                        <td>
+                        <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>          
+
+                   </td>
+                </tr>
+
+                <!-- Delete Function -->
+                <script>
+                function deleteclick{$row['borrowed_id']}() {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                      }).then((result) => {
+                            if(result.value){
+                                window.location.href="deletereqlib.php?id={$row['borrowed_id']}";
+                            }
+                      })
+                   }
+                </script>
+               
+                DELIMETER;
+                $counter++;
+                echo $product;
+            }
         }
     }
 }
