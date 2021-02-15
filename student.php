@@ -31,7 +31,7 @@ if (isset($_POST['login'])) {
 <html>
 
 <head>
-<title>Student Login</title>
+  <title>Student Login</title>
   <link href="css/css2.css" rel="stylesheet" type="text/css" />
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -46,7 +46,7 @@ if (isset($_POST['login'])) {
       </div>
 
       <!-- Login Form -->
-      <form action="/library-PHP-Native-/student.php" method="post">
+      <form action="" method="post">
         <input type="text" id="username" class="fadeIn second" name="username" placeholder="Username" required>
         <br>
         <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password" required>
