@@ -122,7 +122,8 @@ function displayclock(){
         </div>
       </div>
 
-
+      <button onclick="printDiv('printMe')" class="btn btn-primary float-right" style="margin-bottom: 10px;" > Generate Report</button>
+  
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -156,5 +157,21 @@ $(document).ready(function(){
   });
 });
 </script>
+<div style="display:none" id='printMe'>
+        <?php book_borrowedreport::bookborrowedreport(); ?>
+           </div>
+        <script>
+		function printDiv(printMe){
+			var printContents = document.getElementById(printMe).innerHTML;
+			var originalContents = document.body.innerHTML;
+
+			document.body.innerHTML = printContents;
+
+			window.print();
+
+			document.body.innerHTML = originalContents;
+
+		}
+	</script>
     </div>
   </div>
