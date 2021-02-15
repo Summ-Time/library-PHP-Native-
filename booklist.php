@@ -43,7 +43,7 @@ if (!isset($_SESSION['admin_username'])) {
       <h3>QCU <span>LIBRARY</span></h3>
     </div>
     <div class="right_area">
-      <a href="student.php" class="logout_btn">Logout</a>
+      <a href="admin_logout.php" class="logout_btn">Logout</a>
     </div>
   </header>
   <!--header area end-->

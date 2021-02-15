@@ -14,6 +14,6 @@ if (isset($_GET['id'])) {
 
 	set_message("Book Succesfully Return!");
     
-    redirect("borrowerlist.php");
+    redirect("borrowerlistlib.php");
 }
 

@@ -183,6 +183,7 @@ class book
 
     public static function borrow_history()
     {
+        
         $student_id = $_SESSION['student_id'];
         $query = query("SELECT
         *
@@ -248,6 +249,35 @@ class book
             }
         }
     }
+
+public static function book_createlib()
+{
+    if (isset($_POST['submit'])) {
+
+        $title = escape_string($_POST['title']);
+
+        $query  = query("SELECT * FROM booklist WHERE title = '$title'");
+        confirm($query);
+
+        if (mysqli_num_rows($query) == 1) {
+
+            set_message('Book Already Exists');
+        } else {
+            $title = escape_string($_POST['title']);
+            $author = escape_string($_POST['author']);
+            $category = escape_string($_POST['category']);
+            $status = escape_string($_POST['status']);
+            $quantity = escape_string($_POST['quantity']);
+            $section = escape_string($_POST['section']);
+            $ISBN = escape_string($_POST['ISBN']);
+
+            $query = query("INSERT INTO booklist(title, author, category, status, quantity, section, ISBN) VALUES ('$title', '$author', '$category', '$status', '$quantity', '$section', '$ISBN')");
+            confirm($query);
+            set_message('Book Add to the list');
+            redirect('booklistlib.php');
+        }
+    }
+}
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////ADMIN
 class librarianacc
@@ -275,6 +305,7 @@ class librarianacc
                     <td>{$row['library_id']}</td>
                     <td>{$row['name']}</td>
                     <td>{$row['username']}</td>
+                    <td>{$row['password']}</td>
                     <td class="text-center">
                     <a href="edit_librarian_account.php?id={$row['library_id']}" class="btn btn-success">Edit</a>
                         </td>
@@ -508,17 +539,34 @@ class book_borrowed
                 <td>{$row['due_date']}</td>
                 <td>{$row['request']}</td>
                  
-                        <td class="text-center">
-                        <input type="button" class="btn btn-primary" name="Issuebook" value="Issue book">
-                        </td>
-                        <td class="text-center">
-                        <input type="button" class="btn btn-success" name="Returnbook" value="Return book">
+                    
+                        <td>
+                        <button Onclick="return{$row['borrowed_id']}()" id="return" class="btn btn-success">Return Book</button>          
+
                         </td>
                         <td>
                         <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>          
 
                    </td>
                 </tr>
+                <!-- Return Function -->
+                <script>
+                function return{$row['borrowed_id']}() {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "Do you want to return it?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, Return it!'
+                      }).then((result) => {
+                            if(result.value){
+                                window.location.href="returnbook.php?id={$row['borrowed_id']}";
+                            }
+                      })
+                   }
+                </script>
 
                 <!-- Delete Function -->
                 <script>
@@ -546,8 +594,11 @@ class book_borrowed
         }
     }
 
-    public static function book_reuqest()
-    {
+
+
+    public static function book_request()
+    {       
+        
         $mainquery = query("SELECT
         *
       FROM tbl_borrowed
@@ -579,17 +630,33 @@ class book_borrowed
                 <td>{$row['due_date']}</td>
                 <td>{$row['request']}</td>
                  
-                        <td class="text-center">
-                        <input type="button" class="btn btn-primary" name="Issuebook" value="Issue book">
-                        </td>
-                        <td class="text-center">
-                        <input type="button" class="btn btn-success" name="Returnbook" value="Return book">
-                        </td>
+                        <td>
+                         <button Onclick="approve{$row['borrowed_id']}()" class="btn btn-primary" id="approve">Approve Request</button>
+                         </td>
+                        
                         <td>
                         <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>          
 
                    </td>
                 </tr>
+                <!-- Issue Function -->
+                <script>
+                function approve{$row['borrowed_id']}() {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "Do you want to approve it?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, approve it!'
+                      }).then((result) => {
+                            if(result.value){
+                                window.location.href="issuerequest.php?id={$row['borrowed_id']}";
+                            }
+                      })
+                   }
+                </script>
 
                 <!-- Delete Function -->
                 <script>
@@ -611,12 +678,19 @@ class book_borrowed
                 </script>
                
                 DELIMETER;
+                if(isset($_POST['approve'])){
+                    $queryUpdate = "UPDATE tbl_borrowed set request='approve' WHERE borrowed = $_GET[id] ";
+                    confirm($queryUpdate);
+        
+                }
                 $counter++;
                 echo $product;
             }
+            
         }
+     }
     }
-}
+
 class addstuds
 {
     public static function addstud()
@@ -808,8 +882,14 @@ class book_borrowedlib
 
     public static function bookborrowedlib()
     {
-
-        $mainquery = query("SELECT * FROM tbl_borrowed");
+        $mainquery = query("SELECT
+        *
+      FROM tbl_borrowed
+        INNER JOIN booklist
+          ON tbl_borrowed.book_id = booklist.book_id
+        INNER JOIN studentacc
+          ON tbl_borrowed.student_id = studentacc.studentnumber
+          WHERE tbl_borrowed.request = 'approve' ");
         confirm($mainquery);
         $counter = 1;
 
@@ -817,7 +897,7 @@ class book_borrowedlib
 
             $list_classroom = <<< DELIMITER
             <tr>
-                <th colspan="3" class="text-center bg-danger text-white"> No Result </th>
+                <th colspan="9" class="text-center bg-danger text-white"> No Result </th>
             </tr>
            DELIMITER;
             echo $list_classroom;
@@ -825,25 +905,44 @@ class book_borrowedlib
 
             while ($row = fetch_array($mainquery)) {
                 $product = <<<DELIMETER
-                <tr>
-                   <td>{$row['borrowed_id']}</td>
-                   <td>{$row['student_id']}</td>
-                   <td>{$row['book_id']}</td>
-                   <td>{$row['borrowed_date']}</td>
-                   <td>{$row['due_date']}</td>
-                   <td>{$row['request']}</td>
-                   
-                        <td class="text-center">
-                        <input type="button" class="btn btn-primary" name="Issuebook" value="Issue book">
-                        </td>
-                        <td class="text-center">
-                        <input type="button" class="btn btn-success" name="Returnbook" value="Return book">
-                        </td>
+                <tr>    
+                <td>{$row['borrowed_id']}</td>
+                <td>{$row['first_name']}, {$row['lastname']}</td>
+                <td>{$row['title']}</td>
+                <td>{$row['borrowed_date']}</td>
+                <td>{$row['due_date']}</td>
+                <td>{$row['request']}</td>
+                 
+                       
+                <td>
+                <button Onclick="return{$row['borrowed_id']}()" id="return" class="btn btn-success">Return Book</button>          
+
+                </td>
                         <td>
                         <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>          
 
                    </td>
                 </tr>
+                <!-- Return Function -->
+                <script>
+                function return{$row['borrowed_id']}() {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "Do you want to return it?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, Return it!'
+                      }).then((result) => {
+                            if(result.value){
+                                window.location.href="returnbooklib.php?id={$row['borrowed_id']}";
+                            }
+                      })
+                   }
+                </script>
+
+                
 
                 <!-- Delete Function -->
                 <script>
@@ -867,12 +966,107 @@ class book_borrowedlib
                 DELIMETER;
                 $counter++;
                 echo $product;
+                }
             }
         }
+
+
+    
+
+    public static function book_requestlib()
+    {       
+        
+        $mainquery = query("SELECT
+        *
+      FROM tbl_borrowed
+        INNER JOIN booklist
+          ON tbl_borrowed.book_id = booklist.book_id
+        INNER JOIN studentacc
+          ON tbl_borrowed.student_id = studentacc.studentnumber
+          WHERE tbl_borrowed.request = 'padding'");
+        confirm($mainquery);
+        $counter = 1;
+
+        if (mysqli_num_rows($mainquery) == 0) {
+
+            $list_classroom = <<< DELIMITER
+            <tr>
+                <th colspan="9" class="text-center bg-danger text-white"> No Result </th>
+            </tr>
+           DELIMITER;
+            echo $list_classroom;
+        } else {
+
+            while ($row = fetch_array($mainquery)) {
+                $product = <<<DELIMETER
+                <tr>    
+                <td>{$row['borrowed_id']}</td>
+                <td>{$row['first_name']}, {$row['lastname']}</td>
+                <td>{$row['title']}</td>
+                <td>{$row['borrowed_date']}</td>
+                <td>{$row['due_date']}</td>
+                <td>{$row['request']}</td>
+                 
+                        <td>
+                         <button Onclick="approve{$row['borrowed_id']}()" class="btn btn-primary" id="approve">Approve Request</button>
+                         </td>
+                        
+                        <td>
+                        <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>          
+
+                   </td>
+                </tr>
+                <!-- Issue Function -->
+                <script>
+                function approve{$row['borrowed_id']}() {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "Do you want to approve it?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, approve it!'
+                      }).then((result) => {
+                            if(result.value){
+                                window.location.href="issuerequestlib.php?id={$row['borrowed_id']}";
+                            }
+                      })
+                   }
+                </script>
+
+                <!-- Delete Function -->
+                <script>
+                function deleteclick{$row['borrowed_id']}() {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                      }).then((result) => {
+                            if(result.value){
+                                window.location.href="deletereq.php?id={$row['borrowed_id']}";
+                            }
+                      })
+                   }
+                </script>
+               
+                DELIMETER;
+                if(isset($_POST['approve'])){
+                    $queryUpdate = "UPDATE tbl_borrowed set request='approve' WHERE borrowed = $_GET[id] ";
+                    confirm($queryUpdate);
+        
+                }
+                $counter++;
+                echo $product;
+            }
+            
+        }
+     }
     }
-}
-
-
 class account
 {
     public static function student_update()

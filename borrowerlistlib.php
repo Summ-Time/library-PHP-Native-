@@ -112,6 +112,7 @@ function displayclock(){
             <h2>List of <b> Borrower</b></h2>
           </div>
           <div class="container" style="padding-top: 20px;">
+          <?php display_message(); ?>
     <div class="input-group mb-3">
       <input type="text" class="form-control" id="myInput" placeholder="Search">
       <div class="input-group-append">
@@ -127,7 +128,7 @@ function displayclock(){
           <tr>
 
             <th>Borrowed_ID</th>
-            <th>Student_ID</th>
+            <th>Student_Name</th>
             <th>Book_ID</th>
             <th>Borrowed_Date</th>
             <th>Due_Date</th>
@@ -135,7 +136,7 @@ function displayclock(){
             <th>Request</th>
             <th>Action</th>
             <th>Action</th>
-            <th>Action</th>
+            
 
           </tr>
         </thead>
