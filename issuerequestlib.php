@@ -10,6 +10,6 @@ if (isset($_GET['id'])) {
     //confirm($query);
 
     set_message("Request Have Been Approved!");
-    redirect("requestbook.php");
+    redirect("requestbooklib.php");
 }
 

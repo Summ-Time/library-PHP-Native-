@@ -20,7 +20,7 @@ if (isset($_GET['id'])) {
         $category        =           escape_string($row['category']);
         $status        =           escape_string($row['status']);
         $quantity        =              escape_string($row['quantity']);
-        $available_qty       =              escape_string($row['available_qty']);
+        
     }
 
     $borrowed_query = query("SELECT * FROM tbl_borrowed WHERE book_id = $_GET[id]");

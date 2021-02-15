@@ -115,6 +115,7 @@ function displayclock(){
             <h2>Book <b>List</b></h2>
           </div>
           <div class="container" style="padding-top: 20px;">
+            <?php display_message(); ?>
     <div class="input-group mb-3">
       <input type="text" class="form-control" id="myInput" placeholder="Search">
       <div class="input-group-append">
@@ -155,7 +156,7 @@ $(document).ready(function(){
   });
 });
 </script>
-<?php book::book_create() ?>
+<?php book::book_createlib() ?>
         <!-- Add Book -->
     <form action="" method="post">
       <div class="modal fade" id="myModal">

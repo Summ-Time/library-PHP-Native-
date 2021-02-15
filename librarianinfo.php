@@ -40,7 +40,7 @@ if (!isset($_SESSION['admin_username'])) {
       <h3>QCU <span>LIBRARY</span></h3>
     </div>
     <div class="right_area">
-      <a href="student.php" class="logout_btn">Logout</a>
+      <a href="admin_logout.php" class="logout_btn">Logout</a>
     </div>
   </header>
   <!--header area end-->
@@ -111,6 +111,7 @@ if (!isset($_SESSION['admin_username'])) {
             <h2>Manage Librarian <b>Account</b></h2>
           </div>
           <div class="container" style="padding-top: 20px;">
+          <?php display_message(); ?>
             <div class="input-group mb-3">
               <input type="text" class="form-control" id="myInput" placeholder="Search">
               <div class="input-group-append">
@@ -127,6 +128,7 @@ if (!isset($_SESSION['admin_username'])) {
               <th>Library_ID</th>
               <th>Name</th>
               <th>Username</th>
+              <th>Password</th>
               <th>Actions</th>
               <th>Actions</th>
             </tr>

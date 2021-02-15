@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2021 at 09:54 AM
+-- Generation Time: Feb 10, 2021 at 03:57 PM
 -- Server version: 10.4.17-MariaDB
--- PHP Version: 7.4.13
+-- PHP Version: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -53,21 +53,18 @@ CREATE TABLE `booklist` (
   `author` varchar(255) NOT NULL,
   `category` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  `section` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `booklist`
 --
 
-INSERT INTO `booklist` (`book_id`, `ISBN`, `title`, `author`, `category`, `status`, `quantity`) VALUES
-(5, 1, 'Dramatic Arts', 'C.Belarmino', 'Arts', 'Available', 10),
-(6, 2, 'Architecture', 'J.Jubanie', 'Programming Languages', 'Available', 2),
-(7, 3, 'Liberalism', 'P.Asturias', 'History', 'Available', 1),
-(8, 4, 'Database Relation', 'K.Garcia', 'Database', 'Available', 0),
-(9, 5, 'Discrete Math', 'N.Salvador', 'Discrete', 'Available', 0),
-(10, 6, 'System Integration', 'A.Impang', 'SIA', 'Available', 0),
-(11, 7, 'Architecture 2', 'M.impang', 'Programming Languages', 'Available', 1);
+INSERT INTO `booklist` (`book_id`, `ISBN`, `title`, `author`, `category`, `status`, `quantity`, `section`) VALUES
+(18, 2, 'Dramatic Arts', 'C.Belarmino', 'Programming Languages', 'Available', 21, 'Thesis Section'),
+(20, 1, 'Liberalism', 'C.Belarmino', 'programming languages', 'Available', 1, 'Arts Section'),
+(21, 2, 'Architecture 2', 'J.Jubanie', 'Programming Languages', 'Available', 1, 'Programming Section');
 
 -- --------------------------------------------------------
 
@@ -87,9 +84,7 @@ CREATE TABLE `librarianacc` (
 --
 
 INSERT INTO `librarianacc` (`library_id`, `name`, `username`, `password`) VALUES
-(1, 'Juan', 'librarian', 'librarian'),
-(3, 'juan3', 'admin', 'admin'),
-(12314, 'jomarie', 'joms', 'yasgod');
+(1, 'jomarie', 'jake', '123');
 
 -- --------------------------------------------------------
 
@@ -115,8 +110,7 @@ CREATE TABLE `studentacc` (
 --
 
 INSERT INTO `studentacc` (`studentnumber`, `first_name`, `lastname`, `birthday`, `gender`, `email`, `phone`, `course`, `username`, `password`) VALUES
-(181102, 'Jomarie', 'Sanosa', '18/02/2021', 'Male', 'jomarie@yahoo.com', 9296693851, 'BSENT', 'jomarie', '123'),
-(181105, 'Mark Joseph', 'Pedrano', '12/02/2021', 'Male', 'pedrano@gmail.com', 9296692312, 'BSIE', 'pedrano', '123');
+(181104, 'Jake', 'Melendrez', '14/11/1999', 'Male', 'melendrezjake27@yahoo.com', 9296693851, 'BSIT', 'jake', '123');
 
 -- --------------------------------------------------------
 
@@ -132,25 +126,6 @@ CREATE TABLE `tbl_borrowed` (
   `due_date` date NOT NULL,
   `request` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_borrowed`
---
-
-INSERT INTO `tbl_borrowed` (`borrowed_id`, `student_id`, `book_id`, `borrowed_date`, `due_date`, `request`) VALUES
-(6, 181102, 6, '2021-02-07', '2021-02-12', 'padding'),
-(7, 181102, 7, '2021-02-07', '2021-02-12', 'padding'),
-(8, 181102, 5, '2021-02-07', '2021-02-12', 'padding'),
-(9, 181102, 5, '2021-02-07', '2021-02-12', 'padding'),
-(10, 181102, 5, '2021-02-07', '2021-02-12', 'padding'),
-(11, 181102, 5, '2021-02-07', '2021-02-12', 'padding'),
-(12, 181102, 11, '2021-02-07', '2021-02-12', 'padding'),
-(13, 181102, 5, '2021-02-08', '2021-02-13', 'padding'),
-(14, 181102, 5, '2021-02-08', '2021-02-13', 'padding'),
-(15, 181102, 5, '2021-02-08', '2021-02-13', 'padding'),
-(16, 181102, 5, '2021-02-08', '2021-02-13', 'padding'),
-(17, 181102, 5, '2021-02-08', '2021-02-13', 'padding'),
-(18, 181102, 5, '2021-02-08', '2021-02-13', 'padding');
 
 -- --------------------------------------------------------
 
@@ -221,13 +196,13 @@ ALTER TABLE `adminacc`
 -- AUTO_INCREMENT for table `booklist`
 --
 ALTER TABLE `booklist`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `tbl_borrowed`
 --
 ALTER TABLE `tbl_borrowed`
-  MODIFY `borrowed_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `borrowed_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
