@@ -123,11 +123,13 @@ function displayclock(){
 						            <th>request</th>
 						            <th>Borrow_Date</th>
                         <th>Due_Date</th>
+                        <th>Penalty</th>
                       
                     </tr>
                 </thead>
                 <tbody id="myTable">
                 <?php book::borrow_history(); ?>
+             
 						</tbody>
 						</table>
             <script>

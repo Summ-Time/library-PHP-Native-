@@ -55,6 +55,9 @@ if (!isset($_SESSION['student_username'])) {
       <br>
       <img src="images/student.png" class="profile_image" alt="">
       <h4>Hi! <?php echo $_SESSION['student_username']?></h4>
+      
+ 
+
     </center>
     <a href="indexstudent.php"><i class="fas fa-desktop"></i><span>Home</span></a>
     <a href="indexstudent.php"><i class="fas fa-book"></i></i><span>View Book List</span></a>
@@ -100,6 +103,7 @@ function displayclock(){
         <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
       </div>
     </div>
+   
     <?php echo display_message(); ?>
     <div class="table-wrapper">
       <table class="table table-bordered table-hover">
@@ -119,6 +123,8 @@ function displayclock(){
         </thead>
         <tbody id="myTable">
           <?php book::book_list(); ?>
+         
+
         </tbody>
       </table>
       <script>
@@ -134,6 +140,7 @@ function displayclock(){
      
    
   </div>
+  
  
 </body>
 

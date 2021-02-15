@@ -129,11 +129,13 @@ function displayclock(){
 
             <th>Borrowed_ID</th>
             <th>Student_Name</th>
-            <th>Book_ID</th>
+            <th>Book_Title</th>
             <th>Borrowed_Date</th>
             <th>Due_Date</th>
+          
  
             <th>Request</th>
+            <th>Penalty</th>
             <th>Action</th>
             <th>Action</th>
             

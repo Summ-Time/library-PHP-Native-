@@ -18,8 +18,8 @@ if (isset($_GET['id'])) {
         $title           =           escape_string($row['title']);
         $author          =           escape_string($row['author']);
         $category        =           escape_string($row['category']);
-        $status        =           escape_string($row['status']);
-        $quantity        =              escape_string($row['quantity']);
+        $status          =           escape_string($row['status']);
+        $quantity        =           escape_string($row['quantity']);
         
     }
 

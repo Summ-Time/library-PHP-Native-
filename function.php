@@ -199,7 +199,7 @@ class book
         if (mysqli_num_rows($query) == 0) {
             $list_book_history = <<< DELIMITER
             <tr>
-                <th colspan="7" class="text-center bg-red text-white"> No Result </th>
+                <th colspan="7" class="text-center bg-danger text-white"> No Result </th>
             </tr>
             DELIMITER;
             echo $list_book_history;
@@ -214,6 +214,7 @@ class book
                     <td>{$row['request']}</td>
                     <td>{$row['borrowed_date']}</td>
                     <td>{$row['due_date']}</td>
+                    <td>{$row['penalty']}</td>
                 </tr>
                 DELIMITER;
                 echo $list_book_history;
@@ -594,8 +595,6 @@ class book_borrowed
         }
     }
 
-
-
     public static function book_request()
     {       
         
@@ -614,7 +613,7 @@ class book_borrowed
 
             $list_classroom = <<< DELIMITER
             <tr>
-                <th colspan="9" class="text-center bg-danger text-white"> No Result </th>
+                <th colspan="9" class="text-center bg-danger text-white"> There's no pending Request </th>
             </tr>
            DELIMITER;
             echo $list_classroom;
@@ -991,7 +990,7 @@ class book_borrowedlib
 
             $list_classroom = <<< DELIMITER
             <tr>
-                <th colspan="9" class="text-center bg-danger text-white"> No Result </th>
+                <th colspan="9" class="text-center bg-danger text-white"> There's no pending Request </th>
             </tr>
            DELIMITER;
             echo $list_classroom;
@@ -1122,3 +1121,4 @@ class account
         }
     }
 }
+
