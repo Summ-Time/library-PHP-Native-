@@ -43,7 +43,7 @@ if (!isset($_SESSION['admin_username'])) {
       <br>
       <br>
       <img src="images/av3.png" class="profile_image" alt="">
-      <h4>Hi! <?php echo $_SESSION['admin_username']?></h4>
+      <h4>Hi! <?php echo $_SESSION['admin_username'] ?></h4>
     </center>
     <a href="index.php"><i class="fas fa-desktop"></i><span>Home</span></a>
     <a href="studentinfo.php"><i class="far fa-user-circle"></i><span>Manage Student Info</span></a>
@@ -53,35 +53,36 @@ if (!isset($_SESSION['admin_username'])) {
     <a href="requestbook.php"><i class="fas fa-book-open"></i><span>Manage Request Book</span></a>
     <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
     <br>
-<div class="date">
-    <?php
-echo "Date: ";
-echo date("Y-m-d").   "<br>";
+    <div class="date">
+      <?php
+      echo "Date: ";
+      echo date("Y-m-d") .   "<br>";
 
-?>
-<br>
-<?php
-echo "Time: ";
-?>
-<div id="clock"></div>
-<script type="text/javascript">
-setInterval(displayclock, 500);
-function displayclock(){
-  var time = new Date();
-  var hrs = time.getHours();
-  var min = time.getMinutes();
-  var sec = time.getSeconds();
+      ?>
+      <br>
+      <?php
+      echo "Time: ";
+      ?>
+      <div id="clock"></div>
+      <script type="text/javascript">
+        setInterval(displayclock, 500);
 
-  if(hrs > 12){
-      hrs =hrs -12;
-  }
-  if(hrs==0){
-    hrs=12;
-  }
-  document.getElementById('clock').innerHTML = hrs + ':' + min + ':' + sec;
-}
-</script>
-</div>
+        function displayclock() {
+          var time = new Date();
+          var hrs = time.getHours();
+          var min = time.getMinutes();
+          var sec = time.getSeconds();
+
+          if (hrs > 12) {
+            hrs = hrs - 12;
+          }
+          if (hrs == 0) {
+            hrs = 12;
+          }
+          document.getElementById('clock').innerHTML = hrs + ':' + min + ':' + sec;
+        }
+      </script>
+    </div>
   </div>
 
   <!--sidebar end-->
