@@ -22,4 +22,5 @@ if (mysqli_connect_error()) {
 	echo "Message:" . mysqli_connect_error() . "<br>";
 }
 
+
 require_once('function.php');

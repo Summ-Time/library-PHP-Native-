@@ -1110,3 +1110,43 @@ class account
         }
     }
 }
+
+
+/***
+ Checker 
+ ***/
+class checker
+{
+    public static function checker_penalty()
+    {
+        $query = query("SELECT * FROM tbl_borrowed WHERE borrowed_date >= due_date");
+        confirm($query);
+
+        if (mysqli_num_rows($query) == 0) {
+            //
+        } else {
+
+            while ($row = fetch_array($query)) {
+                $add = $row['penalty'];
+                $borrowed_id = $row['borrowed_id'];
+                $due_date = $row['due_date'];
+            }
+
+            $price = 4;
+            $today = date_create(date("Y-m-d"));
+            $due_date = date_create($due_date);
+            $countdate = date_diff($due_date, $today);
+            $totaldays = $countdate->format("%a");
+            $penalty_total = $price * $totaldays;
+
+            $query = "UPDATE tbl_borrowed SET ";
+            $query .= "penalty     =       '$penalty_total' ";
+            $query .= "WHERE borrowed_id =" . $borrowed_id;
+
+            $update = query($query);
+            confirm($update);
+        }
+    }
+}
+
+checker::checker_penalty();
