@@ -166,7 +166,7 @@ class book
             $book_id = escape_string($_POST['book_id']);
             $due_date = escape_string($_POST['due_date']);
             $borrow_date = date("Y-m-d");
-            $request = "padding";
+            $request = "pendding";
             $available_qty = escape_string($_POST['available_qty']);
 
 
@@ -183,7 +183,7 @@ class book
 
     public static function borrow_history()
     {
-        
+
         $student_id = $_SESSION['student_id'];
         $query = query("SELECT
         *
@@ -251,34 +251,34 @@ class book
         }
     }
 
-public static function book_createlib()
-{
-    if (isset($_POST['submit'])) {
+    public static function book_createlib()
+    {
+        if (isset($_POST['submit'])) {
 
-        $title = escape_string($_POST['title']);
-
-        $query  = query("SELECT * FROM booklist WHERE title = '$title'");
-        confirm($query);
-
-        if (mysqli_num_rows($query) == 1) {
-
-            set_message('Book Already Exists');
-        } else {
             $title = escape_string($_POST['title']);
-            $author = escape_string($_POST['author']);
-            $category = escape_string($_POST['category']);
-            $status = escape_string($_POST['status']);
-            $quantity = escape_string($_POST['quantity']);
-            $section = escape_string($_POST['section']);
-            $ISBN = escape_string($_POST['ISBN']);
 
-            $query = query("INSERT INTO booklist(title, author, category, status, quantity, section, ISBN) VALUES ('$title', '$author', '$category', '$status', '$quantity', '$section', '$ISBN')");
+            $query  = query("SELECT * FROM booklist WHERE title = '$title'");
             confirm($query);
-            set_message('Book Add to the list');
-            redirect('booklistlib.php');
+
+            if (mysqli_num_rows($query) == 1) {
+
+                set_message('Book Already Exists');
+            } else {
+                $title = escape_string($_POST['title']);
+                $author = escape_string($_POST['author']);
+                $category = escape_string($_POST['category']);
+                $status = escape_string($_POST['status']);
+                $quantity = escape_string($_POST['quantity']);
+                $section = escape_string($_POST['section']);
+                $ISBN = escape_string($_POST['ISBN']);
+
+                $query = query("INSERT INTO booklist(title, author, category, status, quantity, section, ISBN) VALUES ('$title', '$author', '$category', '$status', '$quantity', '$section', '$ISBN')");
+                confirm($query);
+                set_message('Book Add to the list');
+                redirect('booklistlib.php');
+            }
         }
     }
-}
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////ADMIN
 class librarianacc
@@ -596,8 +596,8 @@ class book_borrowed
     }
 
     public static function book_request()
-    {       
-        
+    {
+
         $mainquery = query("SELECT
         *
       FROM tbl_borrowed
@@ -605,7 +605,7 @@ class book_borrowed
           ON tbl_borrowed.book_id = booklist.book_id
         INNER JOIN studentacc
           ON tbl_borrowed.student_id = studentacc.studentnumber
-          WHERE tbl_borrowed.request = 'padding'");
+          WHERE tbl_borrowed.request = 'pendding'");
         confirm($mainquery);
         $counter = 1;
 
@@ -677,18 +677,16 @@ class book_borrowed
                 </script>
                
                 DELIMETER;
-                if(isset($_POST['approve'])){
+                if (isset($_POST['approve'])) {
                     $queryUpdate = "UPDATE tbl_borrowed set request='approve' WHERE borrowed = $_GET[id] ";
                     confirm($queryUpdate);
-        
                 }
                 $counter++;
                 echo $product;
             }
-            
         }
-     }
     }
+}
 
 class addstuds
 {
@@ -965,16 +963,16 @@ class book_borrowedlib
                 DELIMETER;
                 $counter++;
                 echo $product;
-                }
             }
         }
+    }
 
 
-    
+
 
     public static function book_requestlib()
-    {       
-        
+    {
+
         $mainquery = query("SELECT
         *
       FROM tbl_borrowed
@@ -982,7 +980,7 @@ class book_borrowedlib
           ON tbl_borrowed.book_id = booklist.book_id
         INNER JOIN studentacc
           ON tbl_borrowed.student_id = studentacc.studentnumber
-          WHERE tbl_borrowed.request = 'padding'");
+          WHERE tbl_borrowed.request = 'pendding'");
         confirm($mainquery);
         $counter = 1;
 
@@ -1054,18 +1052,16 @@ class book_borrowedlib
                 </script>
                
                 DELIMETER;
-                if(isset($_POST['approve'])){
+                if (isset($_POST['approve'])) {
                     $queryUpdate = "UPDATE tbl_borrowed set request='approve' WHERE borrowed = $_GET[id] ";
                     confirm($queryUpdate);
-        
                 }
                 $counter++;
                 echo $product;
             }
-            
         }
-     }
     }
+}
 class account
 {
     public static function student_update()
@@ -1121,4 +1117,3 @@ class account
         }
     }
 }
-
