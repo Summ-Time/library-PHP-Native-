@@ -533,22 +533,15 @@ class book_borrowed
             while ($row = fetch_array($mainquery)) {
                 $product = <<<DELIMETER
                 <tr>    
-                <td>{$row['borrowed_id']}</td>
-                <td>{$row['first_name']}, {$row['lastname']}</td>
-                <td>{$row['title']}</td>
-                <td>{$row['borrowed_date']}</td>
-                <td>{$row['due_date']}</td>
-                <td>{$row['request']}</td>
-                 
-                    
-                        <td>
+                    <td>{$row['borrowed_id']}</td>
+                    <td>{$row['first_name']}, {$row['lastname']}</td>
+                    <td>{$row['title']}</td>
+                    <td>{$row['borrowed_date']}</td>
+                    <td>{$row['due_date']}</td>
+                    <td>{$row['request']}</td>             
+                    <td>
                         <button Onclick="return{$row['borrowed_id']}()" id="return" class="btn btn-success">Return Book</button>          
-
-                        </td>
-                        <td>
-                        <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>          
-
-                   </td>
+                    </td>
                 </tr>
                 <!-- Return Function -->
                 <script>
