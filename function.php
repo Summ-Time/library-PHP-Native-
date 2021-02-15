@@ -1175,27 +1175,31 @@ class book_borrowedreport
         }
     }
 }
-class report{
-    public static function studentreport(){
+class report
+{
+    public static function studentreport()
+    {
 
         $mainquery = query("SELECT * FROM studentacc");
         confirm($mainquery);
         echo mysqli_num_rows($mainquery);
-        }
-        public static function bookreport(){
+    }
+    public static function bookreport()
+    {
 
-            $mainquery = query("SELECT * FROM booklist");
-            confirm($mainquery);
-            echo mysqli_num_rows($mainquery);
-            }
-            public static function borrowerreport(){
+        $mainquery = query("SELECT * FROM booklist");
+        confirm($mainquery);
+        echo mysqli_num_rows($mainquery);
+    }
+    public static function borrowerreport()
+    {
 
-                $mainquery = query("SELECT * FROM tbl_borrowed where request='approve'");
-                confirm($mainquery);
-                echo mysqli_num_rows($mainquery);
-                }
+        $mainquery = query("SELECT * FROM tbl_borrowed where request='approve'");
+        confirm($mainquery);
+        echo mysqli_num_rows($mainquery);
     }
 }
+
 /***
  Checker 
  ***/
