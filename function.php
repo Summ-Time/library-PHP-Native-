@@ -1135,8 +1135,10 @@ class checker
             $price = 4;
             $today = date_create(date("Y-m-d"));
             $due_date = date_create($due_date);
+
             $countdate = date_diff($due_date, $today);
             $totaldays = $countdate->format("%a");
+
             $penalty_total = $price * $totaldays;
 
             $query = "UPDATE tbl_borrowed SET ";
