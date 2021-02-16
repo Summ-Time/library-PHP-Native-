@@ -17,6 +17,7 @@ if (!isset($_SESSION['admin_username'])) {
   <meta charset="utf-8">
   <title>Admin Side</title>
   <link rel="stylesheet" href="css/css1.css">
+  <link rel="stylesheet" href="css/css9.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
 </head>
 
@@ -85,6 +86,7 @@ function displayclock(){
   </div>
 
   <!--sidebar end-->
+  <!--sidebar end-->
   <br>
   <br>
   <br>
@@ -94,49 +96,78 @@ function displayclock(){
   <br>
   <br>
   <br>
+  
   <div class="index3">
     <div class="index1">
+    
       <div class="content">
+      <div class="col-sm-8">
+            <h1><b> SUMMARY</b></h1>
+          </div>
         <div class="gallery">
-          <a target="_blank" href="img_5terre.jpg">
-            <a href="studentinfo.php"><img src="images/student.png" width="600" height="400">
-            </a>
-            <div class="desc">Manage Student Info</div>
+       
+           
+            <div class="desc"><p><b>Total Students</b>
+            
+            <i class="fa fa-graduation-cap fa-lg" aria-hidden="true"></i></p>
+            <br>
+            
+            <br>
+            
+            <?php report::studentreport(); ?>
+            <br>
+            <br>
+            <br>
+            <br>
+            <hr>
+            <a href="studentinfo.php"><span>More Info</span></a>
+        </div>
         </div>
 
         <div class="gallery">
-          <a href="librarianinfo.php"><img src="images/librarian.png" width="600" height="400">
-          </a>
-          <div class="desc">Manage Librarian Info</div>
+
+          <div class="desc"><p><b>Total Books</b>
+          
+         
+            
+          <i class="fas fa-book fa-lg"></i></p>
+          <br>
+            
+            <br>
+          <?php report::bookreport(); ?>
+          <br>
+            <br>
+            <br>
+            <br>
+            <hr>
+            <a href="booklist.php"><span>More Info</span></a>
+        </div>
+
         </div>
 
         <div class="gallery">
-          <a href="borrowerlist.php"><img src="images/borrower.jpg" width="600" height="400">
-          </a>
-          <div class="desc">Borrower List</div>
+
+        <div class="desc"><p><b>Borrowers   </b>
+        <i class="fa fa-list fa-sm" aria-hidden="true"></i></p>
+        <br>
+            <br>
+            
+        <?php report::borrowerreport(); ?>
+        <br>
+            <br>
+            <br>
+            <br>
+            <hr>
+            <a href="borrowerlist.php"><span>More Info</span></a>
         </div>
+          </div>
+
       </div>
     </div>
     <div class="index2">
       <div class="content">
-        <div class="gallery">
-
-          <a href="booklist.php"><img src="images/bookdetails.png" width="600" height="400">
-          </a>
-          <div class="desc">Book List</div>
-        </div>
-
-        <div class="gallery">
-          <a href="penalties.php"><img src="images/penalty.jpg" width="600" height="400">
-          </a>
-          <div class="desc">Penalties</div>
-        </div>
-
-        <div class="gallery">
-          <a href="requestbook.php"><img src="images/booklist.jpg" width="600" height="400">
-          </a>
-          <div class="desc">Request Book</div>
-        </div>
+       
+     
       </div>
     </div>
   </div>

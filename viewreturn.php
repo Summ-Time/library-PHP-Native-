@@ -129,7 +129,7 @@ function displayclock(){
                 </thead>
                 <tbody id="myTable">
                 <?php book::borrow_history(); ?>
-             
+                </table>
 						</tbody>
 						</table>
             <script>

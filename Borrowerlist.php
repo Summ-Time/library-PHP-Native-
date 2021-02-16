@@ -120,12 +120,12 @@ if (!isset($_SESSION['admin_username'])) {
             </div>
           </div>
         </div>
-        
+        <button onclick="printDiv('printMe')" class="btn btn-primary float-right" style="margin-bottom: 10px;" > Generate Report</button>
+  
         <table class="table table-bordered">
           <thead>
             <tr>
-
-              <th>Borrowed_ID</th>
+            <th>Borrowed_ID</th>
               <th>Student_Name</th>
               <th>Book_Title</th>
               <th>Borrowed_Date</th>
@@ -143,6 +143,7 @@ if (!isset($_SESSION['admin_username'])) {
             <?php book_borrowed::bookborrowed(); ?>
           </tbody>
         </table>
+        
         <script>
           $(document).ready(function() {
             $("#myInput").on("keyup", function() {
@@ -153,5 +154,21 @@ if (!isset($_SESSION['admin_username'])) {
             });
           });
         </script>
+           <div style="display:none" id='printMe'>
+        <?php book_borrowedreport::bookborrowedreport(); ?>
+           </div>
+        <script>
+		function printDiv(printMe){
+			var printContents = document.getElementById(printMe).innerHTML;
+			var originalContents = document.body.innerHTML;
+
+			document.body.innerHTML = printContents;
+
+			window.print();
+
+			document.body.innerHTML = originalContents;
+
+		}
+	</script>
       </div>
     </div>

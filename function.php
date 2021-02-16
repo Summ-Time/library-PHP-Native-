@@ -167,7 +167,7 @@ class book
             $due_date = escape_string($_POST['due_date']);
             $borrow_date = date("Y-m-d");
             $request = "padding";
-            $available_qty = escape_string($_POST['available_qty']);
+        
 
 
             $query = query("INSERT INTO tbl_borrowed(student_id, book_id, borrowed_date, due_date, request) VALUE ('$user_id', '$book_id', '$borrow_date', '$due_date', '$request')");
@@ -1122,3 +1122,85 @@ class account
     }
 }
 
+class book_borrowedreport
+{
+
+    public static function bookborrowedreport()
+    {
+
+        $mainquery = query("SELECT
+        *
+      FROM tbl_borrowed
+        INNER JOIN booklist
+          ON tbl_borrowed.book_id = booklist.book_id
+        INNER JOIN studentacc
+          ON tbl_borrowed.student_id = studentacc.studentnumber
+          WHERE tbl_borrowed.request = 'approve' ");
+        confirm($mainquery);
+        $counter = 1;
+
+        if (mysqli_num_rows($mainquery) == 0) {
+
+            $list_classroom = <<< DELIMITER
+            <tr>
+                <th colspan="9" class="text-center bg-danger text-white"> No Result </th>
+            </tr>
+           DELIMITER;
+            echo $list_classroom;
+        } else {
+
+            while ($row = fetch_array($mainquery)) {
+                $product = <<<DELIMETER
+                    <div class="col-sm-8">
+                    <h3>List of <b> Borrower</b></h3>
+                    </div>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                        <th>Borrowed_ID</th>
+                        <th>Student_Name</th>
+                        <th>Book_Title</th>
+                        <th>Borrowed_Date</th>
+                        <th>Due_Date</th>
+                        <th>Request</th>
+                        
+        
+                        <tr>    
+                        <td>{$row['borrowed_id']}</td>
+                        <td>{$row['first_name']}, {$row['lastname']}</td>
+                        <td>{$row['title']}</td>
+                        <td>{$row['borrowed_date']}</td>
+                        <td>{$row['due_date']}</td>
+                        <td>{$row['request']}</td>
+                        </thead>
+                        </table>
+                    
+                        
+               
+                DELIMETER;
+                $counter++;
+                echo $product;
+            }
+        }
+    }
+}
+class report{
+    public static function studentreport(){
+
+        $mainquery = query("SELECT * FROM studentacc");
+        confirm($mainquery);
+        echo mysqli_num_rows($mainquery);
+        }
+        public static function bookreport(){
+
+            $mainquery = query("SELECT * FROM booklist");
+            confirm($mainquery);
+            echo mysqli_num_rows($mainquery);
+            }
+            public static function borrowerreport(){
+
+                $mainquery = query("SELECT * FROM tbl_borrowed where request='approve'");
+                confirm($mainquery);
+                echo mysqli_num_rows($mainquery);
+                }
+    }
