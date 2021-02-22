@@ -100,7 +100,7 @@ function displayclock(){
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-8"><h2>Book<b> Borrowed</b></h2></div>
+                    <div class="col-sm-8"><h2>Borrow<b> History</b></h2></div>
                     <div class="container" style="padding-top: 20px;">
     <div class="input-group mb-3">
       <input type="text" class="form-control" id="myInput" placeholder="Search">
@@ -121,7 +121,7 @@ function displayclock(){
                         <th>Author</th>
 					            	<th>Category</th>
                         <th>Section</th>
-						            <th>request</th>
+						           
 						            <th>Borrow_Date</th>
                         <th>Due_Date</th>
                       
@@ -130,7 +130,7 @@ function displayclock(){
                     </tr>
                 </thead>
                 <tbody id="myTable">
-                <?php book::borrow_history(); ?>
+                <?php borrow_historystud::borrow_historystud(); ?>
              
 						</tbody>
 						</table>

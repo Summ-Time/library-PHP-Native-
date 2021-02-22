@@ -12,22 +12,13 @@ if (!isset($_SESSION['librarian_username'])) {
 <head>
   <meta charset="utf-8">
   <title>Librarian Side</title>
-  <link rel="stylesheet" href="css/css6.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
   <link rel="stylesheet" href="css/css1.css">
-  <link rel="stylesheet" href="css/css5.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <link rel="stylesheet" href="css/css9.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
 
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="js/borrowerlist.js"></script>
-
-  <script src="js/fontawesome-pro.js"></script>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 </head>
 
@@ -62,8 +53,8 @@ if (!isset($_SESSION['librarian_username'])) {
     <a href="borrowerlistlib.php"><i class="fas fa-user-friends"></i><span>Manage Borrower List</span></a>
     <a href="booklistlib.php"><i class="fas fa-book-open"></i><span>Manage Book List</span></a>
     <a href="requestbooklib.php"><i class="fas fa-book-open"></i><span>Manage Request Book</span></a>
-    <a href="#"><i class="fas fa-table"></i><span>Generate Report</span></a>
-    <a href="#"><i class="far fa-id-card"></i><span>Create Lib_ID</span></a>
+    <a href="borrowhistorylib.php"><i class="fas fa-book-open"></i><span>Borrow History</span></a>
+   
     <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
   <br>
   <div class="date">
@@ -95,6 +86,7 @@ function displayclock(){
 }
 </script>
 </div>
+</div>
   <!--sidebar end-->
   <br>
   <br>
@@ -105,7 +97,195 @@ function displayclock(){
   <br>
   <br>
   <br>
+ 
+  <div class="index3">
+    <div class="index1">
+    
+      <div class="content">
+      <div class="col-sm-8">
+            <h1><b> DASHBOARD</b></h1>
+            
+          </div>
+          <a href="studentinfolib.php">
+        <div class="gallery">
+       
+           
+            <div class="desc"><p><b>Total Students</b> <i class="fa fa-graduation-cap fa-lg" aria-hidden="true"></i></p>  <img src="images/student.png">
+            <br>
+            <br>
+            <div class="moreinfo">
+            <h3><b><?php report::studentreport(); ?></b></h3>
+            <span>More Info</span>
+      </div>
+        </div>
+        </div>
+</a>
+<a href="booklistlib.php">
+        <div class="gallery">
+
+          <div class="desc"><p><b>Total Books</b> <i class="fas fa-book fa-lg"></i></p> <img src="images/bookdetails.png">
+          <br>
+          <br>
+          <div class="moreinfo">
+          <h3><b><?php report::bookreport(); ?></b></h3>
+           <span>More Info</span>
+        </div>
+        </div>
+        </div>
+</a>  
+<a href="borrowerlistlib.php">
+        <div class="gallery">
+
+        <div class="desc"><p><b>Borrowers</b> <i class="fa fa-list fa-sm" aria-hidden="true"></i></p> <img src="images/borrower.jpg">
+        <br>
+        <br>
+        <div class="moreinfo">
+        <h3><b><?php report::borrowerreport(); ?></b></h3>
+           <span>More Info</span>
+        </div>
+          </div>
+          </div>
+</a>
+      </div>
+    </div>
+    <div class="index2">
+      <div class="content">
+       
+      <button onclick="printDiv('printMe')" class="btn btn-primary form-control float: left;" style="margin-bottom: 10px;"> Generate Report</button>
   
+     
+      </div>
+    </div>
+  </div>
+  <div style="display:none" id='printMe'>
+           <div class="col-sm-8">
+            <h2>List of <b> Borrower</b></h2>
+          </div>
+           <table class="table table-bordered">
+          <thead>
+            <tr>
+            <th>Borrowed_ID</th>
+              <th>Student_Name</th>
+              <th>Book_Title</th>
+              <th>Borrowed_Date</th>
+              <th>Due_Date</th>
+          
+            
+
+              <th>Request</th>
+              <th>Penalty</th>
+              
+
+            </tr>
+          </thead>
+          <tbody id="myTable">
+          <?php book_borrowedreport::bookborrowedreport(); ?>
+          </tbody>
+        </table>
+        <div class="col-sm-8">
+            <h2>List of Borrower with <b> Penalties </b></h2>
+          </div>
+           <table class="table table-bordered">
+          <thead>
+            <tr>
+            <th>Borrowed_ID</th>
+              <th>Student_Name</th>
+              <th>Book_Title</th>
+              <th>Borrowed_Date</th>
+              <th>Due_Date</th>
+              <th>Request</th>
+              <th>Penalty</th>
+              
+
+            </tr>
+          </thead>
+          <tbody id="myTable">
+          <?php book_borrowedreportpenalty::bookborrowedreportpenalty(); ?>
+          </tbody>
+        </table>
+        <div class="col-sm-8">
+            <h2>Borrower <b> History</b></h2>
+          </div>
+           <table class="table table-bordered">
+          <thead>
+            <tr>
+            <th>Borrowed_ID</th>
+              <th>Student_Name</th>
+              <th>Book_Title</th>
+              <th>Borrowed_Date</th>
+              <th>Due_Date</th>
+              <th>Penalty</th>
+              
+
+            </tr>
+          </thead>
+          <tbody id="myTable">
+          <?php book_requesthistoryreport::book_requesthistory_report(); ?>
+          </tbody>
+        </table>
+        <div class="col-sm-8">
+            <h2>List of <b> Student</b></h2>
+          </div>
+        <table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Student_ID</th>
+							<th>FirstName</th>
+							<th>Lastname</th>
+							<th>Birthday</th>
+							<th>Gender</th>
+							<th>Phone</th>
+							<th>Course</th>
+							<th>Username</th>
+              <th>Password</th>
+							<th>Email</th>
+					
+
+						</tr>
+            </thead>
+          <tbody id="myTable">
+          <?php studentaccreport::studentacc_listreport(); ?>
+      </tbody>
+        </table>
+        <div class="col-sm-8">
+            <h2>List of <b> Books</b></h2>
+          </div>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Book_ID</th>
+              <th>ISBN</th>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Category</th>
+              <th>Section</th>
+              <th>Status</th>
+              <th>Quantity</th>
+             
+
+            </tr>
+          </thead>
+          <tbody id="myTable">
+            <?php book_listreport::booklistreport(); ?>
+          </tbody>
+        </table>
+           </div>
+        <script>
+		function printDiv(printMe){
+			var printContents = document.getElementById(printMe).innerHTML;
+			var originalContents = document.body.innerHTML;
+
+			document.body.innerHTML = printContents;
+
+			window.print();
+
+			document.body.innerHTML = originalContents;
+
+		}
+	</script>
+      </div>
+    </div>
 </body>
 
 </html>

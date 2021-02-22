@@ -158,6 +158,7 @@ class book
             }
         }
     }
+   
 
     public static function borrow_book()
     {
@@ -166,13 +167,14 @@ class book
             $book_id = escape_string($_POST['book_id']);
             $due_date = escape_string($_POST['due_date']);
             $borrow_date = date("Y-m-d");
+           
 
-            $request = "pendding";
-            $available_qty = escape_string($_POST['available_qty']);
+            $request = "pending";
+            
 
 
 
-            $query = query("INSERT INTO tbl_borrowed(student_id, book_id, borrowed_date, due_date, request) VALUE ('$user_id', '$book_id', '$borrow_date', '$due_date', '$request')");
+            $query = query("INSERT INTO tbl_borrowed(student_id, book_id, borrowed_date, due_date, request) VALUE ('$user_id', '$book_id', '$borrow_date', '$due_date',  '$request')");
             confirm($query);
 
 
@@ -201,7 +203,7 @@ class book
         if (mysqli_num_rows($query) == 0) {
             $list_book_history = <<< DELIMITER
             <tr>
-                <th colspan="7" class="text-center bg-danger text-white"> No Result </th>
+                <th colspan="8" class="text-center bg-danger text-white"> You have no Borrowed Book! </th>
             </tr>
             DELIMITER;
             echo $list_book_history;
@@ -216,6 +218,7 @@ class book
                     <td>{$row['request']}</td>
                     <td>{$row['borrowed_date']}</td>
                     <td>{$row['due_date']}</td>
+                    
                     <td>{$row['penalty']}</td>
                 </tr>
                 DELIMITER;
@@ -401,6 +404,7 @@ class studentacc
                    <td>{$row['phone']}</td>
                    <td>{$row['course']}</td>
                    <td>{$row['username']}</td>
+                   <td>{$row['password']}</td>
                    <td>{$row['email']}</td>
 
                    <td class="text-center">
@@ -540,10 +544,15 @@ class book_borrowed
                     <td>{$row['title']}</td>
                     <td>{$row['borrowed_date']}</td>
                     <td>{$row['due_date']}</td>
-                    <td>{$row['request']}</td>             
+                    
+                    <td>{$row['request']}</td> 
+                    <td>{$row['penalty']}</td>               
                     <td>
                         <button Onclick="return{$row['borrowed_id']}()" id="return" class="btn btn-success">Return Book</button>          
                     </td>
+                    <td>
+                    <button Onclick="deleteclick{$row['borrowed_id']}()" id="return" class="btn btn-danger">Delete</button>          
+                </td>
                 </tr>
                 <!-- Return Function -->
                 <script>
@@ -600,7 +609,7 @@ class book_borrowed
           ON tbl_borrowed.book_id = booklist.book_id
         INNER JOIN studentacc
           ON tbl_borrowed.student_id = studentacc.studentnumber
-          WHERE tbl_borrowed.request = 'pendding'");
+          WHERE tbl_borrowed.request = 'pending'");
         confirm($mainquery);
         $counter = 1;
 
@@ -835,7 +844,7 @@ class studentacclib
                    <td>{$row['email']}</td>
 
                    <td class="text-center">
-                        <input type="button" class="btn btn-success" name="edit" value="Edit">
+                   <a href="edit_student_accountlib.php?id={$row['studentnumber']}" class="btn btn-success">Edit</a>
                         </td>
                         <td>
                         <button Onclick="deleteclick{$row['studentnumber']}()" id="delete" class="btn btn-danger">Delete</button>          
@@ -904,7 +913,7 @@ class book_borrowedlib
                 <td>{$row['borrowed_date']}</td>
                 <td>{$row['due_date']}</td>
                 <td>{$row['request']}</td>
-                 
+                <td>{$row['penalty']}</td> 
                        
                 <td>
                 <button Onclick="return{$row['borrowed_id']}()" id="return" class="btn btn-success">Return Book</button>          
@@ -975,7 +984,7 @@ class book_borrowedlib
           ON tbl_borrowed.book_id = booklist.book_id
         INNER JOIN studentacc
           ON tbl_borrowed.student_id = studentacc.studentnumber
-          WHERE tbl_borrowed.request = 'pendding'");
+          WHERE tbl_borrowed.request = 'pending'");
         confirm($mainquery);
         $counter = 1;
 
@@ -1142,29 +1151,16 @@ class book_borrowedreport
 
             while ($row = fetch_array($mainquery)) {
                 $product = <<<DELIMETER
-                    <div class="col-sm-8">
-                    <h3>List of <b> Borrower</b></h3>
-                    </div>
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                        <th>Borrowed_ID</th>
-                        <th>Student_Name</th>
-                        <th>Book_Title</th>
-                        <th>Borrowed_Date</th>
-                        <th>Due_Date</th>
-                        <th>Request</th>
-                        
-        
-                        <tr>    
-                        <td>{$row['borrowed_id']}</td>
-                        <td>{$row['first_name']}, {$row['lastname']}</td>
-                        <td>{$row['title']}</td>
-                        <td>{$row['borrowed_date']}</td>
-                        <td>{$row['due_date']}</td>
-                        <td>{$row['request']}</td>
-                        </thead>
-                        </table>
+                    
+                <tr>    
+                <td>{$row['borrowed_id']}</td>
+                <td>{$row['first_name']}, {$row['lastname']}</td>
+                <td>{$row['title']}</td>
+                <td>{$row['borrowed_date']}</td>
+                <td>{$row['due_date']}</td>
+                
+                <td>{$row['request']}</td> 
+                <td>{$row['penalty']}</td>     
                     
                         
                
@@ -1202,12 +1198,14 @@ class report
 
 /***
  Checker 
- ***/
+ ***/   
 class checker
 {
     public static function checker_penalty()
     {
-        $query = query("SELECT * FROM tbl_borrowed WHERE borrowed_date >= due_date");
+        $curr_date = date("Y-m-d");
+
+        $query = query("SELECT * FROM tbl_borrowed WHERE due_date <= '$curr_date'");
         confirm($query);
 
         if (mysqli_num_rows($query) == 0) {
@@ -1221,9 +1219,9 @@ class checker
             }
 
             $price = 4;
-            $today = date_create(date("Y-m-d"));
+          
             $due_date = date_create($due_date);
-
+            $today = date_create(date("Y-m-d"));
             $countdate = date_diff($due_date, $today);
             $totaldays = $countdate->format("%a");
 
@@ -1240,3 +1238,462 @@ class checker
 }
 
 checker::checker_penalty();
+
+class studentaccreport
+{
+
+    public static function studentacc_listreport()
+    {
+
+        $mainquery = query("SELECT * FROM studentacc");
+        confirm($mainquery);
+        $counter = 1;
+
+        if (mysqli_num_rows($mainquery) == 0) {
+
+            $list_classroom = <<< DELIMITER
+            <tr>
+                <th colspan="12" class="text-center bg-danger text-white"> No Result </th>
+            </tr>
+           DELIMITER;
+            echo $list_classroom;
+        } else {
+
+            while ($row = fetch_array($mainquery)) {
+                $product = <<<DELIMETER
+                <tr>
+                   <td>{$row['studentnumber']}</td>
+                   <td>{$row['first_name']}</td>
+                   <td>{$row['lastname']}</td>
+                   <td>{$row['birthday']}</td>
+                   <td>{$row['gender']}</td>
+                   <td>{$row['phone']}</td>
+                   <td>{$row['course']}</td>
+                   <td>{$row['username']}</td>
+                   <td>{$row['password']}</td>
+                   <td>{$row['email']}</td>
+
+                
+                </tr>
+                DELIMETER;
+                $counter++;
+                echo $product;
+            }
+        }
+    }
+}
+
+
+class book_listreport
+{
+    public static function booklistreport()
+    {
+
+        $mainquery = query("SELECT * FROM booklist");
+        confirm($mainquery);
+        $counter = 1;
+
+        if (mysqli_num_rows($mainquery) == 0) {
+
+            $list_classroom = <<< DELIMITER
+            <tr>
+                <th colspan="3" class="text-center bg-danger text-white"> No Result </th>
+            </tr>
+           DELIMITER;
+            echo $list_classroom;
+        } else {
+
+            while ($row = fetch_array($mainquery)) {
+                $product = <<<DELIMETER
+                <tr>
+                   <td>{$row['book_id']}</td>
+                   <td>{$row['ISBN']}</td>
+                   <td>{$row['title']}</td>
+                   <td>{$row['author']}</td>
+                   <td>{$row['category']}</td>
+                   <td>{$row['section']}</td>
+                   <td>{$row['status']}</td>
+                   <td>{$row['quantity']}</td>
+                  
+                DELIMETER;
+                $counter++;
+                echo $product;
+            }
+        }
+    }
+}
+class book_borrowedreportpenalty
+{
+
+    public static function bookborrowedreportpenalty()
+    {
+
+        $mainquery = query("SELECT
+        *
+      FROM tbl_borrowed
+        INNER JOIN booklist
+          ON tbl_borrowed.book_id = booklist.book_id
+        INNER JOIN studentacc
+          ON tbl_borrowed.student_id = studentacc.studentnumber
+          WHERE tbl_borrowed.penalty >=1 ");
+        confirm($mainquery);
+        $counter = 1;
+
+        if (mysqli_num_rows($mainquery) == 0) {
+
+            $list_classroom = <<< DELIMITER
+            <tr>
+                <th colspan="9" class="text-center bg-danger text-white"> No Result </th>
+            </tr>
+           DELIMITER;
+            echo $list_classroom;
+        } else {
+
+            while ($row = fetch_array($mainquery)) {
+                $product = <<<DELIMETER
+                    
+                <tr>    
+                <td>{$row['borrowed_id']}</td>
+                <td>{$row['first_name']}, {$row['lastname']}</td>
+                <td>{$row['title']}</td>
+                <td>{$row['borrowed_date']}</td>
+                <td>{$row['due_date']}</td>
+                
+                <td>{$row['request']}</td> 
+                <td>{$row['penalty']}</td>     
+                    
+                        
+               
+                DELIMETER;
+                $counter++;
+                echo $product;
+            }
+        }
+    }
+}
+class accountlib
+{
+    public static function student_updatelib()
+    {
+        if (isset($_POST['submit'])) {
+
+            $firstname      =       escape_string($_POST['firstname']);
+            $lastname       =       escape_string($_POST['lastname']);
+            $birthday       =       escape_string($_POST['birthday']);
+            $gender         =       escape_string($_POST['gender']);
+            $email          =       escape_string($_POST['email']);
+            $phone          =       escape_string($_POST['phone']);
+            $course         =       escape_string($_POST['course']);
+
+
+            $query = "UPDATE studentacc SET ";
+            $query .= "first_name    =       '{$firstname}',";
+            $query .= "lastname     =       '{$lastname}',";
+            $query .= "birthday     =       '{$birthday}',";
+            $query .= "gender       =       '{$gender}',";
+            $query .= "email        =       '{$email}',";
+            $query .= "phone        =       '{$phone}',";
+            $query .= "course       =       '{$course}'";
+            $query .= "WHERE studentnumber =" . escape_string($_GET['id']);
+
+            $udpate = query($query);
+            confirm($udpate);
+
+            set_message('Student Updated!');
+            redirect("studentinfolib.php");
+        }
+    }
+}
+class borrowhistory
+{
+public static function borrow_bookhistory()
+    {
+        if (isset($_POST['submit'])) {
+            $user_id = escape_string($_POST['user_id']);
+            $book_id = escape_string($_POST['book_id']);
+            $due_date = escape_string($_POST['due_date']);
+            $borrow_date = date("Y-m-d");
+            $request = "pending";
+            
+
+
+
+            $query = query("INSERT INTO tbl_borrowedhistory(student_id, book_id, borrowed_date, due_date, request) VALUE ('$user_id', '$book_id', '$borrow_date', '$due_date',  '$request')");
+            confirm($query);
+
+
+
+
+            
+            redirect('indexstudent.php');
+        }
+    }
+    public static function book_requesthistory()
+    {
+
+        $mainquery = query("SELECT
+        *
+      FROM tbl_borrowedhistory
+        INNER JOIN booklist
+          ON tbl_borrowedhistory.book_id = booklist.book_id
+        INNER JOIN studentacc
+          ON tbl_borrowedhistory.student_id = studentacc.studentnumber
+          WHERE tbl_borrowedhistory.request = 'pending'");
+        confirm($mainquery);
+        $counter = 1;
+
+        if (mysqli_num_rows($mainquery) == 0) {
+
+            $list_classroom = <<< DELIMITER
+            <tr>
+                <th colspan="9" class="text-center bg-danger text-white"> There's no pending Request </th>
+            </tr>
+           DELIMITER;
+            echo $list_classroom;
+        } else {
+
+            while ($row = fetch_array($mainquery)) {
+                $product = <<<DELIMETER
+                <tr>    
+                <td>{$row['borrowed_id']}</td>
+                <td>{$row['first_name']}, {$row['lastname']}</td>
+                <td>{$row['title']}</td>
+                <td>{$row['borrowed_date']}</td>
+                <td>{$row['due_date']}</td>
+                <td>{$row['penalty']}</td>
+             
+                 
+                      
+                        
+                        <td>
+                        <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>          
+
+                   </td>
+                </tr>
+                <!-- Delete Function -->
+                <script>
+                function deleteclick{$row['borrowed_id']}() {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                      }).then((result) => {
+                            if(result.value){
+                                window.location.href="deletehistory.php?id={$row['borrowed_id']}";
+                            }
+                      })
+                   }
+                </script>
+               
+                DELIMETER;
+                
+                $counter++;
+                echo $product;
+            }
+        }
+    }
+
+public static function book_requesthistorylib()
+{
+
+    $mainquery = query("SELECT
+    *
+  FROM tbl_borrowedhistory
+    INNER JOIN booklist
+      ON tbl_borrowedhistory.book_id = booklist.book_id
+    INNER JOIN studentacc
+      ON tbl_borrowedhistory.student_id = studentacc.studentnumber
+      WHERE tbl_borrowedhistory.request = 'pending'");
+    confirm($mainquery);
+    $counter = 1;
+
+    if (mysqli_num_rows($mainquery) == 0) {
+
+        $list_classroom = <<< DELIMITER
+        <tr>
+            <th colspan="9" class="text-center bg-danger text-white"> There's no pending Request </th>
+        </tr>
+       DELIMITER;
+        echo $list_classroom;
+    } else {
+
+        while ($row = fetch_array($mainquery)) {
+            $product = <<<DELIMETER
+            <tr>    
+            <td>{$row['borrowed_id']}</td>
+            <td>{$row['first_name']}, {$row['lastname']}</td>
+            <td>{$row['title']}</td>
+            <td>{$row['borrowed_date']}</td>
+            <td>{$row['due_date']}</td>
+            <td>{$row['penalty']}</td>
+         
+             
+                  
+                    
+                    <td>
+                    <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>          
+
+               </td>
+            </tr>
+            <!-- Delete Function -->
+            <script>
+            function deleteclick{$row['borrowed_id']}() {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                  }).then((result) => {
+                        if(result.value){
+                            window.location.href="deletehistorylib.php?id={$row['borrowed_id']}";
+                        }
+                  })
+               }
+            </script>
+           
+            DELIMETER;
+            
+            $counter++;
+            echo $product;
+        }
+    }
+}
+}
+
+
+class checkerhistory
+{
+    public static function checker_penaltyhistory()
+    {
+        $curr_date = date("Y-m-d");
+
+        $query = query("SELECT * FROM tbl_borrowedhistory WHERE due_date < '$curr_date'");
+        confirm($query);
+
+        if (mysqli_num_rows($query) == 0) {
+            //
+        } else {
+
+            while ($row = fetch_array($query)) {
+                $add = $row['penalty'];
+                $borrowed_id = $row['borrowed_id'];
+                $due_date = $row['due_date'];
+            }
+
+            $price = 4;
+          
+            $due_date = date_create($due_date);
+            $today = date_create(date("Y-m-d"));
+            $countdate = date_diff($due_date, $today);
+            $totaldays = $countdate->format("%a");
+
+            $penalty_total = $price * $totaldays;
+
+            $query = "UPDATE tbl_borrowedhistory SET ";
+            $query .= "penalty     =       '$penalty_total' ";
+            $query .= "WHERE borrowed_id =" . $borrowed_id;
+
+            $update = query($query);
+            confirm($update);
+        }
+    }
+}
+checkerhistory::checker_penaltyhistory();
+
+
+class book_requesthistoryreport
+{
+public static function book_requesthistory_report()
+    {
+
+        $mainquery = query("SELECT
+        *
+      FROM tbl_borrowedhistory
+        INNER JOIN booklist
+          ON tbl_borrowedhistory.book_id = booklist.book_id
+        INNER JOIN studentacc
+          ON tbl_borrowedhistory.student_id = studentacc.studentnumber
+          WHERE tbl_borrowedhistory.request = 'pending'");
+        confirm($mainquery);
+        $counter = 1;
+
+        if (mysqli_num_rows($mainquery) == 0) {
+
+            $list_classroom = <<< DELIMITER
+            <tr>
+                <th colspan="9" class="text-center bg-danger text-white"> There's no pending Request </th>
+            </tr>
+           DELIMITER;
+            echo $list_classroom;
+        } else {
+
+            while ($row = fetch_array($mainquery)) {
+                $product = <<<DELIMETER
+                <tr>    
+                <td>{$row['borrowed_id']}</td>
+                <td>{$row['first_name']}, {$row['lastname']}</td>
+                <td>{$row['title']}</td>
+                <td>{$row['borrowed_date']}</td>
+                <td>{$row['due_date']}</td>
+                <td>{$row['penalty']}</td>
+             
+               
+                DELIMETER;
+                
+                $counter++;
+                echo $product;
+            }
+        }
+    }
+}
+class borrow_historystud{
+
+
+public static function borrow_historystud()
+    {
+
+        $student_id = $_SESSION['student_id'];
+        $query = query("SELECT
+        *
+      FROM tbl_borrowedhistory
+        INNER JOIN booklist
+          ON tbl_borrowedhistory.book_id = booklist.book_id
+        INNER JOIN studentacc
+          ON tbl_borrowedhistory.student_id = studentacc.studentnumber
+      WHERE tbl_borrowedhistory.student_id = {$student_id} ");
+
+        confirm($query);
+
+        if (mysqli_num_rows($query) == 0) {
+            $list_book_history = <<< DELIMITER
+            <tr>
+                <th colspan="8" class="text-center bg-danger text-white"> You have no Borrowed Book! </th>
+            </tr>
+            DELIMITER;
+            echo $list_book_history;
+        } else {
+            while ($row = fetch_array($query)) {
+                $list_book_history = <<< DELIMITER
+                <tr>
+                    <td>{$row['title']}</td>
+                    <td>{$row['author']}</td>
+                    <td>{$row['category']}</td>
+                    <td>{$row['section']}</td> 
+                    <td>{$row['borrowed_date']}</td>
+                    <td>{$row['due_date']}</td>
+                    
+                    <td>{$row['penalty']}</td>
+                </tr>
+                DELIMITER;
+                echo $list_book_history;
+            }
+        }
+    }
+}

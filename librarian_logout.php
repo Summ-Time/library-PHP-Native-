@@ -1,5 +1,5 @@
 <?php
 require('./databasestud.php');
 
-session_destroy();
+unset($_SESSION['librarian_username']);
 redirect('librarian.php');
