@@ -158,7 +158,7 @@ class book
             }
         }
     }
-   
+
 
     public static function borrow_book()
     {
@@ -167,10 +167,10 @@ class book
             $book_id = escape_string($_POST['book_id']);
             $due_date = escape_string($_POST['due_date']);
             $borrow_date = date("Y-m-d");
-           
+
 
             $request = "pending";
-            
+
 
 
 
@@ -1198,7 +1198,7 @@ class report
 
 /***
  Checker 
- ***/   
+ ***/
 class checker
 {
     public static function checker_penalty()
@@ -1219,7 +1219,7 @@ class checker
             }
 
             $price = 4;
-          
+
             $due_date = date_create($due_date);
             $today = date_create(date("Y-m-d"));
             $countdate = date_diff($due_date, $today);
@@ -1406,7 +1406,7 @@ class accountlib
 }
 class borrowhistory
 {
-public static function borrow_bookhistory()
+    public static function borrow_bookhistory()
     {
         if (isset($_POST['submit'])) {
             $user_id = escape_string($_POST['user_id']);
@@ -1414,7 +1414,7 @@ public static function borrow_bookhistory()
             $due_date = escape_string($_POST['due_date']);
             $borrow_date = date("Y-m-d");
             $request = "pending";
-            
+
 
 
 
@@ -1424,7 +1424,7 @@ public static function borrow_bookhistory()
 
 
 
-            
+
             redirect('indexstudent.php');
         }
     }
@@ -1490,17 +1490,17 @@ public static function borrow_bookhistory()
                 </script>
                
                 DELIMETER;
-                
+
                 $counter++;
                 echo $product;
             }
         }
     }
 
-public static function book_requesthistorylib()
-{
+    public static function book_requesthistorylib()
+    {
 
-    $mainquery = query("SELECT
+        $mainquery = query("SELECT
     *
   FROM tbl_borrowedhistory
     INNER JOIN booklist
@@ -1508,21 +1508,21 @@ public static function book_requesthistorylib()
     INNER JOIN studentacc
       ON tbl_borrowedhistory.student_id = studentacc.studentnumber
       WHERE tbl_borrowedhistory.request = 'pending'");
-    confirm($mainquery);
-    $counter = 1;
+        confirm($mainquery);
+        $counter = 1;
 
-    if (mysqli_num_rows($mainquery) == 0) {
+        if (mysqli_num_rows($mainquery) == 0) {
 
-        $list_classroom = <<< DELIMITER
+            $list_classroom = <<< DELIMITER
         <tr>
             <th colspan="9" class="text-center bg-danger text-white"> There's no pending Request </th>
         </tr>
        DELIMITER;
-        echo $list_classroom;
-    } else {
+            echo $list_classroom;
+        } else {
 
-        while ($row = fetch_array($mainquery)) {
-            $product = <<<DELIMETER
+            while ($row = fetch_array($mainquery)) {
+                $product = <<<DELIMETER
             <tr>    
             <td>{$row['borrowed_id']}</td>
             <td>{$row['first_name']}, {$row['lastname']}</td>
@@ -1559,12 +1559,12 @@ public static function book_requesthistorylib()
             </script>
            
             DELIMETER;
-            
-            $counter++;
-            echo $product;
+
+                $counter++;
+                echo $product;
+            }
         }
     }
-}
 }
 
 
@@ -1588,7 +1588,7 @@ class checkerhistory
             }
 
             $price = 4;
-          
+
             $due_date = date_create($due_date);
             $today = date_create(date("Y-m-d"));
             $countdate = date_diff($due_date, $today);
@@ -1610,7 +1610,7 @@ checkerhistory::checker_penaltyhistory();
 
 class book_requesthistoryreport
 {
-public static function book_requesthistory_report()
+    public static function book_requesthistory_report()
     {
 
         $mainquery = query("SELECT
@@ -1646,57 +1646,59 @@ public static function book_requesthistory_report()
              
                
                 DELIMETER;
-                
+
                 $counter++;
                 echo $product;
             }
         }
     }
 }
-class borrow_historystud{
+class borrow_historystuda
+{
 
 
-public static function borrow_historystud()
+    public static function borrow_historystud()
     {
 
         $student_id = $_SESSION['student_id'];
         $query = query("SELECT
-        *
-      FROM tbl_borrowedhistory
-        INNER JOIN booklist
-          ON tbl_borrowedhistory.book_id = booklist.book_id
-        INNER JOIN studentacc
-          ON tbl_borrowedhistory.student_id = studentacc.studentnumber
-      WHERE tbl_borrowedhistory.student_id = {$student_id} ");
+            *
+        FROM tbl_borrowedhistory
+            INNER JOIN booklist
+            ON tbl_borrowedhistory.book_id = booklist.book_id
+            INNER JOIN studentacc
+            ON tbl_borrowedhistory.student_id = studentacc.studentnumber
+        WHERE tbl_borrowedhistory.student_id = {$student_id} ");
 
         confirm($query);
 
         if (mysqli_num_rows($query) == 0) {
             $list_book_history = <<< DELIMITER
-            <tr>
-                <th colspan="8" class="text-center bg-danger text-white"> You have no Borrowed Book! </th>
-            </tr>
-            DELIMITER;
+                <tr>
+                    <th colspan="8" class="text-center bg-danger text-white"> You have no Borrowed Book! </th>
+                </tr>
+                DELIMITER;
             echo $list_book_history;
         } else {
             while ($row = fetch_array($query)) {
                 $list_book_history = <<< DELIMITER
-                <tr>
-                    <td>{$row['title']}</td>
-                    <td>{$row['author']}</td>
-                    <td>{$row['category']}</td>
-                    <td>{$row['section']}</td> 
-                    <td>{$row['borrowed_date']}</td>
-                    <td>{$row['due_date']}</td>
-                    
-                    <td>{$row['penalty']}</td>
-                </tr>
-                DELIMITER;
+                    <tr>
+                        <td>{$row['title']}</td>
+                        <td>{$row['author']}</td>
+                        <td>{$row['category']}</td>
+                        <td>{$row['section']}</td> 
+                        <td>{$row['borrowed_date']}</td>
+                        <td>{$row['due_date']}</td>
+                        
+                        <td>{$row['penalty']}</td>
+                    </tr>
+                    DELIMITER;
                 echo $list_book_history;
             }
         }
     }
 }
+
 class loginhistorystud{
 
 

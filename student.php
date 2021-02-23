@@ -1,63 +1,97 @@
 <?php
 require('./databasestud.php');
 
+// $_SESSION['locked'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+  if (isset($_POST['login'])) {
 
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
-
+    $_SESSION['attnum'] = 1; // Reset counter
   
-if (isset($_POST['login'])) {
+// if (isset($_POST['login'])) {
 
-  $time = date('Y-d-m H:i:s');
+//   $time = date('Y-d-m H:i:s');
   
-  $username = escape_string($_POST['username']);
-  $password = escape_string($_POST['password']);
+//   $username = escape_string($_POST['username']);
+//   $password = escape_string($_POST['password']);
  
-  $query = query("SELECT * FROM studentacc WHERE username = '{$username}' AND password = '{$password}'");
-  confirm($query);
+//   $query = query("SELECT * FROM studentacc WHERE username = '{$username}' AND password = '{$password}'");
+//   confirm($query);
   
 
-  $row = $query->fetch_array(MYSQLI_NUM);
+//   $row = $query->fetch_array(MYSQLI_NUM);
 
-  // login function
-  if (mysqli_num_rows($query) == 0) {
-    //if the user have 0 result return then will return to login
-    echo '<script type="text/javascript"> 
-            setTimeout(function () { 
-             swal("Error!","Invalid Username and Password","warning") 
-            }, 1000);
-          </script>';
-          $_SESSION['login_attempts'] += 1;
+//   // login function
+//   if (mysqli_num_rows($query) == 0) {
+//     //if the user have 0 result return then will return to login
+//     echo '<script type="text/javascript"> 
+//             setTimeout(function () { 
+//              swal("Error!","Invalid Username and Password","warning") 
+//             }, 1000);
+//           </script>';
+//           $_SESSION['login_attempts'] += 1;
     
-  } else {
-    // if the result have 1 result then it will login
+//   } else {
+//     // if the result have 1 result then it will login
 
-    $_SESSION['student_id'] = $row[0];
-    $_SESSION['student_username'] = $row[1];
-    $user_id = escape_string($_SESSION['student_id']);
+//     $_SESSION['student_id'] = $row[0];
+//     $_SESSION['student_username'] = $row[1];
+//     $user_id = escape_string($_SESSION['student_id']);
    
-    $query = query("INSERT INTO tbl_loginhistory (student_id,time_login,time_logout) VALUE ('$user_id',now(),('ongoing'))");
-    confirm($query);
-    redirect("indexstudent.php");
+//     $query = query("INSERT INTO tbl_loginhistory (student_id,time_login,time_logout) VALUE ('$user_id',now(),('ongoing'))");
+//     confirm($query);
+//     redirect("indexstudent.php");
   
+//   }
+//   if (isset ($_SESSION["locked"])){
+//     $difference = time() - $_SESSION["locked"];
+//     if($difference > 10){
+//       unset($_SESSION["locked"]);
+//       unset($_SESSION["login_attempts"]);
+//     } 
+    $username = escape_string($_POST['username']);
+    $password = escape_string($_POST['password']);
+    $query = query("SELECT * FROM studentacc WHERE username = '{$username}' AND password = '{$password}'");
+    confirm($query);
+
+    $row = $query->fetch_array(MYSQLI_NUM);
+
+    // login function
+    if (mysqli_num_rows($query) == 0) {
+
+      //if the user have 0 result return then will return to login
+      // echo '<script type="text/javascript"> 
+      //       setTimeout(function () { 
+      //        swal("Error!","Invalid Username and Password","warning") 
+      //       }, 1000);
+      //     </script>';
+
+    } else {
+
+      // if the result have 1 result then it will login
+      $_SESSION['student_id'] = $row[0];
+      $_SESSION['student_username'] = $row[1];
+      redirect("indexstudent.php");
+    }
   }
-  if (isset ($_SESSION["locked"])){
-    $difference = time() - $_SESSION["locked"];
-    if($difference > 10){
-      unset($_SESSION["locked"]);
-      unset($_SESSION["login_attempts"]);
-    } 
-  }
-}
 }
 ?>
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Student Login</title>
   <link href="css/css2.css" rel="stylesheet" type="text/css" />
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+</head>
+
+<body>
   <!-- body -->
   <div class="wrapper fadeInDown">
     <div id="formContent">
@@ -70,26 +104,27 @@ if (isset($_POST['login'])) {
 
       <!-- Login Form -->
       <form action="" method="post">
-     
+
         <input type="text" id="username" class="fadeIn second" name="username" placeholder="Username" required>
         <br>
         <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password" required>
         <br>
-        <?php 
-          
-          if ($_SESSION["login_attempts"] > 3)
-          {
-              $_SESSION["locked"] = time();
-              echo "Please wait for 10 seconds";
-          }
-          else{
+        <input type="hidden" name="add" value="+">
+        <?php
+
+        if ($_SESSION['attnum'] >= 4) {
+
+          sleep(10);
+          unset($_SESSION['attnum']);
+          $_SESSION['attnum'] = 1;
+        } else {
+
+          $timer = 'TRUE';
+          echo '<input type="submit" class="fadeIn fourth" name="login" value="Login">';
+        }
         ?>
-     
-        <input type="submit" class="fadeIn fourth" name="login" value="Login">
-        <?php 
-           } 
-      ?>
       </form>
+      <?php $_SESSION['attnum']++ ?>
 
       <!-- Remind Passowrd -->
       <div id="formFooter">
@@ -101,6 +136,6 @@ if (isset($_POST['login'])) {
 
     </div>
   </div>
-  </body>
+</body>
 
 </html>
