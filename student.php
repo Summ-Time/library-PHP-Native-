@@ -5,16 +5,17 @@ require('./databasestud.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
-
+  
 if (isset($_POST['login'])) {
 
-
+  $time = date('Y-d-m H:i:s');
+  
   $username = escape_string($_POST['username']);
   $password = escape_string($_POST['password']);
-
+ 
   $query = query("SELECT * FROM studentacc WHERE username = '{$username}' AND password = '{$password}'");
-
   confirm($query);
+  
 
   $row = $query->fetch_array(MYSQLI_NUM);
 
@@ -30,9 +31,15 @@ if (isset($_POST['login'])) {
     
   } else {
     // if the result have 1 result then it will login
+
     $_SESSION['student_id'] = $row[0];
     $_SESSION['student_username'] = $row[1];
+    $user_id = escape_string($_SESSION['student_id']);
+   
+    $query = query("INSERT INTO tbl_loginhistory (student_id,time_login,time_logout) VALUE ('$user_id',now(),('ongoing'))");
+    confirm($query);
     redirect("indexstudent.php");
+  
   }
   if (isset ($_SESSION["locked"])){
     $difference = time() - $_SESSION["locked"];

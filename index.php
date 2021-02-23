@@ -55,6 +55,7 @@ if (!isset($_SESSION['admin_username'])) {
     <a href="booklist.php"><i class="fas fa-book-open"></i><span>Manage Book list</span></a>
     <a href="requestbook.php"><i class="fas fa-book-open"></i><span>Manage Request Book</span></a>
     <a href="borrowhistory.php"><i class="fas fa-book-open"></i><span>Borrow History</span></a>
+    <a href="loginhistory.php"><i class="fas fa-user-friends"></i><span>Student Login History</span></a>
     <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
     <br>
     <div class="date">
@@ -274,6 +275,25 @@ if (!isset($_SESSION['admin_username'])) {
           </thead>
           <tbody id="myTable">
             <?php book_listreport::booklistreport(); ?>
+          </tbody>
+        </table>
+        <div class="col-sm-8">
+            <h2>Student Login/Logout <b> History</b></h2>
+          </div>
+           <table class="table table-bordered">
+          <thead>
+            <tr>
+            <th>Loginhistory_id</th>
+              <th>student_id</th>
+              <th>time_login</th>
+              <th>time_logout</th>
+              
+              
+
+            </tr>
+          </thead>
+          <tbody id="myTable">
+          <?php loginhistorystud::login_historystud(); ?>
           </tbody>
         </table>
            </div>
