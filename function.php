@@ -1698,3 +1698,40 @@ class borrow_historystuda
         }
     }
 }
+
+class loginhistorystud{
+
+
+public static function login_historystud()
+    {
+
+        //$student_id = $_SESSION['student_id'];
+        $query = query("SELECT
+        *
+      FROM tbl_loginhistory");
+
+        confirm($query);
+
+        if (mysqli_num_rows($query) == 0) {
+            $list_login_history = <<< DELIMITER
+            <tr>
+                <th colspan="8" class="text-center bg-danger text-white"> You have no Borrowed Book! </th>
+            </tr>
+            DELIMITER;
+            echo $list_login_history;
+        } else {
+            while ($row = fetch_array($query)) {
+                $list_login_history = <<< DELIMITER
+                <tr>
+                    <td>{$row['loginhistory_id']}</td>
+                    <td>{$row['student_id']}</td>
+                    <td>{$row['time_login']}</td>
+                    <td>{$row['time_logout']}</td> 
+                 
+                </tr>
+                DELIMITER;
+                echo $list_login_history;
+            }
+        }
+    }
+}

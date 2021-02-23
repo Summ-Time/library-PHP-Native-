@@ -63,6 +63,7 @@ if (!isset($_SESSION['admin_username'])) {
     <a href="booklist.php"><i class="fas fa-book-open"></i><span>Manage Book list</span></a>
     <a href="requestbook.php"><i class="fas fa-book-open"></i><span>Manage Request Book</span></a>
     <a href="borrowhistory.php"><i class="fas fa-book-open"></i><span>Borrow History</span></a>
+    <a href="loginhistory.php"><i class="fas fa-user-friends"></i><span>Student Login History</span></a>
     <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
     <br>
     <div class="date">

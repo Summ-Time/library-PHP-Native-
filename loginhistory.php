@@ -1,11 +1,9 @@
 <?php
-require('./databasestud.php');
-
+require('./readreturn.php');
 
 if (!isset($_SESSION['admin_username'])) {
-  redirect('admin.php');
+  header('Location: admin.php');
 }
-
 
 ?>
 <!DOCTYPE html>
@@ -28,6 +26,8 @@ if (!isset($_SESSION['admin_username'])) {
   <script src="js/fontawesome-pro.js"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
 
 </head>
 
@@ -108,16 +108,15 @@ if (!isset($_SESSION['admin_username'])) {
   <br>
   <br>
   <br>
-
   <div class="container">
     <div class="table-wrapper">
       <div class="table-title">
         <div class="row">
           <div class="col-sm-8">
-            <h2>Book <b>List</b></h2>
+            <h2>Student Login/Logout<b> History</b></h2>
           </div>
           <div class="container" style="padding-top: 20px;">
-            <?php display_message(); ?>
+          <?php display_message(); ?>
             <div class="input-group mb-3">
               <input type="text" class="form-control" id="myInput" placeholder="Search">
               <div class="input-group-append">
@@ -126,96 +125,29 @@ if (!isset($_SESSION['admin_username'])) {
             </div>
           </div>
         </div>
-        <button type="submit" class="btn btn-success float-right" name="add" value="add" data-toggle="modal" data-target="#myModal" style="margin-bottom: 10px;">Add Book</button>
-        <table class="table table-bordered">
+           <table class="table table-bordered">
           <thead>
             <tr>
-              <th>Book_ID</th>
-              <th>ISBN</th>
-              <th>Title</th>
-              <th>Author</th>
-              <th>Category</th>
-              <th>Section</th>
-              <th>Status</th>
-              <th>Quantity</th>
-              <th>Actions</th>
-              <th>Actions</th>
+            <th>Loginhistory_id</th>
+              <th>student_id</th>
+              <th>time_login</th>
+              <th>time_logout</th>
+              
+              
 
             </tr>
           </thead>
           <tbody id="myTable">
-            <?php book_list::booklist(); ?>
+          <?php loginhistorystud::login_historystud(); ?>
           </tbody>
         </table>
-      </div>
-
-    </div>
-    <?php book::book_create() ?>
-    <!-- Add Book -->
-    <form action="" method="post">
-      <div class="modal fade" id="myModal">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h4 class="modal-title">Add Book</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="">Title</label>
-                <input type="text" name="title" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label for="">Author</label>
-                <input type="text" name="author" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label for="">category</label>
-                <input type="text" name="category" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label for="">status</label>
-                <input type="text" name="status" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label for="">section</label>
-                <input type="text" name="section" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label for="">quantity</label>
-                <input type="number" name="quantity" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label for="">ISBN</label>
-                <input type="number" name="ISBN" class="form-control" required>
-              </div>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-              <button type="submit" name="submit" class="btn btn-primary">Add</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </form>
-    <script>
-      $(document).ready(function() {
-        $("#myInput").on("keyup", function() {
-          var value = $(this).val().toLowerCase();
-          $("#myTable tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        <script>
+          $(document).ready(function() {
+            $("#myInput").on("keyup", function() {
+              var value = $(this).val().toLowerCase();
+              $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+              });
+            });
           });
-        });
-      });
-    </script>
-  </div>
-</body>
-
-</html>
+        </script>
