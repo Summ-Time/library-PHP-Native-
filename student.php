@@ -71,15 +71,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <br>
         <input type="hidden" name="add" value="+">
         <?php
-
-        if ($_SESSION['attnum'] >= 4) {
-
-          unset($_SESSION['attnum']);
-          $_SESSION['attnum'] = 1;
-          return sleep(10);
+        if ('1' == '1') {
+          echo 'please wait 1 minute';
+          echo '<input type="submit" class="fadeIn fourth" name="login" value="Login" disabled>';
         } else {
 
-          $timer = 'TRUE';
           echo '<input type="submit" class="fadeIn fourth" name="login" value="Login">';
         }
         ?>

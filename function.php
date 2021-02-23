@@ -406,16 +406,13 @@ class studentacc
                    <td>{$row['username']}</td>
                    <td>{$row['password']}</td>
                    <td>{$row['email']}</td>
-
                    <td class="text-center">
                    <a href="edit_student_account.php?id={$row['studentnumber']}" class="btn btn-success">Edit</a>
                         </td>
                         <td>
                         <button Onclick="deleteclick{$row['studentnumber']}()" id="delete" class="btn btn-danger">Delete</button>          
-
                    </td>
                 </tr>
-
                 <!-- Delete Function -->
                 <script>
                 function deleteclick{$row['studentnumber']}() {
@@ -473,8 +470,6 @@ class book_list
                    <td>{$row['section']}</td>
                    <td>{$row['status']}</td>
                    <td>{$row['quantity']}</td>
-                  
-
                    <td class="text-center">
                         <a href="edit_book.php?id={$row['book_id']}" class="btn btn-success">Edit</a>
                                 </td>
@@ -482,7 +477,6 @@ class book_list
                         <button Onclick="deleteclick{$row['book_id']}()" id="delete" class="btn btn-danger">Delete</button>          
                     </td>
                     </tr>
-
                 <!-- Delete Function -->
                 <script>
                 function deleteclick{$row['book_id']}() {
@@ -572,7 +566,6 @@ class book_borrowed
                       })
                    }
                 </script>
-
                 <!-- Delete Function -->
                 <script>
                 function deleteclick{$row['borrowed_id']}() {
@@ -632,14 +625,12 @@ class book_borrowed
                 <td>{$row['borrowed_date']}</td>
                 <td>{$row['due_date']}</td>
                 <td>{$row['request']}</td>
-                 
                         <td>
                          <button Onclick="approve{$row['borrowed_id']}()" class="btn btn-primary" id="approve">Approve Request</button>
                          </td>
                         
                         <td>
                         <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>          
-
                    </td>
                 </tr>
                 <!-- Issue Function -->
@@ -660,7 +651,6 @@ class book_borrowed
                       })
                    }
                 </script>
-
                 <!-- Delete Function -->
                 <script>
                 function deleteclick{$row['borrowed_id']}() {
@@ -679,7 +669,6 @@ class book_borrowed
                       })
                    }
                 </script>
-               
                 DELIMETER;
                 if (isset($_POST['approve'])) {
                     $queryUpdate = "UPDATE tbl_borrowed set request='approve' WHERE borrowed = $_GET[id] ";
@@ -773,8 +762,6 @@ class book_listlib
                    <td>{$row['section']}</td>
                    <td>{$row['status']}</td>
                    <td>{$row['quantity']}</td>
-                  
-
                    <td class="text-center">
                         <a href="edit_book.php?id={$row['book_id']}" class="btn btn-success">Edit</a>
                             </td>
@@ -782,7 +769,6 @@ class book_listlib
                         <button Onclick="deleteclick{$row['book_id']}()" id="delete" class="btn btn-danger">Delete</button>          
                    </td>
                 </tr>
-
                 <!-- Delete Function -->
                 <script>
                 function deleteclick{$row['book_id']}() {
@@ -842,16 +828,13 @@ class studentacclib
                    <td>{$row['username']}</td>
                    <td>{$row['password']}</td>
                    <td>{$row['email']}</td>
-
                    <td class="text-center">
                    <a href="edit_student_accountlib.php?id={$row['studentnumber']}" class="btn btn-success">Edit</a>
                         </td>
                         <td>
-                        <button Onclick="deleteclick{$row['studentnumber']}()" id="delete" class="btn btn-danger">Delete</button>          
-
+                        <button Onclick="deleteclick{$row['studentnumber']}()" id="delete" class="btn btn-danger">Delete</button>       
                    </td>
                 </tr>
-
                 <!-- Delete Function -->
                 <script>
                 function deleteclick{$row['studentnumber']}() {
@@ -913,15 +896,12 @@ class book_borrowedlib
                 <td>{$row['borrowed_date']}</td>
                 <td>{$row['due_date']}</td>
                 <td>{$row['request']}</td>
-                <td>{$row['penalty']}</td> 
-                       
+                <td>{$row['penalty']}</td>  
                 <td>
                 <button Onclick="return{$row['borrowed_id']}()" id="return" class="btn btn-success">Return Book</button>          
-
                 </td>
                         <td>
-                        <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>          
-
+                        <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>     
                    </td>
                 </tr>
                 <!-- Return Function -->
@@ -942,9 +922,6 @@ class book_borrowedlib
                       })
                    }
                 </script>
-
-                
-
                 <!-- Delete Function -->
                 <script>
                 function deleteclick{$row['borrowed_id']}() {
@@ -963,7 +940,6 @@ class book_borrowedlib
                       })
                    }
                 </script>
-               
                 DELIMETER;
                 $counter++;
                 echo $product;
@@ -1000,61 +976,56 @@ class book_borrowedlib
 
             while ($row = fetch_array($mainquery)) {
                 $product = <<<DELIMETER
-                <tr>    
-                <td>{$row['borrowed_id']}</td>
-                <td>{$row['first_name']}, {$row['lastname']}</td>
-                <td>{$row['title']}</td>
-                <td>{$row['borrowed_date']}</td>
-                <td>{$row['due_date']}</td>
-                <td>{$row['request']}</td>
-                 
-                        <td>
-                         <button Onclick="approve{$row['borrowed_id']}()" class="btn btn-primary" id="approve">Approve Request</button>
-                         </td>
-                        
-                        <td>
-                        <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>          
-
-                   </td>
-                </tr>
-                <!-- Issue Function -->
-                <script>
-                function approve{$row['borrowed_id']}() {
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "Do you want to approve it?",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, approve it!'
-                      }).then((result) => {
-                            if(result.value){
-                                window.location.href="issuerequestlib.php?id={$row['borrowed_id']}";
-                            }
-                      })
-                   }
-                </script>
-
-                <!-- Delete Function -->
-                <script>
-                function deleteclick{$row['borrowed_id']}() {
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
-                      }).then((result) => {
-                            if(result.value){
-                                window.location.href="deletereq.php?id={$row['borrowed_id']}";
-                            }
-                      })
-                   }
-                </script>
-               
+                    <tr>    
+                    <td>{$row['borrowed_id']}</td>
+                    <td>{$row['first_name']}, {$row['lastname']}</td>
+                    <td>{$row['title']}</td>
+                    <td>{$row['borrowed_date']}</td>
+                    <td>{$row['due_date']}</td>
+                    <td>{$row['request']}</td>
+                            <td>
+                             <button Onclick="approve{$row['borrowed_id']}()" class="btn btn-primary" id="approve">Approve Request</button>
+                             </td>
+                            <td>
+                            <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>  
+                       </td>
+                    </tr>
+                    <!-- Issue Function -->
+                    <script>
+                    function approve{$row['borrowed_id']}() {
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "Do you want to approve it?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, approve it!'
+                          }).then((result) => {
+                                if(result.value){
+                                    window.location.href="issuerequestlib.php?id={$row['borrowed_id']}";
+                                }
+                          })
+                       }
+                    </script>
+                    <!-- Delete Function -->
+                    <script>
+                    function deleteclick{$row['borrowed_id']}() {
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "You won't be able to revert this!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, delete it!'
+                          }).then((result) => {
+                                if(result.value){
+                                    window.location.href="deletereq.php?id={$row['borrowed_id']}";
+                                }
+                          })
+                       }
+                    </script>
                 DELIMETER;
                 if (isset($_POST['approve'])) {
                     $queryUpdate = "UPDATE tbl_borrowed set request='approve' WHERE borrowed = $_GET[id] ";
@@ -1272,8 +1243,6 @@ class studentaccreport
                    <td>{$row['username']}</td>
                    <td>{$row['password']}</td>
                    <td>{$row['email']}</td>
-
-                
                 </tr>
                 DELIMETER;
                 $counter++;
@@ -1314,7 +1283,6 @@ class book_listreport
                    <td>{$row['section']}</td>
                    <td>{$row['status']}</td>
                    <td>{$row['quantity']}</td>
-                  
                 DELIMETER;
                 $counter++;
                 echo $product;
@@ -1461,13 +1429,8 @@ class borrowhistory
                 <td>{$row['borrowed_date']}</td>
                 <td>{$row['due_date']}</td>
                 <td>{$row['penalty']}</td>
-             
-                 
-                      
-                        
                         <td>
-                        <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>          
-
+                        <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>        
                    </td>
                 </tr>
                 <!-- Delete Function -->
@@ -1488,7 +1451,6 @@ class borrowhistory
                       })
                    }
                 </script>
-               
                 DELIMETER;
 
                 $counter++;
@@ -1523,41 +1485,36 @@ class borrowhistory
 
             while ($row = fetch_array($mainquery)) {
                 $product = <<<DELIMETER
-            <tr>    
-            <td>{$row['borrowed_id']}</td>
-            <td>{$row['first_name']}, {$row['lastname']}</td>
-            <td>{$row['title']}</td>
-            <td>{$row['borrowed_date']}</td>
-            <td>{$row['due_date']}</td>
-            <td>{$row['penalty']}</td>
-         
-             
-                  
-                    
-                    <td>
-                    <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>          
-
-               </td>
-            </tr>
-            <!-- Delete Function -->
-            <script>
-            function deleteclick{$row['borrowed_id']}() {
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                  }).then((result) => {
-                        if(result.value){
-                            window.location.href="deletehistorylib.php?id={$row['borrowed_id']}";
-                        }
-                  })
-               }
-            </script>
-           
+                    <tr>    
+                    <td>{$row['borrowed_id']}</td>
+                    <td>{$row['first_name']}, {$row['lastname']}</td>
+                    <td>{$row['title']}</td>
+                    <td>{$row['borrowed_date']}</td>
+                    <td>{$row['due_date']}</td>
+                    <td>{$row['penalty']}</td>
+                            <td>
+                            <button Onclick="deleteclick{$row['borrowed_id']}()" id="delete" class="btn btn-danger">Delete</button>  
+                       </td>
+                    </tr>
+                    <!-- Delete Function -->
+                    <script>
+                    function deleteclick{$row['borrowed_id']}() {
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "You won't be able to revert this!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, delete it!'
+                          }).then((result) => {
+                                if(result.value){
+                                    window.location.href="deletehistorylib.php?id={$row['borrowed_id']}";
+                                }
+                          })
+                       }
+                    </script>
+                   
             DELIMETER;
 
                 $counter++;
@@ -1643,8 +1600,6 @@ class book_requesthistoryreport
                 <td>{$row['borrowed_date']}</td>
                 <td>{$row['due_date']}</td>
                 <td>{$row['penalty']}</td>
-             
-               
                 DELIMETER;
 
                 $counter++;
@@ -1689,7 +1644,6 @@ class borrow_historystuda
                         <td>{$row['section']}</td> 
                         <td>{$row['borrowed_date']}</td>
                         <td>{$row['due_date']}</td>
-                        
                         <td>{$row['penalty']}</td>
                     </tr>
                     DELIMITER;
@@ -1727,8 +1681,7 @@ class loginhistorystud
                     <td>{$row['loginhistory_id']}</td>
                     <td>{$row['student_id']}</td>
                     <td>{$row['time_login']}</td>
-                    <td>{$row['time_logout']}</td> 
-                 
+                    <td>{$row['time_logout']}</td>
                 </tr>
                 DELIMITER;
                 echo $list_login_history;
