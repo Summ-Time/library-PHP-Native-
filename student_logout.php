@@ -12,6 +12,6 @@ $query .= "' AND student_id = " . escape_string($student_id);
 
 $udpate = query($query);
 confirm($udpate);
-// echo $udpate;
+
 session_destroy();
 redirect('student.php');
