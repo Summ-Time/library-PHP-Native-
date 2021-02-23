@@ -24,7 +24,7 @@ if (isset($_POST['login'])) {
     // if the result have 1 result then it will login
     $_SESSION['admin_id'] = $row[0];
     $_SESSION['admin_username'] = $row[1];
-    redirect("index.php");
+    redirect("indexadmin.php");
   }
 }
 
