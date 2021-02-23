@@ -62,6 +62,7 @@ if (!isset($_SESSION['librarian_username'])) {
     <a href="borrowerlistlib.php"><i class="fas fa-user-friends"></i><span>Manage Borrower List</span></a>
     <a href="booklistlib.php"><i class="fas fa-book-open"></i><span>Manage Book List</span></a>
     <a href="requestbooklib.php"><i class="fas fa-book-open"></i><span>Manage Request Book</span></a>
+    <a href="indexlibrarian.php"><i class="fas fa-user-circle"></i><span>Generate Report</span></a>
     <a href="borrowhistorylib.php"><i class="fas fa-book-open"></i><span>Borrow History</span></a>
     <a href="loginhistorylib.php"><i class="fas fa-user-friends"></i><span>Student Login History</span></a>
     <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
