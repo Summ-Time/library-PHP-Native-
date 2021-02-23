@@ -1,7 +1,7 @@
 <?php
 require('./databasestud.php');
 
-// $_SESSION['locked'];
+$_SESSION['attnum'] = NULL;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (isset($_POST['login'])) {
@@ -19,15 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // login function
     if (mysqli_num_rows($query) == 0) {
-
-      //if the user have 0 result return then will return to login
-      // echo '<script type="text/javascript"> 
-      //       setTimeout(function () { 
-      //        swal("Error!","Invalid Username and Password","warning") 
-      //       }, 1000);
-      //     </script>';
-
-
+      //
     } else {
 
       // if the result have 1 result then it will login
@@ -87,7 +79,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         ?>
       </form>
-      <?php $_SESSION['attnum']++ ?>
+      <?php
+      $_SESSION['attnum']++;
+      ?>
 
       <!-- Remind Passowrd -->
       <div id="formFooter">
