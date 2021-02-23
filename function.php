@@ -1692,6 +1692,33 @@ class loginhistorystud
     }
 }
 
+class counter
+{
+    public static function book_count()
+    {
+        $query = query("SELECT * FROM booklist");
+        confirm($query);
+
+        echo mysqli_num_rows($query);
+    }
+
+    public static function borrowed_count()
+    {
+        $query = query("SELECT * FROM 	tbl_borrowed");
+        confirm($query);
+
+        echo mysqli_num_rows($query);
+    }
+
+    public static function student_count()
+    {
+        $query = query("SELECT * FROM studentacc");
+        confirm($query);
+
+        echo mysqli_num_rows($query);
+    }
+}
+
 function getUserIpAddr()
 {
     if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
