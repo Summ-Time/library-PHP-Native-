@@ -62,6 +62,7 @@ if (!isset($_SESSION['student_username'])) {
     <a href="indexstudent.php"><i class="fas fa-desktop"></i><span>Home</span></a>
     <a href="indexstudent.php"><i class="fas fa-book"></i></i><span>View Book List</span></a>
     <a href="viewreturn.php"><i class="fas fa-book-open"></i><span>View Borrowed Book</span></a>
+    <a href="viewhistory.php"><i class="fas fa-book-open"></i><span>View Borrow History</span></a>
     <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
     <br>
     <div class="date">

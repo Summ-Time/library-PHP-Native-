@@ -26,6 +26,9 @@ if (!isset($_SESSION['admin_username'])) {
   <script src="js/fontawesome-pro.js"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+
 </head>
 
 <body>
@@ -51,7 +54,7 @@ if (!isset($_SESSION['admin_username'])) {
       <br>
       <br>
       <img src="images/av3.png" class="profile_image" alt="">
-      <h4>Hi! <?php echo $_SESSION['admin_username']?></h4>
+      <h4>Hi! <?php echo $_SESSION['admin_username'] ?></h4>
     </center>
     <a href="index.php"><i class="fas fa-desktop"></i><span>Home</span></a>
     <a href="studentinfo.php"><i class="far fa-user-circle"></i><span>Manage Student Info</span></a>
@@ -109,7 +112,7 @@ if (!isset($_SESSION['admin_username'])) {
       <div class="table-title">
         <div class="row">
           <div class="col-sm-8">
-            <h2>List of <b> Borrower</b></h2>
+            <h2>Borrow <b>History</b></h2>
           </div>
           <div class="container" style="padding-top: 20px;">
           <?php display_message(); ?>
@@ -121,32 +124,26 @@ if (!isset($_SESSION['admin_username'])) {
             </div>
           </div>
         </div>
-       
         <table class="table table-bordered">
           <thead>
             <tr>
-            <th>Borrowed_ID</th>
+
+              <th>Borrowed_ID</th>
               <th>Student_Name</th>
-              <th>Book_Title</th>
+              <th>Book_ID</th>
               <th>Borrowed_Date</th>
               <th>Due_Date</th>
-          
-            
-
-              <th>Request</th>
               <th>Penalty</th>
+             
               <th>Action</th>
-              <th>Action</th>
+             
 
             </tr>
           </thead>
           <tbody id="myTable">
-            <?php book_borrowed::bookborrowed(); ?>
-          
-           
+            <?php borrowhistory::book_requesthistory(); ?>
           </tbody>
         </table>
-        
         <script>
           $(document).ready(function() {
             $("#myInput").on("keyup", function() {
@@ -157,4 +154,3 @@ if (!isset($_SESSION['admin_username'])) {
             });
           });
         </script>
-           

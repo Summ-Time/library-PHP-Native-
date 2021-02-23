@@ -1,5 +1,5 @@
 <?php
 require('./databasestud.php');
 
-session_destroy();
+unset($_SESSION['admin_username']);
 redirect('admin.php');

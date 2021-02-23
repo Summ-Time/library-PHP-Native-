@@ -1,5 +1,5 @@
 <?php
 require('./databasestud.php');
 
-session_destroy();
+unset($_SESSION['student_username']);
 redirect('student.php');

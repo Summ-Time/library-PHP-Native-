@@ -59,8 +59,7 @@ if (!isset($_SESSION['librarian_username'])) {
     <a href="borrowerlistlib.php"><i class="fas fa-user-friends"></i><span>Manage Borrower List</span></a>
     <a href="booklistlib.php"><i class="fas fa-book-open"></i><span>Manage Book List</span></a>
     <a href="requestbooklib.php"><i class="fas fa-book-open"></i><span>Manage Request Book</span></a>
-    <a href="#"><i class="fas fa-table"></i><span>Generate Report</span></a>
-    <a href="#"><i class="far fa-id-card"></i><span>Create Lib_ID</span></a>
+    <a href="borrowhistorylib.php"><i class="fas fa-book-open"></i><span>Borrow History</span></a>
     <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
     <br>
     <div class="date">
@@ -122,8 +121,7 @@ function displayclock(){
         </div>
       </div>
 
-      <button onclick="printDiv('printMe')" class="btn btn-primary float-right" style="margin-bottom: 10px;" > Generate Report</button>
-  
+     
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -157,21 +155,6 @@ $(document).ready(function(){
   });
 });
 </script>
-<div style="display:none" id='printMe'>
-        <?php book_borrowedreport::bookborrowedreport(); ?>
-           </div>
-        <script>
-		function printDiv(printMe){
-			var printContents = document.getElementById(printMe).innerHTML;
-			var originalContents = document.body.innerHTML;
 
-			document.body.innerHTML = printContents;
-
-			window.print();
-
-			document.body.innerHTML = originalContents;
-
-		}
-	</script>
     </div>
   </div>
