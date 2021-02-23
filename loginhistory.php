@@ -117,7 +117,7 @@ if (!isset($_SESSION['admin_username'])) {
             <h2>Student Login/Logout<b> History</b></h2>
           </div>
           <div class="container" style="padding-top: 20px;">
-          <?php display_message(); ?>
+            <?php display_message(); ?>
             <div class="input-group mb-3">
               <input type="text" class="form-control" id="myInput" placeholder="Search">
               <div class="input-group-append">
@@ -126,20 +126,20 @@ if (!isset($_SESSION['admin_username'])) {
             </div>
           </div>
         </div>
-           <table class="table table-bordered">
+        <table class="table table-bordered">
           <thead>
             <tr>
-            <th>Loginhistory_id</th>
               <th>student_id</th>
+              <th>Student name</th>
               <th>time_login</th>
               <th>time_logout</th>
-              
-              
+
+
 
             </tr>
           </thead>
           <tbody id="myTable">
-          <?php loginhistorystud::login_historystud(); ?>
+            <?php loginhistorystud::login_historystud(); ?>
           </tbody>
         </table>
         <script>

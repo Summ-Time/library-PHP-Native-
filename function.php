@@ -1663,7 +1663,9 @@ class loginhistorystud
         //$student_id = $_SESSION['student_id'];
         $query = query("SELECT
         *
-      FROM tbl_loginhistory");
+      FROM tbl_loginhistory
+        INNER JOIN studentacc
+          ON tbl_loginhistory.student_id = studentacc.studentnumber");
 
         confirm($query);
 
@@ -1678,8 +1680,8 @@ class loginhistorystud
             while ($row = fetch_array($query)) {
                 $list_login_history = <<< DELIMITER
                 <tr>
-                    <td>{$row['loginhistory_id']}</td>
                     <td>{$row['student_id']}</td>
+                    <td>{$row['first_name']} {$row['lastname']}</td>
                     <td>{$row['time_login']}</td>
                     <td>{$row['time_logout']}</td>
                 </tr>
