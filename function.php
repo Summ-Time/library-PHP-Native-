@@ -1699,10 +1699,11 @@ class borrow_historystuda
     }
 }
 
-class loginhistorystud{
+class loginhistorystud
+{
 
 
-public static function login_historystud()
+    public static function login_historystud()
     {
 
         //$student_id = $_SESSION['student_id'];

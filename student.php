@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (isset($_POST['login'])) {
 
     $_SESSION['attnum'] = 1; // Reset counter
-    
+
     $username = escape_string($_POST['username']);
     $password = escape_string($_POST['password']);
     $query = query("SELECT * FROM studentacc WHERE username = '{$username}' AND password = '{$password}'");
@@ -24,6 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       //        swal("Error!","Invalid Username and Password","warning") 
       //       }, 1000);
       //     </script>';
+
 
     } else {
 
