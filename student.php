@@ -1,12 +1,51 @@
 <?php
 require('./databasestud.php');
 
-$_SESSION['attnum'] = NULL;
+$ip = getUserIpAddr();
+
+if (isset($_SESSION['attnum'])) {
+
+  $_SESSION['attnum']++;
+
+  if ($_SESSION['attnum'] > 4) {
+
+    $ipcheck = query("SELECT * FROM attempt_login WHERE ip = '{$ip}'");
+    confirm($ipcheck);
+
+    // get data
+    while ($row = fetch_array($ipcheck)) {
+      $ip = getUserIpAddr();
+      $ip   = escape_string($row['ip']);
+      $end  = escape_string($row['end']);
+    }
+
+    // check if the date
+    if (mysqli_num_rows($ipcheck) == 0) {
+
+      $start = date("Y-m-d H:i:s");
+      $end = date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s") . " +1 minutes"));
+
+      $query = query("INSERT INTO attempt_login(ip, start, end)VALUE('$ip', '$start', '$end')");
+      confirm($query);
+    }
+
+    if (date("Y-m-d H:i:s") >= $end) {
+      unset($_SESSION['attnum']);
+      $query = query("DELETE FROM attempt_login WHERE ip = '$ip'");
+      confirm($query);
+      echo $query;
+    }
+  }
+} else {
+
+  $_SESSION['attnum'] = 1;
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (isset($_POST['login'])) {
 
-    $_SESSION['attnum'] = 1; // Reset counter
+
 
     $username = escape_string($_POST['username']);
     $password = escape_string($_POST['password']);
@@ -19,7 +58,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // login function
     if (mysqli_num_rows($query) == 0) {
-      //
     } else {
 
       // if the result have 1 result then it will login
@@ -69,20 +107,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <br>
         <input type="hidden" name="add" value="+">
         <?php
-        if ('1' == '1') {
-          echo 'please wait 1 minute';
-          echo '<input type="submit" class="fadeIn fourth" name="login" value="Login" disabled>';
-          echo '<input type="submit" class="fadeIn fourth" name="login" value="Login">';
+        if ($_SESSION['attnum'] >= '4') {
+          echo '<br>please wait 1 minute <br><br>';
         } else {
 
           echo '<input type="submit" class="fadeIn fourth" name="login" value="Login">';
         }
         ?>
       </form>
-      <?php
-      $_SESSION['attnum']++;
-      ?>
-
       <!-- Remind Passowrd -->
       <div id="formFooter">
         <a class="underlineHover" href="#">Forgot Password?</a>

@@ -9,7 +9,7 @@ if (!isset($_SESSION['admin_username'])) {
   header('Location: admin.php');
 }
 
-?>w
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
